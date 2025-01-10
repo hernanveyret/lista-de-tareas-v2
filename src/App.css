@@ -1,0 +1,113 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .80rem;
+  padding: .5rem;
+  background-color: #026EAF;
+  color: white;
+  max-width: 100%;
+}
+
+nav {
+  width: 90%;
+  height: 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(rgb(0, 102, 255),#014E82);
+  color: white;
+  border-radius: 0.30rem;
+  margin: 0 auto ;
+  margin-top: 5px;
+}
+.checkTodos{
+  margin: 0 10px;
+}
+.btn-delete {
+  margin-right: 10px;
+}
+.nav-add-page {
+  width: 90%;
+  min-height: 45px;
+  color: white;
+  border-radius: 0.30rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: 0 auto;
+  gap: 3px;
+  
+}
+.btn-add-page {
+  background: rgb(0, 174, 255);
+  border:none;
+  min-width:30px;
+  height: 30px;
+  padding: .3rem;
+  border-radius: 0 0 .8rem 0;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 2px 3px black;
+}
+main {
+  width: 90%;
+  height:auto;
+  border-radius: 0.30rem;
+  margin: 0 auto;
+}
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.btn-input-submit {
+  display: none;
+}
+.btn-add-task {
+  color: white;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.nuevoTexto {
+  width: 92%;
+  margin-left: .5rem;
+  background-color: transparent;
+  border:none;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+.tareaContenedor {
+  background: linear-gradient(rgb(0, 102, 255),#014E82);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 50px;
+  border-radius: 0.30rem;
+  margin-top: 5px;
+  word-wrap: break-word;
+}
+.tareaContenedor div{
+  width: 80%;
+  height: auto;  
+} 
+
+.not-tasks {
+  color: white;
+  text-align: center;
+}
