@@ -44,6 +44,7 @@ function App() {
   }
 
   const editTask  = (id) => {
+    
     const $id = parseInt(id.currentTarget.dataset.id)
     pages.filter(e => {
     e.tareas.filter(t => {
@@ -54,11 +55,13 @@ function App() {
    })
     
     console.log('editar')
+
   }
 
   const taskCompleted = (id) => {
     console.log('tachar')
   }
+
   // Busca la pagina seleccionada para mostrar las tareas.
   useEffect(() => {
   if (namePage) { // Verificar que namePage no sea null
