@@ -10,8 +10,7 @@ function App() {
   const [ pages, setPages ] = useState(completedTasks ? completedTasks : []); // base de datos de las tareas
   const [ formNewPage, setFormNewPage ] = useState(false); // planilla para crea nueva pagina.
   const [ selectPage, setSelectPage] = useState (pages ? pages[0] : {namePage:"", tareas:[]});
-  //const [ selectPage, setSelectPage] = useState ({namePage:"", tareas:[]});
-  const [ namePage, setNamePage ] = useState(null) // toma el nombre d la pagina que se quiere ver
+  const [ namePage, setNamePage ] = useState(pages.length > 0 ? pages[0].namePage : '') // toma el nombre d la pagina que se quiere ver
   const [ enterNamePage, setEnterNamePage ] = useState('');
   const [ inputTask, setInputTask ] = useState(''); // texto de la tarea
   const [ pageRepeat, setPageRepeat ] = useState(false);
@@ -30,7 +29,6 @@ function App() {
           if (page.namePage === namePage) {
             // Crear un nuevo array de tareas
             const newTasks = [...page.tareas, { id: Date.now(), task: inputTask, checked: false }];
-
             return { ...page, tareas: newTasks }; // Retornar la pagina actualizada.
           }
           return page; // Retornar las demas paginas sin cambios.
@@ -38,13 +36,12 @@ function App() {
       );    
       setInputTask('')
     };
-      
+          
   const handleDelete = () => {
     // elimina una o todas las tareas.
   }
 
-  const editTask  = (id) => {
-    
+  const editTask  = (id) => {    
     const $id = parseInt(id.currentTarget.dataset.id)
     pages.filter(e => {
     e.tareas.filter(t => {
@@ -59,6 +56,8 @@ function App() {
   }
 
   const taskCompleted = (id) => {
+    const $id = parseInt(id.currentTarget.dataset.id)
+    console.log($id)
     console.log('tachar')
   }
 
@@ -78,13 +77,14 @@ function App() {
 // Crea una nueva pagina para ingresar tareas.
 const createNewPage = (e) => {
   e.preventDefault(); 
- 
+  
   let nameRepeat = pages.find(e => e.namePage === enterNamePage)
   if(!nameRepeat){
     let newPage = {
       namePage: enterNamePage === '' ? 'Página' : enterNamePage,
       tareas: []
     }
+    setNamePage(enterNamePage)
     setPages([...pages, newPage])
     setFormNewPage(false);
     setPageRepeat(false);
