@@ -14,6 +14,9 @@ function App() {
   const [ enterNamePage, setEnterNamePage ] = useState('');
   const [ inputTask, setInputTask ] = useState(''); // texto de la tarea
   const [ pageRepeat, setPageRepeat ] = useState(false);
+  const [ edit, setEdit ] = useState(false)
+  const [ $id, set$id ] = useState(null)
+  const [ check, setCheck ] = useState(null)
 
   // Guarda en localStorage todos los datos , cada vez que cambia algo en pages.
   useEffect(() => {
@@ -24,6 +27,24 @@ function App() {
   // agrega la tarea nueva a la pagina que corresponda.
   const addNewTask = (e) => {
     e.preventDefault()
+    
+    console.log(inputTask)
+    console.log($id)
+    if(edit){
+      console.log('editar tarea')
+      setPages((prevPages) => {      
+        return prevPages.map((page) => ({
+          ...page, // Copiar el objeto de página
+          tareas: page.tareas.map((tarea) => {
+            if (tarea.id === $id) {
+              return { ...tarea, task: inputTask };
+            }
+            return tarea; // Si no coincide, devolver la tarea sin cambios
+          }),
+        }));
+      });
+      setEdit(false);
+    }else{ 
       setPages((prevPages) =>
         prevPages.map((page) => {
           if (page.namePage === namePage) {
@@ -33,16 +54,33 @@ function App() {
           }
           return page; // Retornar las demas paginas sin cambios.
         })
-      );    
+      ); 
+    }   
       setInputTask('')
     };
           
-  const handleDelete = () => {
     // elimina una o todas las tareas.
+  const handleDelete = () => {
+    const $checked = document.querySelectorAll('.checked-task');
+    console.log($checked)
+    setCheck($checked)
+    
   }
 
-  const editTask  = (id) => {    
+  useEffect(() => {
+    if(check){
+      check.forEach(c => {
+        console.log(c.checked)
+      })
+    }
+    
+
+  },[check])
+
+  const editTask  = (id) => {
+    setEdit(true)
     const $id = parseInt(id.currentTarget.dataset.id)
+    set$id($id)
     pages.filter(e => {
     e.tareas.filter(t => {
       if(parseInt(t.id) === $id){
@@ -50,10 +88,8 @@ function App() {
       }
     })
    })
-    
-    console.log('editar')
+  };
 
-  }
   // Marcar ' tachar ' una tarea como completada.
   const taskCompleted = (id) => {
     const $id = parseInt(id.currentTarget.dataset.id)
@@ -69,7 +105,7 @@ function App() {
         }),
       }));
     });
-  }
+  };
 
   // Busca la pagina seleccionada para mostrar las tareas.
   useEffect(() => {
@@ -83,17 +119,15 @@ function App() {
   }
 }, [namePage, pages]);
 
-
 // Crea una nueva pagina para ingresar tareas.
 const createNewPage = (e) => {
-  e.preventDefault(); 
-  
+  e.preventDefault();  
   let nameRepeat = pages.find(e => e.namePage === enterNamePage)
   if(!nameRepeat){
     let newPage = {
       namePage: enterNamePage === '' ? 'Página' : enterNamePage,
       tareas: []
-    }
+    };
     setNamePage(enterNamePage)
     setPages([...pages, newPage])
     setFormNewPage(false);
@@ -103,7 +137,7 @@ const createNewPage = (e) => {
     setEnterNamePage('')
     setPageRepeat(true)
   }
-}
+};
 
   return (
     <section className="container-app">
@@ -150,7 +184,7 @@ const createNewPage = (e) => {
           selectPage?.tareas?.length > 0 ? (
             selectPage.tareas.map((task) => (
               <div key={task.id} className="tareaContenedor">
-                <input type="checkbox"  name="check tarea" data-check={task.id} />
+                <input type="checkbox"  name="check tarea" data-check={task.id} className="checked-task"/>
                   <div>
                   { task.checked === true ?  <p style={{textDecoration:"line-through"}}>{task.task}</p> : <p>{task.task}</p>}
                   </div>
@@ -170,12 +204,12 @@ const createNewPage = (e) => {
 
           {/* ingresar nueva tarea */ }
       <nav className="input-text">   
-        <form onSubmit={addNewTask}>   
+        <form onSubmit={addNewTask}>
           <input type="text" name="nuevoTexto" className="nuevoTexto"  value={inputTask} placeholder="Ingrese nueva tarea..." onChange={(e) => {setInputTask(e.target.value)}}/>
           <label>
           <input type="submit" name="new-task" value="" className="btn-input-submit"/>
           <div className="btn btn-add-task">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+          { edit ?  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z"/></svg> : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>}
           </div>
           <input type="hidden" id="edit-id" />
           </label>
