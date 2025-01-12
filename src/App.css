@@ -27,6 +27,9 @@ nav {
 .tareaContenedor input {
   margin: 0 10px;
 }
+.tareaContenedor button {
+  margin-right: 10px;
+}
 .btn-delete {
   margin-right: 10px;
 }
