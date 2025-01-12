@@ -149,7 +149,7 @@ const createNewPage = (e) => {
           { 
           selectPage?.tareas?.length > 0 ? (
             selectPage.tareas.map((task) => (
-              <div key={task.id} className="tareaContenedor ">
+              <div key={task.id} className="tareaContenedor">
                 <input type="checkbox"  name="check tarea" data-check={task.id} />
                   <div>
                   { task.checked === true ?  <p style={{textDecoration:"line-through"}}>{task.task}</p> : <p>{task.task}</p>}

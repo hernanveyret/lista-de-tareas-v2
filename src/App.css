@@ -24,6 +24,9 @@ nav {
 .checkTodos{
   margin: 0 10px;
 }
+.tareaContenedor input {
+  margin: 0 10px;
+}
 .btn-delete {
   margin-right: 10px;
 }
