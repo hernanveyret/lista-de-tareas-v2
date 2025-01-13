@@ -24,6 +24,12 @@ nav {
 .checkTodos{
   margin: 0 10px;
 }
+
+input[type="checkbox"] {
+  margin: 10px 10px;
+  accent-color: rgb(9, 214, 9);
+}
+
 .tareaContenedor input {
   margin: 0 10px;
 }

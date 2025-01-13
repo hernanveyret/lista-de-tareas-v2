@@ -17,6 +17,7 @@ function App() {
   const [ edit, setEdit ] = useState(false)
   const [ $id, set$id ] = useState(null)
   const [ check, setCheck ] = useState(null)
+  const [ deleteT, setDeleteT ] = useState(null);
 
   // Guarda en localStorage todos los datos , cada vez que cambia algo en pages.
   useEffect(() => {
@@ -58,25 +59,39 @@ function App() {
     }   
       setInputTask('')
     };
-          
-    // elimina una o todas las tareas.
-  const handleDelete = () => {
-    const $checked = document.querySelectorAll('.checked-task');
-    console.log($checked)
-    setCheck($checked)
     
-  }
+    const deleteTask = () => {
+      setPages((prevPages) =>
+        prevPages.map((page) => {
+          if (page.namePage === namePage) {
+            // Filtrar las tareas no marcadas
+            const newTasks = page.tareas.filter((task) => {
+              const taskElement = document.querySelector(`[data-check="${task.id}"]`);
+              return !taskElement?.checked;
+            });
+            return { ...page, tareas: newTasks }; // Retornar página actualizada
+          }
+          return page; // Retornar las otras páginas sin cambios
+        })
+      );
+    };
+    
 
+    // Selecciona todas las tareas
+  const selectAll = () => {
+    const $checked = document.querySelectorAll('.checked-task');
+    setCheck($checked)    
+  }
   useEffect(() => {
+    const $checkAll = document.querySelector('.checkTodos');
     if(check){
-      check.forEach(c => {
-        console.log(c.checked)
+         check.forEach(c => {
+        c.checked = $checkAll.checked        
       })
     }
-    
-
   },[check])
 
+  // Edita una tarea.
   const editTask  = (id) => {
     setEdit(true)
     const $id = parseInt(id.currentTarget.dataset.id)
@@ -159,9 +174,9 @@ const createNewPage = (e) => {
 
           { /* botones todo y borrar */ }
       <nav className=''>
-        <label><input type="checkbox" name="checkTodos" className="checkTodos" title="Selecciona todo"/>Todos</label>
+        <label><input type="checkbox" name="checkTodos" className="checkTodos" title="Selecciona todo" onClick={selectAll}/>Todos</label>
         <span title="Eliminar">
-          <button className="btn btn-delete" onClick={handleDelete}>
+          <button className="btn btn-delete" onClick={deleteTask}>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
           </button></span>
       </nav>
@@ -189,7 +204,7 @@ const createNewPage = (e) => {
                   { task.checked === true ?  <p style={{textDecoration:"line-through"}}>{task.task}</p> : <p>{task.task}</p>}
                   </div>
                 <button className="btn" data-id={task.id} onClick={taskCompleted}>
-                { task.checked === false ? <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#EA3323"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg> : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#75FB4C"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg> }
+                { task.checked === false ? <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="24px" fill="#EA3323"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg> : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#75FB4C"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg> }
                 </button>
                 <button className="btn" data-id={task.id} onClick={editTask}>
                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
