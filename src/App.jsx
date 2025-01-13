@@ -60,6 +60,7 @@ function App() {
       setInputTask('')
     };
     
+    // Elimina las tareas seleccionadas.
     const deleteTask = () => {
       setPages((prevPages) =>
         prevPages.map((page) => {
@@ -69,9 +70,9 @@ function App() {
               const taskElement = document.querySelector(`[data-check="${task.id}"]`);
               return !taskElement?.checked;
             });
-            return { ...page, tareas: newTasks }; // Retornar página actualizada
+            return { ...page, tareas: newTasks }; // Retornar pagina actualizada
           }
-          return page; // Retornar las otras páginas sin cambios
+          return page; // Retornar las otras paginas sin cambios
         })
       );
     };
@@ -153,7 +154,13 @@ const createNewPage = (e) => {
     setPageRepeat(true)
   }
 };
-
+  // Menu en los botones de pagina
+const menuBtn = (e) => {
+  
+  console.log('Boton menu')
+  let $target = e.currentTarget.parentElement.textContent; // toma el texto del boton
+  console.log($target)
+}
   return (
     <section className="container-app">
           { /* Crear nueva pagina */ }
@@ -185,7 +192,12 @@ const createNewPage = (e) => {
       <div className="nav-add-page">
         {
           pages.map((e, key) => 
-            <button className="btn-add-page" key={key} onClick={(e) => {setNamePage(e.target.textContent)}}>{e.namePage}</button>
+            <button className="btn-add-page" key={key} onClick={(e) => {setNamePage(e.target.textContent)}}>
+              {e.namePage}
+              <span className="btn" onClick={menuBtn} data-name={e.namePage} id={e.id}>
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
+              </span>
+            </button>
           )
         }
         <button className="btn-add-page" onClick={() => {setFormNewPage(true)}}>
