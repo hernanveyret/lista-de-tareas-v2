@@ -191,7 +191,7 @@ const menuBtnPage = (e) => {
       </header>
 
           { /* botones todo y borrar */ }
-      <nav className=''>
+      <nav className='menuNav'>
         <label><input type="checkbox" name="checkTodos" className="checkTodos" title="Selecciona todo" onClick={selectAll}/>Todos</label>
         <span title="Eliminar">
           <button className="btn btn-delete" onClick={deleteTask}>
