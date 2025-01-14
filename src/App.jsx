@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import logo from './assets/img/check32.png';
 import NewPage from './Components/NewPage.jsx';
 import './App.css'
+import MenuBtn from './Components/MenuBtn.jsx';
 
 function App() {
 
@@ -17,8 +18,10 @@ function App() {
   const [ edit, setEdit ] = useState(false)
   const [ $id, set$id ] = useState(null)
   const [ check, setCheck ] = useState(null)
-  const [ deleteT, setDeleteT ] = useState(null);
-
+  const [ onMenuBtn, setOnMenuBtn ] = useState({
+    onoff: false,
+    target: ''
+  })
   // Guarda en localStorage todos los datos , cada vez que cambia algo en pages.
   useEffect(() => {
     let newPages = pages
@@ -28,11 +31,7 @@ function App() {
   // agrega la tarea nueva a la pagina que corresponda.
   const addNewTask = (e) => {
     e.preventDefault()
-    
-    console.log(inputTask)
-    console.log($id)
     if(edit){
-      console.log('editar tarea')
       setPages((prevPages) => {      
         return prevPages.map((page) => ({
           ...page, // Copiar el objeto de página
@@ -155,11 +154,12 @@ const createNewPage = (e) => {
   }
 };
   // Menu en los botones de pagina
-const menuBtn = (e) => {
-  
-  console.log('Boton menu')
+const menuBtnPage = (e) => {
   let $target = e.currentTarget.parentElement.textContent; // toma el texto del boton
-  console.log($target)
+  setOnMenuBtn({
+    onoff:true,
+    target: $target
+  });
 }
   return (
     <section className="container-app">
@@ -171,6 +171,17 @@ const menuBtn = (e) => {
         enterNamePage={enterNamePage}
         pageRepeat={pageRepeat}
         setFormNewPage={setFormNewPage}
+        />
+      }
+      {
+        /* menu del boton de pagina */
+        onMenuBtn.onoff && <MenuBtn 
+        setOnMenuBtn={setOnMenuBtn}
+        onMenuBtn={onMenuBtn}
+        pages={pages}
+        setPages={setPages}
+        namePage={namePage}
+        setNamePage={setNamePage}
         />
       }
           { /* Header */ }
@@ -194,7 +205,7 @@ const menuBtn = (e) => {
           pages.map((e, key) => 
             <button className="btn-add-page" key={key} onClick={(e) => {setNamePage(e.target.textContent)}}>
               {e.namePage}
-              <span className="btn" onClick={menuBtn} data-name={e.namePage} id={e.id}>
+              <span className="btn" onClick={menuBtnPage} data-name={e.namePage} id={e.id}>
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
               </span>
             </button>
@@ -232,7 +243,7 @@ const menuBtn = (e) => {
           {/* ingresar nueva tarea */ }
       <nav className="input-text">   
         <form onSubmit={addNewTask}>
-          <input type="text" name="nuevoTexto" className="nuevoTexto"  value={inputTask} placeholder="Ingrese nueva tarea..." onChange={(e) => {setInputTask(e.target.value)}}/>
+          <input type="text" name="nuevoTexto" className="nuevoTexto"  value={inputTask} placeholder="Ingrese nueva tarea..." onChange={(e) => {setInputTask(e.target.value)}} autoFocus/>
           <label>
           <input type="submit" name="new-task" value="" className="btn-input-submit"/>
           <div className="btn btn-add-task">

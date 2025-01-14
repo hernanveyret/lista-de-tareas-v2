@@ -11,7 +11,7 @@ const NewPage = ({createNewPage,setEnterNamePage,enterNamePage,pageRepeat,setFor
       </button>
         { pageRepeat ?  <h3 style={{color:"red", textShadow:"2px 2px 3px black"}}>* El nombre ya existe</h3>:<h3>Ingrese nombre de página</h3>}
         <form onSubmit={createNewPage}>
-          <input type='text' name="name" value={enterNamePage} onChange={(e) => {setEnterNamePage(e.target.value)}} className="inputText"/>
+          <input type='text' name="name" value={enterNamePage} onChange={(e) => {setEnterNamePage(e.target.value)}} className="inputText" autoFocus/>
           <label>
             <input type="submit" />
               <span>
