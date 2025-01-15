@@ -4,7 +4,6 @@ import RenamePage from './RenamePage';
 import './menuBtn.css';
 const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat}) => {
 const [ $renamePage, set$RenamePage ] = useState(false);
-  console.log(namePage)
 
   const deletePage = () => {
     let paginas = pages.filter(e => {

@@ -3,12 +3,9 @@ import React, { useState, useEffect } from 'react';
 const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn,namePage,ageRepeat}) => {
   const [ inputText, setInputText ] = useState('');
   const [ resetText, setResetText ] = useState('');
-console.log(pages)
-console.log(onMenuBtn.target)
 
   const editPages = (e) => {
     e.preventDefault()
-
       setPages((prevPages) =>
         prevPages.map((page) =>
           page.namePage === onMenuBtn.target
@@ -19,10 +16,6 @@ console.log(onMenuBtn.target)
       setOnMenuBtn({ onoff: false, target: '' });
       set$RenamePage(false);
    }
-
-   useEffect(() => {
-    console.log(inputText)
-   },[inputText])
 
   return (
     <div className='container-new-page'>
