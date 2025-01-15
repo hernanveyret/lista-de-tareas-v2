@@ -1,7 +1,9 @@
-import React from 'react';
-import './menuBtn.css';
-const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage}) => {
+import React, { useState } from 'react';
+import RenamePage from './RenamePage';
 
+import './menuBtn.css';
+const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat}) => {
+const [ $renamePage, set$RenamePage ] = useState(false);
   console.log(namePage)
 
   const deletePage = () => {
@@ -14,25 +16,23 @@ const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePag
     setNamePage('')
     setOnMenuBtn({onoff:false, target:''})
   }
-
-  const renamePage = () => {
-    let paginas = pages.find(e => {
-      if(e.namePage === onMenuBtn.target){
-        return e
-      }
-    })
-    console.log(paginas)
-    console.log('renombrar pagina')
-  }
-    
-
+  
   return (
     <div className="container-menu-btn">
       <div className="container-btn">
         <button onClick={deletePage}>Eliminar</button>
-        <button onClick={renamePage}>Renombrar</button>
+        <button onClick={() => { set$RenamePage(true)}}>Renombrar</button>
         <button onClick={() => {setOnMenuBtn({onoff:false, target:''})}}>Cancelar</button>
       </div>
+      { $renamePage && <RenamePage 
+        set$RenamePage={set$RenamePage}
+        pageRepeat={pageRepeat}
+        pages={pages}
+        setPages={setPages}
+        onMenuBtn={onMenuBtn}
+        setOnMenuBtn={setOnMenuBtn}
+        namePage={namePage}
+      /> }
     </div>
   )
 }

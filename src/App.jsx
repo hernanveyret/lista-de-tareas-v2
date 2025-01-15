@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import logo from './assets/img/check32.png';
 import NewPage from './Components/NewPage.jsx';
-import './App.css'
 import MenuBtn from './Components/MenuBtn.jsx';
+
+import './App.css'
 
 function App() {
 
@@ -15,6 +16,8 @@ function App() {
   const [ enterNamePage, setEnterNamePage ] = useState('');
   const [ inputTask, setInputTask ] = useState(''); // texto de la tarea
   const [ pageRepeat, setPageRepeat ] = useState(false);
+
+
   const [ edit, setEdit ] = useState(false)
   const [ $id, set$id ] = useState(null)
   const [ check, setCheck ] = useState(null)
@@ -125,7 +128,6 @@ function App() {
   // Busca la pagina seleccionada para mostrar las tareas.
   useEffect(() => {
   if (namePage) { // Verificar que namePage no sea null
-    console.log(namePage)
     const botonesSelect = document.querySelectorAll('.btn-select');
     if(botonesSelect){
       botonesSelect.forEach(e => {
@@ -133,8 +135,7 @@ function App() {
           e.classList.add('activePage')
         }else{
           e.classList.remove('activePage')
-        }
-        
+        }        
       })
     }
     let pagesSelect = pages.find(e => e['namePage'] === namePage);
@@ -194,6 +195,7 @@ const menuBtnPage = (e) => {
         setPages={setPages}
         namePage={namePage}
         setNamePage={setNamePage}
+        pageRepeat={pageRepeat}
         />
       }
           { /* Header */ }
