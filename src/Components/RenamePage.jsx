@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn,namePage,ageRepeat}) => {
+const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn}) => {
   const [ inputText, setInputText ] = useState('');
-  const [ resetText, setResetText ] = useState('');
+  
+  const [ onRepeatName, setOnRepeatName ] = useState(false)
 
   const editPages = (e) => {
     e.preventDefault()
+    let nameRepeat = pages.find(e => e.namePage === inputText)
+    if(!nameRepeat){
       setPages((prevPages) =>
         prevPages.map((page) =>
           page.namePage === onMenuBtn.target
@@ -15,6 +18,11 @@ const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn,namePa
       );
       setOnMenuBtn({ onoff: false, target: '' });
       set$RenamePage(false);
+    }else{
+      setOnRepeatName(true)
+      setInputText('')
+    }
+      
    }
 
   return (
@@ -22,10 +30,10 @@ const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn,namePa
       <section className="section">
       <button className="btn clase-create-page" onClick={() => set$RenamePage(false)}>
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-      </button>
-      <h3>Renombrar nombre de página</h3>
+      </button>      
+      { onRepeatName ?  <h3 style={{fontSize:"1rem",color:"red", textShadow:"2px 2px 3px black"}}>* El nombre ya existe</h3>:<h3>Ingrese nuevo nombre</h3>}
       <form onSubmit={editPages}>
-       <input type="text"  onChange={(e) => { setInputText(e.target.value)}}/>
+       <input type="text" value={inputText} onChange={(e) => { setInputText(e.target.value)}}/>
        <label>
             <input type="submit" />
               <span>

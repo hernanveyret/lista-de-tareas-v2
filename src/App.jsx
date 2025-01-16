@@ -153,7 +153,7 @@ const createNewPage = (e) => {
   let nameRepeat = pages.find(e => e.namePage === enterNamePage)
   if(!nameRepeat){
     let newPage = {
-      namePage: enterNamePage === '' ? 'Página' : enterNamePage,
+      namePage: enterNamePage === '' ? `Página` : enterNamePage,
       tareas: []
     };
     setNamePage(enterNamePage)
