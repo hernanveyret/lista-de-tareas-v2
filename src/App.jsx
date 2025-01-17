@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import logo from './assets/img/check32.png';
 import NewPage from './Components/NewPage.jsx';
 import MenuBtn from './Components/MenuBtn.jsx';
+import Confirm from './Components/Confirm.jsx';
+import NoTask from './Components/NoTask.jsx';
 
 import './App.css'
 
@@ -17,7 +19,8 @@ function App() {
   const [ inputTask, setInputTask ] = useState(''); // texto de la tarea
   const [ pageRepeat, setPageRepeat ] = useState(false);
 
-
+  const [ confirm, setConfirm ] = useState(false)
+  const [ cantChecked, setCantChecked ] = useState(false)
   const [ edit, setEdit ] = useState(false)
   const [ $id, set$id ] = useState(null)
   const [ check, setCheck ] = useState(null)
@@ -61,10 +64,15 @@ function App() {
     }   
       setInputTask('')
     };
+    const onDelete = () => {
+      let cantPages = document.querySelectorAll('.checked-task');
+      let tiene = [...cantPages].find(e => e.checked === true);
+      tiene ? setConfirm(true) : setCantChecked(true);
+    }
     
     // Elimina las tareas seleccionadas.
     const deleteTask = () => {
-      setPages((prevPages) =>
+        setPages((prevPages) =>
         prevPages.map((page) => {
           if (page.namePage === namePage) {
             // Filtrar las tareas no marcadas
@@ -76,7 +84,8 @@ function App() {
           }
           return page; // Retornar las otras paginas sin cambios
         })
-      );
+      );     
+      setConfirm(false)    
     };
     
 
@@ -176,6 +185,18 @@ const menuBtnPage = (e) => {
 }
   return (
     <section className="container-app">
+
+      { cantChecked && <NoTask 
+        setCantChecked={setCantChecked}
+      />}
+
+      { 
+        /* Cartil de confirm */
+        confirm && <Confirm 
+        setConfirm={setConfirm}
+        deleteTask={deleteTask}
+        />
+      }
           { /* Crear nueva pagina */ }
       { 
         formNewPage && <NewPage 
@@ -208,7 +229,7 @@ const menuBtnPage = (e) => {
       <nav className='menuNav'>
         <label><input type="checkbox" name="checkTodos" className="checkTodos" title="Selecciona todo" onClick={selectAll}/>Todos</label>
         <span title="Eliminar">
-          <button className="btn btn-delete" onClick={deleteTask}>
+          <button className="btn btn-delete" onClick={onDelete}>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
           </button></span>
       </nav>
