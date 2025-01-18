@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import RenamePage from './RenamePage';
 
 import './menuBtn.css';
-const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat}) => {
+const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat,setSelectPage}) => {
 const [ $renamePage, set$RenamePage ] = useState(false);
 
   const deletePage = () => {
-    let paginas = pages.filter(e => {
-      if(e.namePage != onMenuBtn.target){
-        return e
+    setPages((prevPages) => {
+      const updatedPages = prevPages.filter((page) => page.namePage !== onMenuBtn.target);
+      if (updatedPages.length > 0) {
+        setSelectPage(updatedPages[0]);
+        setNamePage(updatedPages[0].namePage);
+      } else {
+        setSelectPage({ namePage: "", tareas: [] });
+        setNamePage("");
       }
-    })
-    setPages(paginas)
-    setNamePage('')
-    setOnMenuBtn({onoff:false, target:''})
+      return updatedPages;
+    });
+    setOnMenuBtn({ onoff: false, target: "" });
   }
-  
+
   return (
     <div className="container-menu-btn">
       <div className="container-btn">

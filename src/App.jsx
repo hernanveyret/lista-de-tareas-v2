@@ -37,7 +37,7 @@ function App() {
   // agrega la tarea nueva a la pagina que corresponda.
   const addNewTask = (e) => {
     e.preventDefault()
-    if(edit){
+    if(edit){ // si edit es true edita la tarea
       setPages((prevPages) => {      
         return prevPages.map((page) => ({
           ...page, // Copiar el objeto de página
@@ -50,7 +50,7 @@ function App() {
         }));
       });
       setEdit(false);
-    }else{ 
+    }else{ // si no, crea una nueva tarea
       setPages((prevPages) =>
         prevPages.map((page) => {
           if (page.namePage === namePage) {
@@ -64,6 +64,7 @@ function App() {
     }   
       setInputTask('')
     };
+
     const onDelete = () => {
       let cantPages = document.querySelectorAll('.checked-task');
       let tiene = [...cantPages].find(e => e.checked === true);
@@ -88,7 +89,6 @@ function App() {
       setConfirm(false)    
     };
     
-
     // Selecciona todas las tareas
   const selectAll = () => {
     const $checked = document.querySelectorAll('.checked-task');
@@ -217,6 +217,7 @@ const menuBtnPage = (e) => {
         namePage={namePage}
         setNamePage={setNamePage}
         pageRepeat={pageRepeat}
+        setSelectPage={setSelectPage}
         />
       }
           { /* Header */ }
