@@ -61,3 +61,10 @@ form span {
   width: 40px;
   height: 40px;;
 }
+
+@media screen and (min-width: 1024px){
+  .section {
+    width:20%;
+  }
+ 
+}
