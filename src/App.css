@@ -133,3 +133,18 @@ form {
   background-color: orangered;
 }
 
+@media screen and (min-width: 1024px){
+  main, nav, .nav-add-page {
+    width:50%;
+  }
+  b p {
+    margin-right: 5px;
+  }
+  #itemText {
+    display: block;
+    margin-right: 5px;
+  }
+  .cardBorrar {
+    width: 30%;
+  }
+}
