@@ -55,7 +55,7 @@ function App() {
     }else{ // si no, crea una nueva tarea
       setPages((prevPages) =>
         prevPages.map((page) => {
-          if (page.namePage === namePage) {
+          if (page.namePage === namePage[0].toUpperCase() + namePage.slice(1)) {
             // Crear un nuevo array de tareas
             const newTasks = [...page.tareas, { id: Date.now(), task: inputTask, checked: false }];
             return { ...page, tareas: newTasks }; // Retornar la pagina actualizada.
@@ -148,14 +148,14 @@ function App() {
     const botonesSelect = document.querySelectorAll('.btn-select');
     if(botonesSelect){
       botonesSelect.forEach(e => {
-        if(e.textContent === namePage){
+        if(e.textContent === namePage[0].toUpperCase() + namePage.slice(1)){
           e.classList.add('activePage')
         }else{
           e.classList.remove('activePage')
         }        
       })
     }
-    let pagesSelect = pages.find(e => e['namePage'] === namePage);
+    let pagesSelect = pages.find(e => e['namePage'] === namePage[0].toUpperCase() + namePage.slice(1));
     if (pagesSelect) {
       setSelectPage(pagesSelect);
     } else {
@@ -167,12 +167,12 @@ function App() {
 // Crea una nueva pagina para ingresar tareas.
 const createNewPage = (e) => {
   e.preventDefault();  
-  
-  let nameRepeat = pages.find(e => e.namePage === enterNamePage)
+  let nameRepeat = pages.find(e => e.namePage === enterNamePage[0].toUpperCase() + enterNamePage.slice(1))
   if(textOrCalc){
     if(!nameRepeat){
       let newPage = {
-        namePage: enterNamePage === '' ? `Página ${pages.length + 1}` : enterNamePage,
+        type:'list',
+        namePage: enterNamePage === '' ? `Página ${pages.length + 1}` : enterNamePage[0].toUpperCase() + enterNamePage.slice(1),
         tareas: []
       };
       setNamePage(enterNamePage)
@@ -185,10 +185,27 @@ const createNewPage = (e) => {
       setPageRepeat(true)
     }
   }else{
-    console.log('crea una pagina de calculo')
+    console.log('crea una pagina de calculo');
+    if(!nameRepeat){
+      let newPage = {
+        type: 'calc',
+        namePage: enterNamePage === '' ? `Página ${pages.length + 1}` : enterNamePage[0].toUpperCase() + enterNamePage.slice(1),
+        tareas: []
+      };
+      setNamePage(enterNamePage)
+      setPages([...pages, newPage])
+      setFormNewPage(false);
+      setPageRepeat(false);
+      setEnterNamePage('');
+    }else{
+      setEnterNamePage('')
+      setPageRepeat(true)
+    }
   }
  
 };
+
+
   // Menu en los botones de pagina
 const menuBtnPage = (e) => {
   let $target = e.currentTarget.parentElement.textContent; // toma el texto del boton
@@ -276,8 +293,7 @@ const menuBtnPage = (e) => {
             <rect x="600" y="-450" width="1900" height="18000" fill="red" />
             <text x="800" y="-120" fontSize="670" fill="#fffff" textAnchor="middle" alignmentBaseline="middle" fontWeight="bold">+</text>
           </svg>
-</button>
-
+        </button>
       </div>
 
         { /* Mostrar las tareas */ }
