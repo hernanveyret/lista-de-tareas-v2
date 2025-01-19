@@ -37,6 +37,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  box-shadow: 3px 3px 4px black;
 }
 .clase-create-page {
   position: absolute;

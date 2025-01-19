@@ -4,8 +4,9 @@ import NewPage from './Components/NewPage.jsx';
 import MenuBtn from './Components/MenuBtn.jsx';
 import Confirm from './Components/Confirm.jsx';
 import NoTask from './Components/NoTask.jsx';
-
+import CalcPage from './Components/CalcPage.jsx'
 import './App.css'
+import Task from './Components/Task.jsx';
 
 function App() {
 
@@ -18,12 +19,13 @@ function App() {
   const [ enterNamePage, setEnterNamePage ] = useState('');
   const [ inputTask, setInputTask ] = useState(''); // texto de la tarea
   const [ pageRepeat, setPageRepeat ] = useState(false);
-
+  const [ textOrCalc, setTextOrCalc ] = useState(null)
   const [ confirm, setConfirm ] = useState(false)
   const [ cantChecked, setCantChecked ] = useState(false)
   const [ edit, setEdit ] = useState(false)
   const [ $id, set$id ] = useState(null)
   const [ check, setCheck ] = useState(null)
+  const [ taskOrPage, setTaskOrPage ] = useState(null)
   const [ onMenuBtn, setOnMenuBtn ] = useState({
     onoff: false,
     target: ''
@@ -68,7 +70,13 @@ function App() {
     const onDelete = () => {
       let cantPages = document.querySelectorAll('.checked-task');
       let tiene = [...cantPages].find(e => e.checked === true);
-      tiene ? setConfirm(true) : setCantChecked(true);
+      if(tiene){
+        setConfirm(true)
+        setTaskOrPage('task')
+      }else{
+        setCantChecked(true)
+      }
+      
     }
     
     // Elimina las tareas seleccionadas.
@@ -159,25 +167,32 @@ function App() {
 // Crea una nueva pagina para ingresar tareas.
 const createNewPage = (e) => {
   e.preventDefault();  
+  
   let nameRepeat = pages.find(e => e.namePage === enterNamePage)
-  if(!nameRepeat){
-    let newPage = {
-      namePage: enterNamePage === '' ? `Página` : enterNamePage,
-      tareas: []
-    };
-    setNamePage(enterNamePage)
-    setPages([...pages, newPage])
-    setFormNewPage(false);
-    setPageRepeat(false);
-    setEnterNamePage('');
+  if(textOrCalc){
+    if(!nameRepeat){
+      let newPage = {
+        namePage: enterNamePage === '' ? `Página` : enterNamePage,
+        tareas: []
+      };
+      setNamePage(enterNamePage)
+      setPages([...pages, newPage])
+      setFormNewPage(false);
+      setPageRepeat(false);
+      setEnterNamePage('');
+    }else{
+      setEnterNamePage('')
+      setPageRepeat(true)
+    }
   }else{
-    setEnterNamePage('')
-    setPageRepeat(true)
+    console.log('crea una pagina de calculo')
   }
+ 
 };
   // Menu en los botones de pagina
 const menuBtnPage = (e) => {
   let $target = e.currentTarget.parentElement.textContent; // toma el texto del boton
+  setTaskOrPage('page')
   setOnMenuBtn({
     onoff:true,
     target: $target
@@ -195,6 +210,7 @@ const menuBtnPage = (e) => {
         confirm && <Confirm 
         setConfirm={setConfirm}
         deleteTask={deleteTask}
+        taskOrPage={taskOrPage}
         />
       }
           { /* Crear nueva pagina */ }
@@ -218,6 +234,10 @@ const menuBtnPage = (e) => {
         setNamePage={setNamePage}
         pageRepeat={pageRepeat}
         setSelectPage={setSelectPage}
+        taskOrPage={taskOrPage}
+        confirm={confirm}
+        setConfirm={setConfirm}
+        
         />
       }
           { /* Header */ }
@@ -247,34 +267,23 @@ const menuBtnPage = (e) => {
             </button>
           )
         }
-        <button className="btn-add-page" onClick={() => {setFormNewPage(true)}}>
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-240h80v-120h120v-80H520v-120h-80v120H320v80h120v120ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>
+        <button className="btn-add-page" onClick={() => {setFormNewPage(true); setTextOrCalc(true)}}>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M680-40v-120H560v-80h120v-120h80v120h120v80H760v120h-80ZM200-200v-560 560Zm0 80q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v353q-18-11-38-18t-42-11v-324H200v560h280q0 21 3 41t10 39H200Zm120-160q17 0 28.5-11.5T360-320q0-17-11.5-28.5T320-360q-17 0-28.5 11.5T280-320q0 17 11.5 28.5T320-280Zm0-160q17 0 28.5-11.5T360-480q0-17-11.5-28.5T320-520q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440Zm0-160q17 0 28.5-11.5T360-640q0-17-11.5-28.5T320-680q-17 0-28.5 11.5T280-640q0 17 11.5 28.5T320-600Zm120 160h240v-80H440v80Zm0-160h240v-80H440v80Zm0 320h54q8-23 20-43t28-37H440v80Z"/></svg>
+        </button>
+        <button className="btn-add-page" onClick={() => {setFormNewPage(true); setTextOrCalc(false)}}>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+          <path d="M440-240h80v-40h40q17 0 28.5-11.5T600-320v-120q0-17-11.5-28.5T560-480H440v-40h160v-80h-80v-40h-80v40h-40q-17 0-28.5 11.5T360-560v120q0 17 11.5 28.5T400-400h120v40H360v80h80v40ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-446L526-800H240v640Zm0 0v-640 640Z"/>
+          <text x="700" y="-100" fontSize="800" fill="#222222" textAnchor="middle" alignmentBaseline="middle">+</text>
+          </svg>
         </button>
       </div>
 
         { /* Mostrar las tareas */ }
-     <main className="lista-main">
-          { 
-          selectPage?.tareas?.length > 0 ? (
-            selectPage.tareas.map((task) => (
-              <div key={task.id} className="tareaContenedor">
-                <input type="checkbox"  name="check tarea" data-check={task.id} className="checked-task"/>
-                  <div>
-                  { task.checked === true ?  <p style={{textDecoration:"line-through"}}>{task.task}</p> : <p>{task.task}</p>}
-                  </div>
-                <button className="btn" data-id={task.id} onClick={taskCompleted}>
-                { task.checked === false ? <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg> : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#75FB4C"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg> }
-                </button>
-                <button className="btn" data-id={task.id} onClick={editTask}>
-                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-                </button>
-              </div>
-            ))
-          ) : (
-            <p className="not-tasks">No hay tareas para esta página</p>
-          )
-          }
-      </main>
+        <main className="lista-main">
+          { <Task selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask}/>}
+          { /*<CalcPage selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask} />*/}
+          
+        </main>
 
           {/* ingresar nueva tarea */ }
       <nav className="input-text">   

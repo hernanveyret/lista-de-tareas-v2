@@ -12,15 +12,15 @@
 }
 .cuadro {
   width: 80%;
-  background-color: rgb(13, 13, 14);
+  background-color: #FFECB3;
   height: 7rem;
   border-radius: .75rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
-  box-shadow: 3px 3px 5px white;
+  color: black;
+  box-shadow: 3px 3px 5px black;
   transform: translateY(-150px);
   animation: animacion .5s ease;
   animation-fill-mode: forwards;

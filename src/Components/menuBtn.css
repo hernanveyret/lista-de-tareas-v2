@@ -5,7 +5,42 @@
   top: 0;
   background-color: rgba(128, 128, 128, 0.493);
   display: flex;
-  justify-content: center;
+  z-index: 100001;
   align-items: center;
   flex-direction: column;
+}
+.container-btn { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  transform: translateY(-150px);
+  animation: animacion .5s ease;
+  animation-fill-mode: forwards;
+}
+
+.container-btn button {
+  padding: .9rem;
+  border-radius: .5rem;
+  border: none;
+  box-shadow: 3px 3px 4px black;
+  color: white;
+}
+
+.container-btn button:nth-child(1){
+  background-color: #e63946;
+}
+.container-btn button:nth-child(2){
+  background-color: #457b9d;
+}
+.container-btn button:nth-child(3){
+  background-color: #adb5bd;
+}
+@keyframes animacion {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(180px);
+  }
 }

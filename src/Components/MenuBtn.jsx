@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Confirm from './Confirm';
 import RenamePage from './RenamePage';
 
 import './menuBtn.css';
-const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat,setSelectPage}) => {
+const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat,setSelectPage,taskOrPage, confirm, setConfirm}) => {
 const [ $renamePage, set$RenamePage ] = useState(false);
 
   const deletePage = () => {
@@ -18,12 +19,14 @@ const [ $renamePage, set$RenamePage ] = useState(false);
       return updatedPages;
     });
     setOnMenuBtn({ onoff: false, target: "" });
+    setConfirm(false)
   }
 
   return (
     <div className="container-menu-btn">
+      { confirm && <Confirm setConfirm={setConfirm} taskOrPage={taskOrPage} deletePage={deletePage}/>}
       <div className="container-btn">
-        <button onClick={deletePage}>Eliminar</button>
+        <button onClick={() => setConfirm(true)}>Eliminar</button>
         <button onClick={() => { set$RenamePage(true)}}>Renombrar</button>
         <button onClick={() => {setOnMenuBtn({onoff:false, target:''})}}>Cancelar</button>
       </div>
