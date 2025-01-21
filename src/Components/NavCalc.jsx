@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import './navCalc.css'
 
-const NavCalc = ({ addNewTask, setInputCalc, inputCalc, edit, addNewCalcTask }) => {
+const NavCalc = ({ setInputCalc, inputCalc, edit, addNewCalcTask }) => {
   return (
-    <nav className="input-text">
+    <section className="input-text">
       <form onSubmit={addNewCalcTask}>
         <input
           type="text"
@@ -17,18 +18,18 @@ const NavCalc = ({ addNewTask, setInputCalc, inputCalc, edit, addNewCalcTask }) 
         />
         <input 
           type="text"
-          name="nuevoTexto"
-          className="nuevoTexto"
+          name="nuevaCant"
+          className="nuevaCant"
           value={inputCalc.cant || ''}
-          placeholder="Cantidad"
+          placeholder="Cant."
           onChange={(e) =>
             setInputCalc({ ...inputCalc, cant: e.target.value })
           }
         />
         <input
           type="text"
-          name="nuevoTexto"
-          className="nuevoTexto"
+          name="nuevoPrecio"
+          className="nuevoPrecio"
           value={inputCalc.precioU || ''}
           placeholder="Precio"
           onChange={(e) =>
@@ -68,7 +69,7 @@ const NavCalc = ({ addNewTask, setInputCalc, inputCalc, edit, addNewCalcTask }) 
           <input type="hidden" id="edit-id" />
         </label>
       </form>
-    </nav>
+    </section>
   );
 };
 

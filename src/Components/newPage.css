@@ -54,12 +54,20 @@ input[type="submit"]{
   margin-top: .3rem;;
   margin-right: 90px;
 }
+.form-new-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inputText {
+  padding: .5rem;
+}
 form span {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 40px;
-  height: 40px;;
+  height: 40px;
 }
 
 @media screen and (min-width: 1024px){

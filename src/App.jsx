@@ -90,9 +90,7 @@ function App() {
           }));
         });
         setEdit(false);
-      }else{ // si no, crea una nueva tarea
-        let algo = pages.find(e => e.namePage == namePage[0].toUpperCase() + namePage.slice(1))
-        console.log('nueva tarea crear', algo)
+      }else{ // si no, crea una nueva tarea       
         setPages((prevPages) =>
           prevPages.map((page) => {
             if (page.namePage === namePage[0].toUpperCase() + namePage.slice(1)) {

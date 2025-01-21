@@ -1,7 +1,5 @@
 .Contenedor-task-calc {
-   /*background: linear-gradient(rgb(0, 102, 255),#014E82);*/
    background: linear-gradient(rgb(0, 238, 255),#1294a5);
-   /*color: white;*/
    color: black;
    display: flex;
    justify-content: space-between;
@@ -11,18 +9,20 @@
    border-radius: 0.30rem;
    margin-top: 5px;
    word-wrap: break-word;
+   border: 2px solid orangered;
 }
 .container-info {
   width: 100%;
-  height: auto;
+  
   display: flex;
   align-items: center;
-  
+  border: 1px solid green;
 }
 .task-prod {
   width: 60%;
   height: auto;
   word-wrap: break-word;
+  border: 1px solid black;
 }
 .task-cant {  
   width: 30px; 
@@ -37,8 +37,14 @@
   align-items: flex-end;
   justify-content: center;
   width: 20%;
-  background-color: aliceblue;
   border-radius: .2rem;
   height:100%;
   font-size: .9rem;
+}
+
+.btn-calc-page {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0 .5rem;
 }
