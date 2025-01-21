@@ -15,8 +15,10 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(rgb(0, 102, 255),#014E82);
-  color: white;
+  /*background: linear-gradient(rgb(0, 102, 255),#014E82);*/
+  background: linear-gradient(rgb(0, 238, 255),#1294a5);
+  /*color: white;*/
+  color: black;
   border-radius: 0.30rem;
   margin: 0 auto ;
   margin-top: 5px;
@@ -103,13 +105,16 @@ form {
   margin-left: .5rem;
   background-color: transparent;
   border:none;
-  color: white;
+  /*color: white;*/
+  color: black;
   font-size: 1rem;
   outline: none;
 }
 .tareaContenedor {
-  background: linear-gradient(rgb(0, 102, 255),#014E82);
-  color: white;
+  /*background: linear-gradient(rgb(0, 102, 255),#014E82);*/
+  background: linear-gradient(rgb(0, 238, 255),#1294a5);
+  /*color: white;*/
+  color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -123,7 +128,23 @@ form {
   width: 80%;
   height: auto;  
 } 
-
+.calcContenedor {
+  background: linear-gradient(rgb(0, 238, 255),#1294a5);
+  /*color: white;*/
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 50px;
+  border-radius: 0.30rem;
+  margin-top: 5px;
+  word-wrap: break-word;
+}
+.calcContenedor div{
+  width: 80%;
+  height: auto;  
+}
 .not-tasks {
   color: white;
   text-align: center;

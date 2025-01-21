@@ -7,6 +7,8 @@ import NoTask from './Components/NoTask.jsx';
 import CalcPage from './Components/CalcPage.jsx'
 import './App.css'
 import Task from './Components/Task.jsx';
+import NavCalc from './Components/NavCalc.jsx';
+import NavText from './Components/NavText.jsx';
 
 function App() {
 
@@ -18,6 +20,11 @@ function App() {
   const [ namePage, setNamePage ] = useState(pages.length > 0 ? pages[0].namePage : '') // toma el nombre d la pagina que se quiere ver
   const [ enterNamePage, setEnterNamePage ] = useState('');
   const [ inputTask, setInputTask ] = useState(''); // texto de la tarea
+  const [ inputCalc, setInputCalc ] = useState({
+    text:'',
+    cant:'',
+    precioU:''
+  })
   const [ pageRepeat, setPageRepeat ] = useState(false);
   const [ textOrCalc, setTextOrCalc ] = useState(null)
   const [ confirm, setConfirm ] = useState(false)
@@ -67,6 +74,42 @@ function App() {
       setInputTask('')
     };
 
+    const addNewCalcTask = (e) => {
+      e.preventDefault()
+      if(edit){ // si edit es true edita la tarea
+        setPages((prevPages) => {      
+          return prevPages.map((page) => ({
+            ...page, // Copiar el objeto de página
+            tareas: page.tareas.map((tarea) => {
+              if (tarea.id === $id) {
+                return { ...tarea, text: inputCalc.text, cant: inputCalc.cant, precioU:inputCalc.precioU };
+              }
+              return tarea; // Si no coincide, devolver la tarea sin cambios
+            }),
+          }));
+        });
+        setEdit(false);
+      }else{ // si no, crea una nueva tarea
+        let algo = pages.find(e => e.namePage == namePage[0].toUpperCase() + namePage.slice(1))
+        console.log('nueva tarea crear', algo)
+        setPages((prevPages) =>
+          prevPages.map((page) => {
+            if (page.namePage === namePage[0].toUpperCase() + namePage.slice(1)) {
+              // Crear un nuevo array de tareas
+              const newTasks = [...page.tareas, { id: Date.now(), text: inputCalc.text, cant: inputCalc.cant, precioU:inputCalc.precioU, checked: false }];
+              return { ...page, tareas: newTasks }; // Retornar la pagina actualizada.
+            }
+            return page; // Retornar las demas paginas sin cambios.
+          })
+        ); 
+      }   
+        setInputCalc({
+          text:'',
+          cant:'',
+          precioU:''
+        })
+      };
+
     const onDelete = () => {
       let cantPages = document.querySelectorAll('.checked-task');
       let tiene = [...cantPages].find(e => e.checked === true);
@@ -75,15 +118,14 @@ function App() {
         setTaskOrPage('task')
       }else{
         setCantChecked(true)
-      }
-      
+      }      
     }
     
     // Elimina las tareas seleccionadas.
     const deleteTask = () => {
         setPages((prevPages) =>
         prevPages.map((page) => {
-          if (page.namePage === namePage) {
+          if (page.namePage === namePage[0].toUpperCase() + namePage.slice(1)) {
             // Filtrar las tareas no marcadas
             const newTasks = page.tareas.filter((task) => {
               const taskElement = document.querySelector(`[data-check="${task.id}"]`);
@@ -120,6 +162,24 @@ function App() {
     e.tareas.filter(t => {
       if(parseInt(t.id) === $id){
         setInputTask(t.task)
+      }
+    })
+   })
+  };
+
+  // Edita una tarea de calculo.
+  const editCalcTask  = (id) => {
+    setEdit(true)
+    const $id = parseInt(id.currentTarget.dataset.id)
+    set$id($id)
+    pages.filter(e => {
+    e.tareas.filter(t => {
+      if(parseInt(t.id) === $id){
+        setInputCalc({
+          text: t.text,
+          cant: t.cant,
+          precioU: t.precioU
+        })
       }
     })
    })
@@ -185,7 +245,6 @@ const createNewPage = (e) => {
       setPageRepeat(true)
     }
   }else{
-    console.log('crea una pagina de calculo');
     if(!nameRepeat){
       let newPage = {
         type: 'calc',
@@ -205,7 +264,6 @@ const createNewPage = (e) => {
  
 };
 
-
   // Menu en los botones de pagina
 const menuBtnPage = (e) => {
   let $target = e.currentTarget.parentElement.textContent; // toma el texto del boton
@@ -217,21 +275,21 @@ const menuBtnPage = (e) => {
 }
   return (
     <section className="container-app">
-
       { cantChecked && <NoTask 
         setCantChecked={setCantChecked}
       />}
 
       { 
-        /* Cartil de confirm */
+        /* Cartel de confirm */
         confirm && <Confirm 
         setConfirm={setConfirm}
         deleteTask={deleteTask}
         taskOrPage={taskOrPage}
         />
       }
-          { /* Crear nueva pagina */ }
+           
       { 
+        /* Crear nueva pagina */
         formNewPage && <NewPage 
         createNewPage={createNewPage}
         setEnterNamePage={setEnterNamePage}
@@ -298,24 +356,16 @@ const menuBtnPage = (e) => {
 
         { /* Mostrar las tareas */ }
         <main className="lista-main">
-          { <Task selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask}/>}
-          { /*<CalcPage selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask} />*/}
-          
+          {selectPage?.type === 'list' && <Task selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask}/>}
+          {selectPage?.type === 'calc' && <CalcPage selectPage={selectPage} taskCompleted={taskCompleted} editCalcTask={editCalcTask}/>} 
         </main>
 
           {/* ingresar nueva tarea */ }
-      <nav className="input-text">   
-        <form onSubmit={addNewTask}>
-          <input type="text" name="nuevoTexto" className="nuevoTexto"  value={inputTask} placeholder="Ingrese nueva tarea..." onChange={(e) => {setInputTask(e.target.value)}} autoFocus/>
-          <label>
-          <input type="submit" name="new-task" value="" className="btn-input-submit"/>
-          <div className="btn btn-add-task">
-          { edit ?  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z"/></svg> : <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>}
-          </div>
-          <input type="hidden" id="edit-id" />
-          </label>
-        </form>
-      </nav> 
+          { selectPage?.type === 'list' ? 
+            <NavText inputTask={inputTask} setInputTask={setInputTask} addNewTask={addNewTask}/>
+            :
+            <NavCalc addNewTask={addNewTask} setInputCalc={setInputCalc} inputCalc={inputCalc} edit={edit} addNewCalcTask={addNewCalcTask}/>
+          }
     </section>
   )
 }
