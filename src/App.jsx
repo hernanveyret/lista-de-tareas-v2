@@ -75,6 +75,24 @@ function App() {
       setInputTask('')
     };
 
+
+useEffect(() => {
+  let isNum = inputCalc.cant
+  let isNumP = inputCalc.precioU  
+  if (!isNaN(isNum)){
+    console.log('es numero')
+  }else{
+    console.log('no es numero')
+  }
+
+  if (!isNaN(isNumP)){
+    console.log('es numero')
+  }else{
+    console.log('no es numero')
+  }
+
+},[inputCalc.cant,inputCalc.precioU])
+
     const addNewCalcTask = (e) => {
       e.preventDefault()
       if(edit){ // si edit es true edita la tarea
@@ -95,7 +113,7 @@ function App() {
           prevPages.map((page) => {
             if (page.namePage === namePage[0].toUpperCase() + namePage.slice(1)) {
               // Crear un nuevo array de tareas
-              const newTasks = [...page.tareas, { id: Date.now(), text: inputCalc.text, cant: inputCalc.cant, precioU:inputCalc.precioU, checked: false }];
+              const newTasks = [...page.tareas, { id: Date.now(), text: inputCalc.text, cant: inputCalc.cant || 0, precioU:inputCalc.precioU || 0, checked: false }];
               return { ...page, tareas: newTasks }; // Retornar la pagina actualizada.
             }
             return page; // Retornar las demas paginas sin cambios.
