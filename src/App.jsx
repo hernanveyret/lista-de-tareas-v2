@@ -9,6 +9,7 @@ import './App.css'
 import Task from './Components/Task.jsx';
 import NavCalc from './Components/NavCalc.jsx';
 import NavText from './Components/NavText.jsx';
+import TotalBar from './Components/TotalBar.jsx';
 
 function App() {
 
@@ -358,6 +359,7 @@ const menuBtnPage = (e) => {
         <main className="lista-main">
           {selectPage?.type === 'list' && <Task selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask}/>}
           {selectPage?.type === 'calc' && <CalcPage selectPage={selectPage} taskCompleted={taskCompleted} editCalcTask={editCalcTask}/>} 
+          {selectPage?.type === 'calc' && <TotalBar selectPage={selectPage}/>}
         </main>
 
           {/* ingresar nueva tarea */ }

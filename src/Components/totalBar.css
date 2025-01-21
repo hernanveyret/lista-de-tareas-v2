@@ -1,0 +1,9 @@
+.containerTotal {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgb(0, 238, 255),#1294a5);
+  gap: 2rem;
+}
