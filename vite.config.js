@@ -9,7 +9,7 @@ export default defineConfig({
       registerType:'autoUpdate',
       manifest:{
         name:'Lista de tareas',
-        short_name:'LTA',
+        short_name:'Lista de tareas',
         description:'Sistema para generar listas de tareas',
         theme_color:'#FFFFFF',
         background_color:'#FFFFFF',
