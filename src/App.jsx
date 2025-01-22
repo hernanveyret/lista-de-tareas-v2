@@ -387,7 +387,7 @@ const menuBtnPage = (e) => {
 
           {/* ingresar nueva tarea */ }
           { selectPage?.type === 'list' ? 
-            <NavText inputTask={inputTask} setInputTask={setInputTask} addNewTask={addNewTask}/>
+            <NavText inputTask={inputTask} setInputTask={setInputTask} addNewTask={addNewTask} edit={edit}/>
             :
             <NavCalc addNewTask={addNewTask} setInputCalc={setInputCalc} inputCalc={inputCalc} edit={edit} addNewCalcTask={addNewCalcTask}/>
           }
