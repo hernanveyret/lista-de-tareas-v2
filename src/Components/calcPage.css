@@ -9,15 +9,13 @@
   padding: 10px 15px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  flex-wrap: wrap; /* Ensures content wraps */
+  flex-wrap: wrap; 
 }
 
-/* Checkbox */
 .checkbox {
   border: 2px solid red;
 }
 
-/* Text */
 .text {
   flex: 1;
   word-wrap: break-word; 
@@ -26,7 +24,6 @@
   color: black;
 }
 
-/* Number input */
 .number-input {
   width: 40px;
   padding: 5px;
@@ -37,7 +34,6 @@
   text-align: center;
 }
 
-/* Price box */
 .price-box {
   display: flex;
   flex-direction: column;
@@ -58,7 +54,6 @@
   color: black;
 }
 
-/* Buttons */
 .button {
   border: none;
   border-radius: 3px;

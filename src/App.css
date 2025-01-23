@@ -24,6 +24,8 @@ nav {
 .menuNav {
   position: sticky;
   top: 0;
+  z-index: 10002;
+  box-shadow: 3px 3px 4px black;
 }
 .checkTodos{
   margin: 0 10px;
@@ -44,7 +46,7 @@ input[type="checkbox"] {
   margin-right: 10px;
 }
 .nav-add-page {
-  width: 90%;
+  width: 85%;
   min-height: 45px;
   color: white;
   border-radius: 0.30rem;
@@ -125,26 +127,7 @@ form {
   width: 80%;
   height: auto;  
 } 
-/*
-.calcContenedor {
-  background: linear-gradient(rgb(0, 238, 255),#1294a5);
-  color: black;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  min-height: 50px;
-  border-radius: 0.30rem;
-  margin-top: 5px;
-  word-wrap: break-word;
-  border: 3px solid black;
-}
 
-.calcContenedor div{
-  width: 80%;
-  height: auto;  
-}
-*/
 .not-tasks {
   color: white;
   text-align: center;
@@ -155,8 +138,11 @@ form {
 }
 
 @media screen and (min-width: 1024px){
-  main, nav, .nav-add-page {
+  main, nav  {
     width:50%;
+  }
+  .nav-add-page {
+    width: 49%;
   }
   b p {
     margin-right: 5px;

@@ -154,7 +154,12 @@ useEffect(() => {
           return page; // Retornar las otras paginas sin cambios
         })
       );     
-      setConfirm(false)    
+      setConfirm(false)
+      const $checkAll = document.querySelector('.checkTodos');
+      if($checkAll){
+        $checkAll.checked = false
+      }
+      
     };
     
     // Selecciona todas las tareas
@@ -169,6 +174,7 @@ useEffect(() => {
         c.checked = $checkAll.checked        
       })
     }
+
   },[check])
 
   // Edita una tarea.
