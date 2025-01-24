@@ -13,7 +13,7 @@ const $totalImporte = total.reduce((e,i) => e + i, 0);
   return (
     <div className="containerTotal">
       <p>Cant Total: {$totalProductos}</p>
-      <p>Total: $ {$totalImporte}</p>
+      <p>Total: {$totalImporte.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
     </div>
   )
 }

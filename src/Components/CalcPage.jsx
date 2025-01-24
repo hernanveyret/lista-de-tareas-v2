@@ -20,8 +20,8 @@ const CalcPage = ({selectPage, taskCompleted, editCalcTask }) => {
               {task.cant}
             </span>
             <div className="price-box">
-              <span className="price">$ {task.precioU}</span>
-              <span className="value">$ {task.precioU * task.cant}</span>
+              <span className="price">{parseFloat(task.precioU).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</span>
+              <span className="value">{(task.precioU * task.cant).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</span>
             </div>
             <button className="button delete" data-id={task.id} onClick={taskCompleted}>
               {task.checked === false ? (

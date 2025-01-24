@@ -80,6 +80,8 @@ function App() {
 useEffect(() => {
   let isNum = inputCalc.cant
   let isNumP = inputCalc.precioU  
+
+  /*
   if (!isNaN(isNum)){
     console.log('es numero')
   }else{
@@ -91,6 +93,13 @@ useEffect(() => {
   }else{
     console.log('no es numero')
   }
+*/
+if(/^\d*$/.test(isNum)){//determina si no es numero o el campo esta vacio
+  console.log('es numero')
+  
+}else{
+  console.log('no es numero o el campo esta vacio')
+}
 
 },[inputCalc.cant,inputCalc.precioU])
 
