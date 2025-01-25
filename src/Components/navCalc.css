@@ -8,6 +8,7 @@
   background: linear-gradient(rgb(0, 238, 255),#1294a5);
   color: black;
   font-size: 1rem;
+  position: relative;
 }
 .input-text input {
   border: none;
@@ -25,6 +26,22 @@
   margin: 2px 2px;
   text-align: center;
   width: 80px;
+}
+
+.desactive-valid-num {
+  display: none;
+}
+
+.active-valid-num {
+  display: block;
+  color: red;
+  position: absolute;
+  top:25%;
+  left: 25%;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 3px 3px 4px black;
+  border-radius: 5px;
 }
 
 @media screen and (min-width: 1024px){

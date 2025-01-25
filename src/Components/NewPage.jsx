@@ -3,10 +3,12 @@ import './newPage.css'
 
 const NewPage = ({createNewPage,setEnterNamePage,enterNamePage,pageRepeat,setFormNewPage}) => {
 
+  
+
   return (
     <div className='container-new-page'>
       <section className="section">
-      <button className="btn clase-create-page" onClick={() => setFormNewPage(false)}>
+      <button className="btn close-create-page" onClick={() => setFormNewPage(false)}>
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
       </button>
         { pageRepeat ?  <h3 style={{color:"red", textShadow:"2px 2px 3px black"}}>* El nombre ya existe</h3>:<h3>Ingrese nombre de página</h3>}

@@ -77,32 +77,6 @@ function App() {
     };
 
 
-useEffect(() => {
-  let isNum = inputCalc.cant
-  let isNumP = inputCalc.precioU  
-
-  /*
-  if (!isNaN(isNum)){
-    console.log('es numero')
-  }else{
-    console.log('no es numero')
-  }
-
-  if (!isNaN(isNumP)){
-    console.log('es numero')
-  }else{
-    console.log('no es numero')
-  }
-*/
-if(/^\d*$/.test(isNum)){//determina si no es numero o el campo esta vacio
-  console.log('es numero')
-  
-}else{
-  console.log('no es numero o el campo esta vacio')
-}
-
-},[inputCalc.cant,inputCalc.precioU])
-
     const addNewCalcTask = (e) => {
       e.preventDefault()
       if(edit){ // si edit es true edita la tarea
@@ -395,8 +369,7 @@ const menuBtnPage = (e) => {
         { /* Mostrar las tareas */ }
         <main className="lista-main">
           {selectPage?.type === 'list' && <Task selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask}/>}
-          {selectPage?.type === 'calc' && <CalcPage selectPage={selectPage} taskCompleted={taskCompleted} editCalcTask={editCalcTask}/>}
-          
+          {selectPage?.type === 'calc' && <CalcPage selectPage={selectPage} taskCompleted={taskCompleted} editCalcTask={editCalcTask}/>}          
           {selectPage?.type === 'calc' && <TotalBar selectPage={selectPage}/>}
         </main>
 

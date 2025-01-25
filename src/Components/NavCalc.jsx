@@ -1,7 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './navCalc.css'
 
 const NavCalc = ({ setInputCalc, inputCalc, edit, addNewCalcTask }) => {
+  const activeRef = useRef(null)
+
+  const detectType = (value, inputName) => { 
+    if(inputName === 'cant'){
+      if(!isNaN(value)){
+        setInputCalc({...inputCalc, cant: value})
+      }else{
+        activeRef.current.classList.add('active-valid-num')
+        setTimeout(() => {
+          activeRef.current.classList.remove('active-valid-num')
+        },3000)
+      }
+    }else{
+      if(!isNaN(value)){
+        console.log('es numero')
+        setInputCalc({...inputCalc, precioU: value})
+      }else{
+        console.log('no es numero')
+        activeRef.current.classList.add('active-valid-num')
+        setTimeout(() => {
+          activeRef.current.classList.remove('active-valid-num')
+        },3000)
+      }
+    }
+  }
+
   return (
     <section className="input-text">
       <form onSubmit={addNewCalcTask}>
@@ -18,22 +44,23 @@ const NavCalc = ({ setInputCalc, inputCalc, edit, addNewCalcTask }) => {
         />
         <input 
           type="text"
-          name="nuevaCant"
+          name="cant"
           className="nuevaCant"
           value={inputCalc.cant || ''}
           placeholder="Cant."
           onChange={(e) =>
-            setInputCalc({ ...inputCalc, cant: e.target.value })
+            detectType( e.target.value, e.target.name )
           }
         />
+        <p className="desactive-valid-num" ref={activeRef}>*Ingrese un número válido</p>
         <input
           type="text"
-          name="nuevoPrecio"
+          name="precio"
           className="nuevoPrecio"
           value={inputCalc.precioU || ''}
           placeholder="Precio"
           onChange={(e) =>
-            setInputCalc({ ...inputCalc, precioU: e.target.value })
+            detectType( e.target.value, e.target.name )
           }
         />
         <label>

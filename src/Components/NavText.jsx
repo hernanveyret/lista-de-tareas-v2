@@ -1,7 +1,7 @@
 import React,{ useState } from 'react';
 
 const NavText = ({addNewTask,inputTask, setInputTask, edit}) => {
-  console.log(edit)
+  
   return (
     <nav className="input-text">   
               <form onSubmit={addNewTask}>
