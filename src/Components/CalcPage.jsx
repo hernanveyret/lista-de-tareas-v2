@@ -60,7 +60,7 @@ const CalcPage = ({selectPage, taskCompleted, editCalcTask }) => {
           </div>
         ))
       ) : (
-        <p className="not-tasks">No hay tareas para esta página</p>
+        <p className="not-tasks">No hay compras para esta página</p>
       )}
     </div>
   );
