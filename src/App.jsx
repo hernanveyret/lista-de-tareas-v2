@@ -64,7 +64,9 @@ function App() {
     }else{ // si no, crea una nueva tarea
       setPages((prevPages) =>
         prevPages.map((page) => {
-          if (page.namePage === namePage[0].toUpperCase() + namePage.slice(1)) {
+          //let name = namePage[0].toUpperCase() + namePage.slice(1)
+          let name = String(namePage)[0].toUpperCase() + String(namePage).slice(1)
+          if (page.namePage === name) {
             // Crear un nuevo array de tareas
             const newTasks = [...page.tareas, { id: Date.now(), task: inputTask, checked: false }];
             return { ...page, tareas: newTasks }; // Retornar la pagina actualizada.
@@ -233,9 +235,11 @@ function App() {
 
 // Crea una nueva pagina para ingresar tareas.
 const createNewPage = (e) => {
-  e.preventDefault();  
-  let nameRepeat = pages.find(e => e.namePage === enterNamePage[0].toUpperCase() + enterNamePage.slice(1))
+  e.preventDefault();    
+  let checkName = enterNamePage ? String(enterNamePage)[0].toUpperCase() + String(enterNamePage).slice(1) : "";
+  let nameRepeat = pages.find(e => e.namePage === checkName)
   if(textOrCalc){
+
     if(!nameRepeat){
       let newPage = {
         type:'list',
@@ -251,7 +255,9 @@ const createNewPage = (e) => {
       setEnterNamePage('')
       setPageRepeat(true)
     }
+
   }else{
+
     if(!nameRepeat){
       let newPage = {
         type: 'calc',

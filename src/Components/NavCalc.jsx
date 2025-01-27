@@ -16,10 +16,8 @@ const NavCalc = ({ setInputCalc, inputCalc, edit, addNewCalcTask }) => {
       }
     }else{
       if(!isNaN(value)){
-        console.log('es numero')
         setInputCalc({...inputCalc, precioU: value})
       }else{
-        console.log('no es numero')
         activeRef.current.classList.add('active-valid-num')
         setTimeout(() => {
           activeRef.current.classList.remove('active-valid-num')

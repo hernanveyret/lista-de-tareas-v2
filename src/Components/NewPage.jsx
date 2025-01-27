@@ -3,8 +3,6 @@ import './newPage.css'
 
 const NewPage = ({createNewPage,setEnterNamePage,enterNamePage,pageRepeat,setFormNewPage}) => {
 
-  
-
   return (
     <div className='container-new-page'>
       <section className="section">
