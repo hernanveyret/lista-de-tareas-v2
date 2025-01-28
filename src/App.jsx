@@ -64,7 +64,6 @@ function App() {
     }else{ // si no, crea una nueva tarea
       setPages((prevPages) =>
         prevPages.map((page) => {
-          //let name = namePage[0].toUpperCase() + namePage.slice(1)
           let name = String(namePage)[0].toUpperCase() + String(namePage).slice(1)
           if (page.namePage === name) {
             // Crear un nuevo array de tareas
@@ -246,7 +245,7 @@ const createNewPage = (e) => {
         namePage: enterNamePage === '' ? `Página ${pages.length + 1}` : enterNamePage[0].toUpperCase() + enterNamePage.slice(1),
         tareas: []
       };
-      setNamePage(enterNamePage)
+      setNamePage(enterNamePage ? enterNamePage : newPage.namePage)
       setPages([...pages, newPage])
       setFormNewPage(false);
       setPageRepeat(false);
@@ -264,7 +263,7 @@ const createNewPage = (e) => {
         namePage: enterNamePage === '' ? `Página ${pages.length + 1}` : enterNamePage[0].toUpperCase() + enterNamePage.slice(1),
         tareas: []
       };
-      setNamePage(enterNamePage)
+      setNamePage(enterNamePage ? enterNamePage : newPage.namePage)
       setPages([...pages, newPage])
       setFormNewPage(false);
       setPageRepeat(false);
