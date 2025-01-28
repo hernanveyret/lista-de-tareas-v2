@@ -22,9 +22,11 @@ const [ $renamePage, set$RenamePage ] = useState(false);
     setConfirm(false)
   }
 
+
+
   return (
     <div className="container-menu-btn">
-      { confirm && <Confirm setConfirm={setConfirm} taskOrPage={taskOrPage} deletePage={deletePage}/>}
+      { confirm && <Confirm setConfirm={setConfirm} taskOrPage={taskOrPage} deletePage={deletePage} onMenuBtn={onMenuBtn.target}/>}
       <div className="container-btn">
         <button onClick={() => setConfirm(true)}>Eliminar</button>
         <button onClick={() => { set$RenamePage(true)}}>Renombrar</button>
