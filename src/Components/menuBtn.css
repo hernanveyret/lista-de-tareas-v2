@@ -26,14 +26,16 @@
   box-shadow: 3px 3px 4px black;
   color: white;
 }
-
 .container-btn button:nth-child(1){
-  background-color: #e63946;
+  background-color: #80b918;
 }
 .container-btn button:nth-child(2){
-  background-color: #457b9d;
+  background-color: #e63946;
 }
 .container-btn button:nth-child(3){
+  background-color: #457b9d;
+}
+.container-btn button:nth-child(4){
   background-color: #adb5bd;
 }
 @keyframes animacion {

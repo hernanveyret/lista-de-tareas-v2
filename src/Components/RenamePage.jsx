@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from 'react';
 
-const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn}) => {
+const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn, setNamePage}) => {
   const [ inputText, setInputText ] = useState('');  
   const [ onRepeatName, setOnRepeatName ] = useState(false)
 
   const editPages = (e) => {
     e.preventDefault()
-    let nameRepeat = pages.find(e => e.namePage === inputText)
+    let editName = inputText ? String(inputText)[0].toUpperCase() + String(inputText).slice(1) : `Pagina ${pages.length + 1}`
+    let nameRepeat = pages.find(e => e.namePage === editName)
     if(!nameRepeat){
       setPages((prevPages) =>
         prevPages.map((page) =>
           page.namePage === onMenuBtn.target
-            ? { ...page, namePage: inputText }
+            ? { ...page, namePage: editName }
             : page
         )
       );
       setOnMenuBtn({ onoff: false, target: '' });
       set$RenamePage(false);
+
     }else{
       setOnRepeatName(true)
       setInputText('')
     }
-      
+      setNamePage(editName)
    }
 
   return (
