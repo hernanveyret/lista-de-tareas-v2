@@ -49,6 +49,7 @@ input[type="checkbox"] {
 .btn-delete {
   margin-right: 10px;
 }
+
 .nav-add-page {
   width: 85%;
   min-height: 45px;
@@ -62,6 +63,7 @@ input[type="checkbox"] {
   gap: 3px;
   position: sticky;
   top: 45px;
+  z-index: 1001;
 }
 .btn-add-page {
   background: rgb(0, 174, 255);

@@ -1,0 +1,67 @@
+.containerAlmanac {
+  width: 100%;
+  height: 100vh;
+  position:fixed;
+  top: 0;
+  background-color: rgba(128, 128, 128, 0.493);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10003;
+}
+.alamanaque {
+  width: 90%;
+  border-radius: .075rem;
+  box-shadow: 3px 3px 4px black;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.caption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  background: linear-gradient(rgb(0, 238, 255),#1294a5);
+  padding: 1rem 0;
+}
+table {
+  border-radius: .5rem;
+  padding: .7rem;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+}
+.btn-close-alamanac {
+  padding: .7rem;
+}
+td {
+  box-sizing: border-box;
+}
+.btn-mes {
+  border: none;
+  background: transparent;
+  margin: 0 1rem;
+  position: absolute;
+}
+.btn-prev {
+  left: 0;
+}
+.btn-next {
+  right: 0;
+}
+.msj-hs {
+  margin-top: 1rem;
+}
+@media screen and ( min-width: 37em) {
+  table {
+    height: 50vh;
+  }
+  .containerAlmanac {
+    height: 80%;
+  }
+}

@@ -10,6 +10,7 @@ import Task from './Components/Task.jsx';
 import NavCalc from './Components/NavCalc.jsx';
 import NavText from './Components/NavText.jsx';
 import TotalBar from './Components/TotalBar.jsx';
+import Almanac from './Components/Almanac.jsx';
 
 
 function App() {
@@ -39,6 +40,8 @@ function App() {
     onoff: false,
     target: ''
   })
+  const [ onAlmanac, setOnAlmanac ] = useState(false)
+
   // Guarda en localStorage todos los datos , cada vez que cambia algo en pages.
   useEffect(() => {
     let newPages = pages
@@ -287,6 +290,11 @@ const menuBtnPage = (e) => {
 }
   return (
     <section className="container-app">
+      {
+        onAlmanac && <Almanac 
+        setOnAlmanac={setOnAlmanac}
+        />
+      }
       { cantChecked && <NoTask 
         setCantChecked={setCantChecked}
       />}
@@ -343,15 +351,19 @@ const menuBtnPage = (e) => {
               height="24px" 
               viewBox="0 -960 960 960"
               width="24px" 
-              fill="#000000">
+              fill="#000000"
+              >
                 <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640H447l-80-80H160v480l96-320h684L837-217q-8 26-29.5 41.5T760-160H160Zm84-80h516l72-240H316l-72 240Zm0 0 72-240-72 240Zm-84-400v-80 80Z"/>
             </svg>
           </button>
-          <button title="Almanaque" className="btn">
+          <button title="Almanaque" className="btn" onClick={() => { setOnAlmanac(true)}}>
           <svg xmlns="http://www.w3.org/2000/svg" 
           height="24px" 
           viewBox="0 -960 960 960" 
-          width="24px" fill="#000000">
+          width="24px" 
+          fill="#000000"
+
+          >
             <path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/>
           </svg>
         </button>
