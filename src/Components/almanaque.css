@@ -6,17 +6,21 @@
   background-color: rgba(128, 128, 128, 0.493);
   display: flex;
   justify-content: center;
-  align-items: center;
+  
   z-index: 10003;
 }
 .alamanaque {
   width: 90%;
-  border-radius: .075rem;
+  height: 290px;
+  border-radius: .75rem;
   box-shadow: 3px 3px 4px black;
   background-color: white;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
+  transform: translateY(-150px);
+  animation: animacion .5s ease;
+  animation-fill-mode: forwards;
 }
 .caption {
   display: flex;
@@ -57,11 +61,27 @@ td {
 .msj-hs {
   margin-top: 1rem;
 }
-@media screen and ( min-width: 37em) {
-  table {
-    height: 50vh;
+.toDay {
+  background-color: #1294a5;
+}
+@media screen and (min-width: 1024px){
+ .alamanaque {
+  width: 70%;
+  height: 80%;
+ }
+ table {
+  height: 80%;
+ }
+ td {
+  border: thin solid rgb(155, 153, 153);
+ }
+ 
+ @keyframes animacion {
+  0% {
+    transform: translateY(0);
   }
-  .containerAlmanac {
-    height: 80%;
+  100% {
+    transform: translateY(15%);
   }
+ }
 }

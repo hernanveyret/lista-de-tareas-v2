@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './almanaque.css';
 
 
@@ -21,6 +21,7 @@ const Almanac = ({setOnAlmanac}) => {
   ]
 
   const [day, setDay] = useState(fecha.getDate()); // dia en numero.
+  const [toDay, setToDay ] = useState(fecha.getDay());
   const [dayString, setDayString] = useState(fecha.toLocaleString('es-ES', {weekday: 'long'}));
   const [month, setMonth] = useState(fecha.getMonth()); // mes en numero.
   const [monthString, setMonthString] = useState(meses.find(m => m.id === month).mes)
@@ -36,23 +37,18 @@ const Almanac = ({setOnAlmanac}) => {
     // Mes anterior
     const handlePrev = () => {
       month === 0 ? setMonth(0) : setMonth(month - 1);
-      console.log('mes anterior')
     }
       //Mes siguiente
   const handleNext = () => {
     month === 11 ? setMonth(11) : setMonth(month + 1);
-    console.log('mes siguiente')
   }
-    // Selecciona el dia en el almanaque por mes.
-  // el metodo trim() elimina los espacios vacios de lo que traiga el target
-  const handleDay = (e) => {
-    let textContent = e.currentTarget.textContent.trim();
-    if (textContent !== '') {
-      textContent = parseInt(textContent)
-      setDay(textContent)
-    }
-  };
-
+  // recalcula los estados para pasar o volver de mes.
+  useEffect(() => {
+    setCantDiasMes(new Date(year, month + 1, 0).getDate()); 
+    setCeldasVacias(new Date(year, month, 1).getDay());
+    setMonthString(meses.find(m => m.id === month).mes);
+  }, [month, year]); 
+  
   // crea un array con la cantidad de dias que tiene el mes actual.
   for(let i=1; i <= cantDiasMes; i++){
     days.push(i)
@@ -60,27 +56,26 @@ const Almanac = ({setOnAlmanac}) => {
 
   // agrega las celdas vacias
   for (let i=1; i <= celdasVacias; i++){
-    cells.push(<td key={`vacias-${i}`} onClick={handleDay}></td>)
+    cells.push(<td key={`vacias-${i}`}></td>)
   }
   // Crea la primera fila con las vacias y las que tienen numero.
   for(let i=1; i<= 7-celdasVacias; i++){
     diasDelMes++
-    day === diasDelMes ? cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange",borderRadius:"5px", cursor:"pointer"}} onClick={handleDay}>{diasDelMes}</td>) : cells.push(<td key={`day-${diasDelMes}`} onClick={handleDay} style={{cursor:"pointer"}}>{diasDelMes}</td>)
+    day === diasDelMes ? cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange",borderRadius:"5px", cursor:"pointer"}} >{diasDelMes}</td>) : cells.push(<td key={`day-${diasDelMes}`} style={{cursor:"pointer"}}>{diasDelMes}</td>)
   }
     rows.push(<tr key={`row-1`}>{cells}</tr>)
 
-  for(let filas = 1; filas <= 6; filas++){
-    cells = []
-      for(let celdas = 1; celdas <= 7; celdas++){
-        if ( diasDelMes >= cantDiasMes){
-          cells.push(<td key={`empty-${filas}-${celdas}`}></td>);
-      }else{  
+    for(let filas = 1; diasDelMes < cantDiasMes; filas++) {
+      cells = []
+      for(let celdas = 1; celdas <= 7 && diasDelMes < cantDiasMes; celdas++) {
         diasDelMes++
-        day === diasDelMes ? cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange",borderRadius:"5px", cursor:"pointer"}} onClick={handleDay}>{diasDelMes}</td>) : cells.push(<td key={`day-${diasDelMes}`} onClick={handleDay} style={{cursor:"pointer"}}>{diasDelMes}</td>)
-      }
+        day === diasDelMes 
+          ? cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange", borderRadius:"5px", cursor:"pointer"}} >{diasDelMes}</td>) 
+          : cells.push(<td key={`day-${diasDelMes}`}  style={{cursor:"pointer"}}>{diasDelMes}</td>)
       }
       rows.push(<tr key={`row-${filas + 1}`}>{cells}</tr>)
-  }
+    }
+    
 
   return (
     <div className="containerAlmanac">
