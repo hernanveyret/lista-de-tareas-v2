@@ -21,7 +21,7 @@ const Almanac = ({setOnAlmanac}) => {
   ]
 
   const [day, setDay] = useState(fecha.getDate()); // dia en numero.
-  const [toDay, setToDay ] = useState(fecha.getDay());
+  const [toDay, setToDay ] = useState(fecha.getDate());
   const [dayString, setDayString] = useState(fecha.toLocaleString('es-ES', {weekday: 'long'}));
   const [month, setMonth] = useState(fecha.getMonth()); // mes en numero.
   const [monthString, setMonthString] = useState(meses.find(m => m.id === month).mes)
@@ -34,6 +34,10 @@ const Almanac = ({setOnAlmanac}) => {
   let rows = []
   let diasDelMes = 0
 
+  if(cantDiasMes < day ){  
+    setDay(cantDiasMes)
+  }
+
     // Mes anterior
     const handlePrev = () => {
       month === 0 ? setMonth(0) : setMonth(month - 1);
@@ -41,6 +45,7 @@ const Almanac = ({setOnAlmanac}) => {
       //Mes siguiente
   const handleNext = () => {
     month === 11 ? setMonth(11) : setMonth(month + 1);
+  
   }
   // recalcula los estados para pasar o volver de mes.
   useEffect(() => {
@@ -61,7 +66,7 @@ const Almanac = ({setOnAlmanac}) => {
   // Crea la primera fila con las vacias y las que tienen numero.
   for(let i=1; i<= 7-celdasVacias; i++){
     diasDelMes++
-    day === diasDelMes ? cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange",borderRadius:"5px", cursor:"pointer"}} >{diasDelMes}</td>) : cells.push(<td key={`day-${diasDelMes}`} style={{cursor:"pointer"}}>{diasDelMes}</td>)
+    new Date === diasDelMes ? cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange",borderRadius:"5px", cursor:"pointer"}} >{diasDelMes}</td>) : cells.push(<td key={`day-${diasDelMes}`} style={{cursor:"pointer"}}>{diasDelMes}</td>)
   }
     rows.push(<tr key={`row-1`}>{cells}</tr>)
 

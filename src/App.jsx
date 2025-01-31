@@ -11,12 +11,14 @@ import NavCalc from './Components/NavCalc.jsx';
 import NavText from './Components/NavText.jsx';
 import TotalBar from './Components/TotalBar.jsx';
 import Almanac from './Components/Almanac.jsx';
-
+import MenuFolder from './Components/MenuFolder.jsx';
 
 function App() {
 
   let completedTasks = JSON.parse(localStorage.getItem('listaDeTareas'))
-  
+  let taskContainer = JSON.parse(localStorage.getItem('contenedor'))
+
+  const [ container, setContainer ] = useState(taskContainer ? taskContainer : [])
   const [ pages, setPages ] = useState(completedTasks ? completedTasks : []); // base de datos de las tareas
   const [ formNewPage, setFormNewPage ] = useState(false); // planilla para crea nueva pagina.
   const [ selectPage, setSelectPage] = useState (pages ? pages[0] : {namePage:"", tareas:[]});
@@ -41,12 +43,20 @@ function App() {
     target: ''
   })
   const [ onAlmanac, setOnAlmanac ] = useState(false)
+  const [ folder, setFolder ] = useState({
+    openMenu: false
+  })
 
   // Guarda en localStorage todos los datos , cada vez que cambia algo en pages.
   useEffect(() => {
     let newPages = pages
     localStorage.setItem('listaDeTareas', JSON.stringify(newPages))
   },[pages])
+  
+  useEffect(() => {
+    let tareasGuardads = container;
+    localStorage.setItem('contenedor',JSON.stringify(tareasGuardads))
+  },[container])
 
   // agrega la tarea nueva a la pagina que corresponda.
   const addNewTask = (e) => {
@@ -332,7 +342,9 @@ const menuBtnPage = (e) => {
         taskOrPage={taskOrPage}
         confirm={confirm}
         setConfirm={setConfirm}
-        
+        folder={folder}
+        setFolder={setFolder}
+        MenuFolder={MenuFolder}
         />
       }
           { /* Header */ }
@@ -346,7 +358,7 @@ const menuBtnPage = (e) => {
         <label><input type="checkbox" name="checkTodos" className="checkTodos" title="Selecciona todo" onClick={selectAll}/>Todos</label>
         
         <span >
-          <button className="btn" title="Contenedor">
+          <button className="btn" title="Contenedor" onClick={() => {setFolder({...folder, openMenu: true})}}>
             <svg xmlns="http://www.w3.org/2000/svg" 
               height="24px" 
               viewBox="0 -960 960 960"
@@ -362,7 +374,6 @@ const menuBtnPage = (e) => {
           viewBox="0 -960 960 960" 
           width="24px" 
           fill="#000000"
-
           >
             <path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/>
           </svg>
@@ -370,10 +381,11 @@ const menuBtnPage = (e) => {
 
           <button className="btn btn-delete" onClick={onDelete} title="Eliminar">
             <svg xmlns="http://www.w3.org/2000/svg" 
-            height="24px" viewBox="0 -960 960 960" 
-            width="24px" 
-            fill="black">
-            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+              height="24px" viewBox="0 -960 960 960" 
+              width="24px" 
+              fill="black">
+              <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+            </svg>
           </button>
         </span>
       </nav>
@@ -414,6 +426,18 @@ const menuBtnPage = (e) => {
             <NavText inputTask={inputTask} setInputTask={setInputTask} addNewTask={addNewTask} edit={edit}/>
             :
             <NavCalc addNewTask={addNewTask} setInputCalc={setInputCalc} inputCalc={inputCalc} edit={edit} addNewCalcTask={addNewCalcTask}/>
+          }
+
+          {
+            // folders
+            folder.openMenu && <MenuFolder 
+            logo={logo}
+            setFolder={setFolder}
+            onMenuBtn={onMenuBtn}
+            pages={pages}
+            container={container}
+            setContainer={setContainer}
+            />
           }
     </section>
   )

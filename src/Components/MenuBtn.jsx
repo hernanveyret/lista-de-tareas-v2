@@ -3,7 +3,7 @@ import Confirm from './Confirm';
 import RenamePage from './RenamePage';
 
 import './menuBtn.css';
-const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat,setSelectPage,taskOrPage, confirm, setConfirm}) => {
+const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat,setSelectPage,taskOrPage, confirm, setConfirm, setFolder, folder, MenuFolder}) => {
 const [ $renamePage, set$RenamePage ] = useState(false);
 
   const deletePage = () => {
@@ -25,8 +25,14 @@ const [ $renamePage, set$RenamePage ] = useState(false);
   return (
     <div className="container-menu-btn">
       { confirm && <Confirm setConfirm={setConfirm} taskOrPage={taskOrPage} deletePage={deletePage} onMenuBtn={onMenuBtn.target}/>}
+     
       <div className="container-btn">
-        <button >Guardar</button>
+        <button onClick={(e) => 
+          {
+            setFolder({...folder, openMenu: true }) 
+            setOnMenuBtn({onoff:false, target:onMenuBtn.target}) 
+          }
+            } data-name={onMenuBtn.target}>Guardar</button>
         <button onClick={() => setConfirm(true)}>Eliminar</button>
         <button onClick={() => { set$RenamePage(true)}}>Renombrar</button>
         <button onClick={() => {setOnMenuBtn({onoff:false, target:''})}}>Cancelar</button>

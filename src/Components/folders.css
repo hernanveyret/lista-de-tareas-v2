@@ -1,0 +1,27 @@
+nav {
+  width: 90%;
+  height: 45px;
+  display: flex;
+  margin: 0 auto ;
+  margin-top: 5px;
+  border-radius: 0.30rem;
+  background: linear-gradient(rgb(0, 238, 255),#1294a5);
+  color: black;
+  font-size: 1rem;
+  position: relative;
+  
+}
+.container-name {
+  border: 1px solid red;
+  margin-left: 1rem;
+}
+.container-btn-folder {
+  border: 1px solid yellow;
+  margin-right: 1rem;
+  display: flex;
+  gap: .5rem;
+}
+
+@media screen and (min-width: 1024px){
+  
+}
