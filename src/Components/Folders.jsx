@@ -1,14 +1,15 @@
 import React from 'react';
 import './folders.css'
 
-const Folders = ({folder}) => {
+const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, openPage}) => {
+  
   return (
-   <nav key={folder.id}>
+   <nav data-id={folder.id}>
     <span className="container-name">
       <p>{folder.folderName}</p>
     </span>
     <span className="container-btn-folder">
-    <button className='btn'>
+    <button className='btn' onClick={(addToFolder)} data-id={folder.id}>
       <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" 
         viewBox="0 -960 960 960" 
@@ -17,7 +18,7 @@ const Folders = ({folder}) => {
           <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
       </svg>
     </button>
-    <button className='btn'>
+    <button className='btn' onClick={editFolder} data-id={folder.id}>
       <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" 
         viewBox="0 -960 960 960" 
@@ -27,7 +28,7 @@ const Folders = ({folder}) => {
       </svg>
     </button>
     
-    <button className='btn'>
+    <button className='btn' onClick={deleteFolder} data-id={folder.id}>
       <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" viewBox="0 -960 960 960" 
         width="24px" 
@@ -35,7 +36,7 @@ const Folders = ({folder}) => {
         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
       </svg>
     </button>
-    <button className='btn'>
+    <button className='btn' onClick={openPage}>
       <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" 
         viewBox="0 -960 960 960" 

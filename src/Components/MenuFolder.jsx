@@ -10,24 +10,40 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
   const [ onInputFolder, setOnInputFolder ] = useState(false)
 
  let carpeta = pages.find((page) => page.namePage === onMenuBtn.target);
-  console.log(carpeta)
 
-  const addToFolder = () => {
+  console.log('pagina seleccionada: ',carpeta)
+
+  console.log('contenedor: ',container)
+
+  const addToFolder = (e) => {
     console.log('agregar pagina a la carpeta seleccionada')
+    let $target= e.currentTarget
+    let id = $target.dataset.id
+    console.log(id)
   }
 
-  const deleteFolder = () => {
+  const deleteFolder = (e) => {
     console.log('eliminar la carpeta');
+    let $target= e.currentTarget
+    let id = $target.dataset.id
+    console.log(id)
   }
 
-  const deleteTask = () => {
+  const deleteTask = (e) => {
     console.log('elimina tareas')
   }
  
-  const editFolder = () => {
-    console.log('editar nombre de carpeta')
+  const editFolder = (e) => {
+    console.log('editar nombre de carpeta');
+    let $target= e.currentTarget
+    let id = $target.dataset.id
+    console.log(id)
   }
-  
+
+  const openPage = (e) => {
+    console.log('ver tareas')
+  }
+
   return (
     <div className="container-menu-folder">
       { onInputFolder && <NewFolder 
@@ -39,7 +55,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
         <img src={logo} alt="check, logo de la app" />
         <h1>Lista de Tareas</h1>
       </header>
-      <main>      
+      <main className="main">       
         <nav className="nav-btn-folder">
           <button className="btn create-folder" onClick={() => {setOnInputFolder(true)}}>
             <svg xmlns="http://www.w3.org/2000/svg" 
@@ -64,7 +80,13 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
           container.length > 0 ? 
           container.map((folder) => (
             <Folders 
+             key={folder.id}
              folder={folder}
+             addToFolder={addToFolder}
+             editFolder={editFolder}
+             deleteFolder={deleteFolder}
+             deleteTask={deleteTask}
+             openPage={openPage}
             />
           )) 
           :
@@ -72,6 +94,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
         }
       </main>
     </div>
+  
   )
 }
 export default MenuFolder;
