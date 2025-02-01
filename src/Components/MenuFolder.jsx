@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NewFolder from './NewFolder';
 import Folders from './Folders';
 
@@ -11,16 +11,26 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
 
  let carpeta = pages.find((page) => page.namePage === onMenuBtn.target);
 
-  console.log('pagina seleccionada: ',carpeta)
+  //console.log('pagina seleccionada: ',carpeta)
 
-  console.log('contenedor: ',container)
+  //console.log('contenedor: ',container)
 
   const addToFolder = (e) => {
     console.log('agregar pagina a la carpeta seleccionada')
     let $target= e.currentTarget
-    let id = $target.dataset.id
+    let id = parseInt($target.dataset.id)
     console.log(id)
+
+   setContainer((prevContainer) => 
+      prevContainer.map((folder) => 
+        folder.id === id ? { ...folder, tasks: [ ...folder.tasks, carpeta ]} : folder
+      )
+    )
   }
+
+  useEffect(() => {    
+    console.log(container)
+  },[container])
 
   const deleteFolder = (e) => {
     console.log('eliminar la carpeta');
@@ -53,7 +63,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
       />}
       <header>
         <img src={logo} alt="check, logo de la app" />
-        <h1>Lista de Tareas</h1>
+        <h1>Lista de Carpetas</h1>
       </header>
       <main className="main">       
         <nav className="nav-btn-folder">
@@ -94,9 +104,6 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
         }
       </main>
     </div>
-  
   )
 }
 export default MenuFolder;
-
-//<p style={{color: 'white', textAlign:'center', margin:'1rem 0'}}>No hay carpetas creadas</p>
