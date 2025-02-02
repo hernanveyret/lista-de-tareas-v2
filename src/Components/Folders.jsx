@@ -80,6 +80,9 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
              task.tareas.map(tareas => (
               <div className="task">
               <p>{tareas.text || tareas.task}</p>
+              <p>{tareas.cant && tareas.cant }</p>
+              <p>{tareas.precioU && parseFloat(tareas.precioU).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }</p>
+              <p>{tareas.precioU && `Total: ${(parseFloat(tareas.precioU) * parseInt(tareas.cant)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }`}</p>
               <p>
                 {tareas.checked ? 
                   <svg xmlns="http://www.w3.org/2000/svg" 
@@ -110,3 +113,5 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
   )
 }
 export default Folders;
+
+
