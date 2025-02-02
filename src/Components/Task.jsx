@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Task = ({selectPage,taskCompleted,editTask}) => {
+
   return (
     <div>
           { 

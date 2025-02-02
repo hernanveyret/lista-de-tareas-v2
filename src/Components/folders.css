@@ -23,8 +23,26 @@ nav {
   gap: .8rem;
 }
 
+.container-folder-task {
+  color: white;
+  border: 1px solid white;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  background-color: #1A4D6E;
+}
+
+.title {
+  display: flex;
+  gap: 1rem;
+  background-color:rgba(255, 255, 255, 0.1) ;
+}
+.task {
+  display: flex;
+  gap: 1rem;
+}
 @media screen and (min-width: 1024px){
-  nav {
+  nav, .container-folder-task {
     width: 50%;
   }
 }

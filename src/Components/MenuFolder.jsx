@@ -23,14 +23,10 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
 
    setContainer((prevContainer) => 
       prevContainer.map((folder) => 
-        folder.id === id ? { ...folder, tasks: [ ...folder.tasks, carpeta ]} : folder
+        folder.id === id ? { ...folder, tareas: [ ...folder.tareas, carpeta ]} : folder
       )
     )
   }
-
-  useEffect(() => {    
-    console.log(container)
-  },[container])
 
   const deleteFolder = (e) => {
     console.log('eliminar la carpeta');
@@ -98,10 +94,12 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
              deleteTask={deleteTask}
              openPage={openPage}
             />
+            
           )) 
           :
           <p style={{color: 'white', textAlign:'center', margin:'1rem 0'}}>No hay carpetas creadas</p>
         }
+       
       </main>
     </div>
   )

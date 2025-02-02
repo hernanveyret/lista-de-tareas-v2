@@ -10,7 +10,7 @@ const createNewFolder = (e) => {
   console.log("CREAR CARPETA", nombreCarpeta);
   setContainer((prevContainer) => [
     ...prevContainer,
-    { id: Date.now(),folderName: nombreCarpeta, tasks: [] },
+    { id: Date.now(),folderName: nombreCarpeta, tareas: [] },
   ]);
   setOnInputFolder(false); 
 };
