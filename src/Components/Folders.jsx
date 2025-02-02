@@ -79,7 +79,7 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
              {
              task.tareas.map(tareas => (
               <div className="task">
-              <p>{tareas.text}</p>
+              <p>{tareas.text || tareas.task}</p>
               <p>
                 {tareas.checked ? 
                   <svg xmlns="http://www.w3.org/2000/svg" 
