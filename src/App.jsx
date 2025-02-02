@@ -47,7 +47,8 @@ function App() {
     openMenu: false
   })
 
-  localStorage.removeItem("contenedor");
+  //localStorage.removeItem("contenedor");
+
   // Guarda en localStorage todos los datos , cada vez que cambia algo en pages.
   useEffect(() => {
     let newPages = pages
