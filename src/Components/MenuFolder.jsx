@@ -8,6 +8,7 @@ import './menuFolder.css';
 
 const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setContainer}) => {
   const [ onInputFolder, setOnInputFolder ] = useState(false)
+  const [ isOpen, setIsOpen ] = useState(false);
 
  let carpeta = pages.find((page) => page.namePage === onMenuBtn.target);
 
@@ -32,7 +33,9 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
     console.log('eliminar la carpeta');
     let $target= e.currentTarget
     let id = $target.dataset.id
-    console.log(id)
+    setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != id )])
+    //let delFolder = container.filter(folder => folder.id != id )
+    //setContainer(delFolder)
   }
 
   const deleteTask = (e) => {
@@ -48,6 +51,10 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
 
   const openPage = (e) => {
     console.log('ver tareas')
+    let $target= e.currentTarget
+    let id = $target.dataset.id
+    let tarea = document.getElementById(id)
+    tarea.classList.toggle('active')
   }
 
   return (
@@ -93,6 +100,8 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
              deleteFolder={deleteFolder}
              deleteTask={deleteTask}
              openPage={openPage}
+             setIsOpen={setIsOpen}
+             isOpen={isOpen}
             />
             
           )) 

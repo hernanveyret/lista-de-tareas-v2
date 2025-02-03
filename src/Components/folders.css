@@ -24,10 +24,15 @@ nav {
   gap: .8rem;
 }
 
-.container-folder-task {
+
+.container-folder-task  {
+  display: none;
+}
+.active {
+  display: block;
   background-color: white;
   color: black;
-  border-radius: .75rem;
+  border-radius: 0 0 .75rem .75rem;
   padding: 1rem;
   width: 90%;
   height: auto;
