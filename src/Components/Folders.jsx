@@ -3,10 +3,11 @@ import './folders.css'
 
 const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, openPage}) => {
 
-  console.log(folder.tareas)
-  folder.tareas.forEach(e => {
-    console.log(e.namePage)
-  })
+console.log(folder.tareas)
+folder.tareas.forEach(e => {
+  console.log(e.type)
+})
+
   return (
   <>
   <nav data-id={folder.id}>
@@ -55,8 +56,8 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
     <div className="container-folder-task">
     
       {
-        folder.tareas.map(task => (   
-          <div className="list-task">      
+        folder.tareas.map((task,index) => (   
+          <div className="list-task" key={index}>      
             <div className="title">  
               <p>{task.namePage}</p>
               <button className="btn">
@@ -77,12 +78,15 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
               </button>
             </div>
              {
-             task.tareas.map(tareas => (
-              <div className="task">
-              <p style={{fontWeight:'bold'}}>{tareas.text || tareas.task}</p>
-              <p>Cantidad: {tareas.cant && tareas.cant }</p>
-              <p>Precio Unitario: {tareas.precioU && parseFloat(tareas.precioU).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }</p>
-              <p>Total: {tareas.precioU && `Total: ${(parseFloat(tareas.precioU) * parseInt(tareas.cant)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }`}</p>
+             task.tareas.map((tareas, index) => (
+              <div className="task" key={index}>
+                <div className="task-info">
+                  <p style={{fontWeight:'bold'}}>{tareas.text || tareas.task}</p>
+                  { tareas.cant && <p>Cantidad: {tareas.cant }</p> }
+                  { tareas.precioU && <p>Precio U.: {tareas.precioU && parseFloat(tareas.precioU).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }</p>}
+                  <p>{tareas.precioU && `Total: ${(parseFloat(tareas.precioU) * parseInt(tareas.cant)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }`}</p>
+                </div>
+                <div className="task-checked">
               <p>
                 {tareas.checked ? 
                   <svg xmlns="http://www.w3.org/2000/svg" 
@@ -102,6 +106,7 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
                   </svg>
                 }
               </p>
+              </div>
               </div>
              ))
              }         

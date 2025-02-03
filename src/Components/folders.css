@@ -12,6 +12,8 @@ nav {
 }
 .main {
   width: 100%;
+  height: auto;
+  
 }
 .container-name {
   margin-left: 1rem;
@@ -39,11 +41,23 @@ nav {
   border-bottom: 2px solid #1294a5;
   color: #1294a5;
   font-weight: bold;
+  margin-top: 5px;
 }
 .task {
   display: flex;
-  flex-direction: column;
-  
+  border: thin solid grey;
+  margin-top: 5px;
+  border-radius: 8px;
+}
+.task-info {
+  width: 90%;
+  padding: 1rem;;
+}
+.task-checked {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media screen and (min-width: 1024px){
   nav, .container-folder-task {
