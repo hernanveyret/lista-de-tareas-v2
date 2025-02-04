@@ -1,7 +1,7 @@
 import React from 'react';
 import './folders.css'
 
-const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, openPage, isOpen, setIsOpen}) => {
+const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, openPage,restorePage ,isOpen, setIsOpen}) => {
 
   return (
   <>
@@ -45,20 +45,17 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
           width="24px" 
           fill="black">
             <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/>
-        </svg>      
-      
-      
+        </svg>       
     </button>
     </span>
    </nav>
-    <div className="container-folder-task" id={folder.id}>
-    
+    <div className="container-folder-task" id={folder.id}>    
       {
         folder.tareas.map((task,index) => (   
           <div className="list-task" key={index}>      
             <div className="title">  
               <p>{task.namePage}</p>
-              <button className="btn">
+              <button className="btn" title="Retornar a la lista" onClick={restorePage} data-nombre={task.namePage} data-id={folder.id}>
                 <svg xmlns="http://www.w3.org/2000/svg" 
                   height="24px" 
                   viewBox="0 -960 960 960" 
@@ -66,7 +63,7 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
                   fill="#000000">
                     <path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/>
                 </svg></button>
-              <button className="btn">
+              <button className="btn" title="Borrar" onClick={deleteTask} data-nombre={task.namePage} data-id={folder.id}>
                 <svg xmlns="http://www.w3.org/2000/svg" 
                   height="24px" viewBox="0 -960 960 960" 
                   width="24px" 

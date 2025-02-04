@@ -346,7 +346,6 @@ const menuBtnPage = (e) => {
         setConfirm={setConfirm}
         folder={folder}
         setFolder={setFolder}
-        MenuFolder={MenuFolder}
         />
       }
           { /* Header */ }
@@ -436,7 +435,9 @@ const menuBtnPage = (e) => {
             logo={logo}
             setFolder={setFolder}
             onMenuBtn={onMenuBtn}
+            setOnMenuBtn={setOnMenuBtn}
             pages={pages}
+            setPages={setPages}
             container={container}
             setContainer={setContainer}
             />

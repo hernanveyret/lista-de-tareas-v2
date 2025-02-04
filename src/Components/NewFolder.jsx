@@ -7,17 +7,12 @@ const [nombreCarpeta, setNombrecarpeta ] = useState('')
 
 const createNewFolder = (e) => {
   e.preventDefault();
-  console.log("CREAR CARPETA", nombreCarpeta);
   setContainer((prevContainer) => [
     ...prevContainer,
     { id: Date.now(),folderName: nombreCarpeta, tareas: [] },
   ]);
   setOnInputFolder(false); 
 };
-
-useEffect(() => {
-  console.log(container)
-},[container])
 
   return (
     <div className='container-new-folder'>

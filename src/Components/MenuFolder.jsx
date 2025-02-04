@@ -1,45 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import NewFolder from './NewFolder';
 import Folders from './Folders';
+import BannerConfirm from './BannerConfirm';
 
 import './menuFolder.css';
 
 //onClick={() => {createNewFolder(carpeta, container, setContainer)}}
 
-const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setContainer}) => {
+const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer}) => {
   const [ onInputFolder, setOnInputFolder ] = useState(false)
   const [ isOpen, setIsOpen ] = useState(false);
+  const [ mostrarBanner, setMostrarBanner ] = useState(false);
+  const [carpetaSeleccionada, setCarpetaSeleccionada] = useState(null);
 
- let carpeta = pages.find((page) => page.namePage === onMenuBtn.target);
+  let algo = []
+  const [ texto, setTexto ] = useState({
+    text:'',
+    colorFondo:'',
+    colorText:''
+  })
+  
+  useEffect(() => {
+    console.log(pages)
+  },[pages])
 
-  //console.log('pagina seleccionada: ',carpeta)
-
-  //console.log('contenedor: ',container)
+  useEffect(() => {
+    setCarpetaSeleccionada(pages.find((page) => page.namePage === onMenuBtn.target));
+  }, [onMenuBtn, pages]);
 
   const addToFolder = (e) => {
-    console.log('agregar pagina a la carpeta seleccionada')
-    let $target= e.currentTarget
-    let id = parseInt($target.dataset.id)
-    console.log(id)
-
-   setContainer((prevContainer) => 
+    let $target = e.currentTarget;
+    let id = parseInt($target.dataset.id);
+    if (!carpetaSeleccionada) {
+      setTexto({ ...texto, text:'No hay página seleccionada.', colorFondo:'#dc3545', colorText:'white'})
+      setMostrarBanner(true);
+      setTimeout(() => setMostrarBanner(false), 3000);
+      return;
+    }
+  
+    setContainer((prevContainer) => 
       prevContainer.map((folder) => 
-        folder.id === id ? { ...folder, tareas: [ ...folder.tareas, carpeta ]} : folder
+        folder.id === id 
+          ? { ...folder, tareas: [...folder.tareas, carpetaSeleccionada] } 
+          : folder
       )
-    )
-  }
+    );
+
+    setTexto({ ...texto, text:`Se guardo " ${carpetaSeleccionada.namePage} " con exito!`, colorFondo:'#28a745', colorText:'white'})
+    setMostrarBanner(true);
+    setTimeout(() => setMostrarBanner(false), 3000);
+    setPages((prevPages) => [...prevPages.filter(page => page.namePage != carpetaSeleccionada.namePage)])
+    setCarpetaSeleccionada(null);
+    setOnMenuBtn({...onMenuBtn, target:''});
+  };
+  
 
   const deleteFolder = (e) => {
-    console.log('eliminar la carpeta');
     let $target= e.currentTarget
     let id = $target.dataset.id
     setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != id )])
-    //let delFolder = container.filter(folder => folder.id != id )
-    //setContainer(delFolder)
   }
 
   const deleteTask = (e) => {
     console.log('elimina tareas')
+    let $target= e.currentTarget
+    let id = parseInt($target.dataset.id)
+    let nombre = $target.dataset.nombre.trim()
+    console.log(id)
+    console.log(nombre)
+    
+    let algo = container.find(folder => folder.id === id )
+    console.log('container',container)
+    console.log('algo',algo.tareas.find(page => page.namePage === nombre))
+    
+    console.log(container)
   }
  
   const editFolder = (e) => {
@@ -50,15 +84,29 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
   }
 
   const openPage = (e) => {
-    console.log('ver tareas')
     let $target= e.currentTarget
     let id = $target.dataset.id
     let tarea = document.getElementById(id)
     tarea.classList.toggle('active')
   }
 
+  const restorePage = (e) => {
+    console.log('volver la pagina a la lista')
+    let $target = e.currentTarget;
+    let nombreDePagina = $target.dataset.nombre.trim()
+    console.log(nombreDePagina)
+    container.some(folder => {
+      algo = folder.tareas.find(page => page.namePage === nombreDePagina)
+      console.log(algo)      
+    })
+    setPages((prevPages) => [...prevPages, algo ])
+  
+    console.log(container)
+  }
+
   return (
     <div className="container-menu-folder">
+      { mostrarBanner && <BannerConfirm text={texto} />}
       { onInputFolder && <NewFolder 
         setOnInputFolder={setOnInputFolder}
         container={container}
@@ -80,13 +128,13 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
             </svg>
           </button>
           <button onClick={() => setFolder({...folder, openMenu: false})} className="btn btn-close-menu-folder">
-          <svg xmlns="http://www.w3.org/2000/svg" 
-            height="24px" 
-            viewBox="0 -960 960 960" 
-            width="24px" 
-            fill="black">
-              <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-          </svg> 
+            <svg xmlns="http://www.w3.org/2000/svg" 
+              height="24px" 
+              viewBox="0 -960 960 960" 
+              width="24px" 
+              fill="#000000">
+                <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+            </svg>
           </button>
         </nav>
         {
@@ -102,6 +150,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, onMenuBtn, container, setCo
              openPage={openPage}
              setIsOpen={setIsOpen}
              isOpen={isOpen}
+             restorePage={restorePage}
             />
             
           )) 
