@@ -10,7 +10,9 @@
   align-items: center;
   z-index:1002;
 }
-
+.algo {
+  color: red;
+}
 .container-shared-text {
   width: 80%;
   height: auto;

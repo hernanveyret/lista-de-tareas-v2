@@ -2,6 +2,7 @@ import React from 'react';
 import './BannerConfirm.css'
 
 const BannerConfirm = ({text}) => {
+  console.log('hola')
   return (
     <section className="container-shared">
       <div className="container-shared-text" style={{backgroundColor: text.colorFondo, color:text.colorText}}>
