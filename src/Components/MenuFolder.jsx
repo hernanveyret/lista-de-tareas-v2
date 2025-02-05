@@ -4,7 +4,7 @@ import Folders from './Folders';
 import BannerConfirm from './BannerConfirm';
 
 import './menuFolder.css';
-
+console.log('menu folder')
 //onClick={() => {createNewFolder(carpeta, container, setContainer)}}
 
 const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer}) => {
