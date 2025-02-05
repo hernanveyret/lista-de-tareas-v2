@@ -11,7 +11,9 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const [ onInputFolder, setOnInputFolder ] = useState(false)
   const [ isOpen, setIsOpen ] = useState(false);
   const [ mostrarBanner, setMostrarBanner ] = useState(false);
-  const [carpetaSeleccionada, setCarpetaSeleccionada] = useState(null);
+  const [ carpetaSeleccionada, setCarpetaSeleccionada] = useState(null);
+  const [ pageToRestore, setPageToRestore ] = useState(null)
+  const [ nombreDePagina, setNombreDePagina] = useState('')
 
   let algo = []
   const [ texto, setTexto ] = useState({
@@ -21,8 +23,12 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   })
   
   useEffect(() => {
-    console.log(pages)
+    console.log('Paginas: ',pages)
   },[pages])
+
+  useEffect(() => {
+    console.log('contenedor: ',container)
+  },[container])
 
   useEffect(() => {
     setCarpetaSeleccionada(pages.find((page) => page.namePage === onMenuBtn.target));
@@ -93,16 +99,36 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const restorePage = (e) => {
     console.log('volver la pagina a la lista')
     let $target = e.currentTarget;
-    let nombreDePagina = $target.dataset.nombre.trim()
-    console.log(nombreDePagina)
+    let id = parseInt($target.dataset.id)
+    console.log(id)
+    setPageToRestore(container.find(page => page.id === id))
+  
+    console.log(container.find(page => page.id === id))
+    setNombreDePagina($target.dataset.nombre.trim());
+    //console.log(nombreDePagina)
+    /*
     container.some(folder => {
+     
       algo = folder.tareas.find(page => page.namePage === nombreDePagina)
       console.log(algo)      
     })
-    setPages((prevPages) => [...prevPages, algo ])
-  
-    console.log(container)
+*/
+   
+    //setPages((prevPages) => [...prevPages, algo ])
+    
+    //console.log(container)
   }
+
+  useEffect(() => {
+    if(pageToRestore){
+      console.log(pageToRestore)
+      pageToRestore.tareas.forEach(t => {
+        if(t.namePage === nombreDePagina){
+          setPages((prevPages) => [...prevPages, t])
+        }
+      })
+    }
+  },[pageToRestore])
 
   return (
     <div className="container-menu-folder">

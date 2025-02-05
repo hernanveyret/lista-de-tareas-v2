@@ -2,7 +2,7 @@ import React from 'react';
 import './folders.css'
 
 const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, openPage,restorePage ,isOpen, setIsOpen}) => {
-
+  
   return (
   <>
   <nav data-id={folder.id}>
