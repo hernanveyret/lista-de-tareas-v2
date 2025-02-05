@@ -14,8 +14,6 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const [ carpetaSeleccionada, setCarpetaSeleccionada] = useState(null);
   const [ pageToRestore, setPageToRestore ] = useState(null)
   const [ nombreDePagina, setNombreDePagina] = useState('')
-
-  let algo = []
   const [ texto, setTexto ] = useState({
     text:'',
     colorFondo:'',
@@ -23,17 +21,10 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   })
   
   useEffect(() => {
-    console.log('Paginas: ',pages)
-  },[pages])
-
-  useEffect(() => {
-    console.log('contenedor: ',container)
-  },[container])
-
-  useEffect(() => {
     setCarpetaSeleccionada(pages.find((page) => page.namePage === onMenuBtn.target));
   }, [onMenuBtn, pages]);
 
+  // Agrega una lista a la carpeta.
   const addToFolder = (e) => {
     let $target = e.currentTarget;
     let id = parseInt($target.dataset.id);
@@ -60,68 +51,60 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
     setOnMenuBtn({...onMenuBtn, target:''});
   };
   
-
+  // borra una carpeta entera.
   const deleteFolder = (e) => {
     let $target= e.currentTarget
     let id = $target.dataset.id
     setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != id )])
   }
-
+  // borra una tarea de una carpeta.
   const deleteTask = (e) => {
-    console.log('elimina tareas')
-    let $target= e.currentTarget
-    let id = parseInt($target.dataset.id)
-    let nombre = $target.dataset.nombre.trim()
-    console.log(id)
-    console.log(nombre)
-    
-    let algo = container.find(folder => folder.id === id )
-    console.log('container',container)
-    console.log('algo',algo.tareas.find(page => page.namePage === nombre))
-    
-    console.log(container)
-  }
- 
+    console.log('Elimina tareas');
+    let $target = e.currentTarget;
+    let id = parseInt($target.dataset.id);
+    let nombre = $target.dataset.nombre.trim();
+    console.log(id, nombre);
+    let newContainer = container.map((folder) => {
+        if (folder.id === id) {
+            return {
+                ...folder,
+                tareas: folder.tareas.filter((page) => page.namePage !== nombre)
+            };
+        }
+        return folder;
+    });
+    setContainer(newContainer);
+    setTexto({ ...texto, text:`Se borro con exito " ${nombre} "`, colorFondo:'#28a745', colorText:'white'})
+      setMostrarBanner(true);
+      setTimeout(() => setMostrarBanner(false), 3000);
+      return;
+};
+
   const editFolder = (e) => {
     console.log('editar nombre de carpeta');
     let $target= e.currentTarget
     let id = $target.dataset.id
     console.log(id)
   }
-
+  // Abre la carpeta seleccionada.
   const openPage = (e) => {
     let $target= e.currentTarget
     let id = $target.dataset.id
     let tarea = document.getElementById(id)
     tarea.classList.toggle('active')
   }
-
+ // Mueve una tarea a la lista y la elimina de la carpeta.
   const restorePage = (e) => {
     console.log('volver la pagina a la lista')
     let $target = e.currentTarget;
     let id = parseInt($target.dataset.id)
-    console.log(id)
     setPageToRestore(container.find(page => page.id === id))
-  
-    console.log(container.find(page => page.id === id))
     setNombreDePagina($target.dataset.nombre.trim());
-    //console.log(nombreDePagina)
-    /*
-    container.some(folder => {
-     
-      algo = folder.tareas.find(page => page.namePage === nombreDePagina)
-      console.log(algo)      
-    })
-*/
-   
-    //setPages((prevPages) => [...prevPages, algo ])
-    
-    //console.log(container)
+    deleteTask(e)
   }
-
+  // useEffect de restorePage
   useEffect(() => {
     if(pageToRestore){
-      console.log(pageToRestore)
       pageToRestore.tareas.forEach(t => {
         if(t.namePage === nombreDePagina){
           setPages((prevPages) => [...prevPages, t])
@@ -149,7 +132,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
             height="24px" 
             viewBox="0 -960 960 960" 
             width="24px" 
-            fill="#000000">
+            fill="black">
               <path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
             </svg>
           </button>
@@ -158,7 +141,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
               height="24px" 
               viewBox="0 -960 960 960" 
               width="24px" 
-              fill="#000000">
+              fill="black">
                 <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
             </svg>
           </button>
