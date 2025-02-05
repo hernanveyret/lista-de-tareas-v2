@@ -101,6 +101,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
     setPageToRestore(container.find(page => page.id === id))
     setNombreDePagina($target.dataset.nombre.trim());
     deleteTask(e)
+    
   }
   // useEffect de restorePage
   useEffect(() => {

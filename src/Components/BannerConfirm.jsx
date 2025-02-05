@@ -1,5 +1,5 @@
 import React from 'react';
-import './BannerConfirm.css'
+import './bannerConfirm.css'
 
 const BannerConfirm = ({text}) => {
   console.log('hola')
