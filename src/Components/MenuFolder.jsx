@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import NewFolder from './NewFolder';
 import Folders from './Folders';
 import BannerConfirm from './BannerConfirm';
+import RenameFolder from './RanemeFolder';
 
 import './menuFolder.css';
-console.log('menu folder')
-//onClick={() => {createNewFolder(carpeta, container, setContainer)}}
 
 const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer}) => {
   const [ onInputFolder, setOnInputFolder ] = useState(false)
@@ -13,12 +12,25 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const [ mostrarBanner, setMostrarBanner ] = useState(false);
   const [ carpetaSeleccionada, setCarpetaSeleccionada] = useState(null);
   const [ pageToRestore, setPageToRestore ] = useState(null)
-  const [ nombreDePagina, setNombreDePagina] = useState('')
+  const [ nombreDePagina, setNombreDePagina] = useState('');  
+  const [ openRename, setOpenRename ] = useState({
+    onOf:false,
+    id:''
+  })
   const [ texto, setTexto ] = useState({
     text:'',
     colorFondo:'',
     colorText:''
   })
+
+  const editNameFolder = (e) => {
+    let $target = e.currentTarget
+    let id = parseInt($target.dataset.id)
+    setOpenRename({
+      onOf: true,
+      id: id
+    })
+  }
   
   useEffect(() => {
     setCarpetaSeleccionada(pages.find((page) => page.namePage === onMenuBtn.target));
@@ -58,12 +70,10 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
     setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != id )])
   }
   // borra una tarea de una carpeta.
-  const deleteTask = (e) => {
-    console.log('Elimina tareas');
+  const deleteTask = (e,confirmText) => {
     let $target = e.currentTarget;
     let id = parseInt($target.dataset.id);
     let nombre = $target.dataset.nombre.trim();
-    console.log(id, nombre);
     let newContainer = container.map((folder) => {
         if (folder.id === id) {
             return {
@@ -74,18 +84,12 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
         return folder;
     });
     setContainer(newContainer);
-    setTexto({ ...texto, text:`Se borro con exito " ${nombre} "`, colorFondo:'#28a745', colorText:'white'})
+    setTexto({ ...texto, text:`Se ${confirmText} con exito.`, colorFondo:'#28a745', colorText:'white'})
       setMostrarBanner(true);
       setTimeout(() => setMostrarBanner(false), 3000);
-      return;
+      return;    
 };
 
-  const editFolder = (e) => {
-    console.log('editar nombre de carpeta');
-    let $target= e.currentTarget
-    let id = $target.dataset.id
-    console.log(id)
-  }
   // Abre la carpeta seleccionada.
   const openPage = (e) => {
     let $target= e.currentTarget
@@ -95,13 +99,12 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   }
  // Mueve una tarea a la lista y la elimina de la carpeta.
   const restorePage = (e) => {
-    console.log('volver la pagina a la lista')
     let $target = e.currentTarget;
     let id = parseInt($target.dataset.id)
     setPageToRestore(container.find(page => page.id === id))
     setNombreDePagina($target.dataset.nombre.trim());
-    deleteTask(e)
-    
+    deleteTask(e,'movio')
+
   }
   // useEffect de restorePage
   useEffect(() => {
@@ -116,6 +119,12 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
 
   return (
     <div className="container-menu-folder">
+      { openRename.onOf && <RenameFolder 
+        setOpenRename={setOpenRename}
+        openRename={openRename}
+        container={container}
+        setContainer={setContainer}
+      /> }
       { mostrarBanner && <BannerConfirm text={texto} />}
       { onInputFolder && <NewFolder 
         setOnInputFolder={setOnInputFolder}
@@ -154,7 +163,9 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
              key={folder.id}
              folder={folder}
              addToFolder={addToFolder}
-             editFolder={editFolder}
+             setOpenRename={setOpenRename}
+             openRename={openRename}
+             editNameFolder={editNameFolder}
              deleteFolder={deleteFolder}
              deleteTask={deleteTask}
              openPage={openPage}

@@ -1,7 +1,7 @@
 import React from 'react';
 import './folders.css'
 
-const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, openPage,restorePage ,isOpen, setIsOpen}) => {
+const Folders = ({folder,  addToFolder, setOpenRename, editNameFolder ,deleteFolder, deleteTask, openPage,restorePage}) => {
   
   return (
   <>
@@ -19,7 +19,7 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
           <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
       </svg>
     </button>
-    <button className='btn' onClick={editFolder} data-id={folder.id}>
+    <button className='btn' onClick={editNameFolder} data-id={folder.id}>
       <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" 
         viewBox="0 -960 960 960" 
@@ -63,7 +63,7 @@ const Folders = ({folder,  addToFolder, editFolder, deleteFolder, deleteTask, op
                   fill="#000000">
                     <path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/>
                 </svg></button>
-              <button className="btn" title="Borrar" onClick={deleteTask} data-nombre={task.namePage} data-id={folder.id}>
+              <button className="btn" title="Borrar" onClick={(e)=>deleteTask(e,'borro')} data-nombre={task.namePage} data-id={folder.id}>
                 <svg xmlns="http://www.w3.org/2000/svg" 
                   height="24px" viewBox="0 -960 960 960" 
                   width="24px" 
