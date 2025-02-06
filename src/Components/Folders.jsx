@@ -78,8 +78,8 @@ const Folders = ({folder,  addToFolder, setOpenRename, editNameFolder ,deleteFol
                 <div className="task-info">
                   <p style={{fontWeight:'bold'}}>{tareas.text || tareas.task}</p>
                   { tareas.cant && <p>Cantidad: {tareas.cant }</p> }
-                  { tareas.precioU && <p>Precio U.: {tareas.precioU && parseFloat(tareas.precioU).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }</p>}
-                  <p>{tareas.precioU && `Total: ${(parseFloat(tareas.precioU) * parseInt(tareas.cant)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }`}</p>
+                  { tareas.precioU > 0 ? <p>Precio U.: {tareas.precioU && parseFloat(tareas.precioU).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }</p>: ''}
+                  <p>{tareas.precioU > 0 ?  `Total: ${(parseFloat(tareas.precioU) * parseInt(tareas.cant)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }`: ''}</p>
                 </div>
                 <div className="task-checked">
               <p>
