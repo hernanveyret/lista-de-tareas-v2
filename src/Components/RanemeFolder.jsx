@@ -17,8 +17,7 @@ const RenameFolder = ({setOpenRename, openRename, container, setContainer}) => {
           } ;       
         }
         return folder;
-      })
-      console.log(newName)
+      });
       setContainer(newName)
       setOpenRename({
         onOf:false,

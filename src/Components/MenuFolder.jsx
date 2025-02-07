@@ -22,7 +22,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
     colorFondo:'',
     colorText:''
   })
-
+  
   const editNameFolder = (e) => {
     let $target = e.currentTarget
     let id = parseInt($target.dataset.id)
@@ -90,12 +90,16 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
       return;    
 };
 
+
   // Abre la carpeta seleccionada.
   const openPage = (e) => {
     let $target= e.currentTarget
-    let id = $target.dataset.id
+    let id = parseInt($target.dataset.id)
     let tarea = document.getElementById(id)
-    tarea.classList.toggle('active')
+    let tiene = container.find(folder => folder.id === id )
+    if(tiene.tareas.length > 0){
+      tarea.classList.toggle('active')
+    }
   }
  // Mueve una tarea a la lista y la elimina de la carpeta.
   const restorePage = (e) => {
@@ -103,9 +107,18 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
     let id = parseInt($target.dataset.id)
     setPageToRestore(container.find(page => page.id === id))
     setNombreDePagina($target.dataset.nombre.trim());
-    deleteTask(e,'movio')
-
+    deleteTask(e,'movio');
   }
+  //cierra la carpeta si se queda sin tareas.
+  useEffect(() => {    
+    container.forEach(folder => {
+      if(folder.tareas.length === 0 ){
+        let tarea = document.getElementById(folder.id);
+        tarea.classList.remove('active')        
+      }
+    })
+  },[container])
+
   // useEffect de restorePage
   useEffect(() => {
     if(pageToRestore){

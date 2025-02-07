@@ -1,4 +1,5 @@
 import React from 'react';
+import ArrowDown from './ArrowDown';
 import './folders.css'
 
 const Folders = ({folder,  addToFolder, setOpenRename, editNameFolder ,deleteFolder, deleteTask, openPage,restorePage}) => {
@@ -38,14 +39,7 @@ const Folders = ({folder,  addToFolder, setOpenRename, editNameFolder ,deleteFol
       </svg>
     </button>
     <button className='btn' onClick={openPage} data-id={folder.id}> 
-    
-        <svg xmlns="http://www.w3.org/2000/svg" 
-          height="24px" 
-          viewBox="0 -960 960 960" 
-          width="24px" 
-          fill="black">
-            <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/>
-        </svg>       
+    { <ArrowDown />}
     </button>
     </span>
    </nav>
