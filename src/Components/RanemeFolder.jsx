@@ -4,7 +4,6 @@ const RenameFolder = ({setOpenRename, openRename, container, setContainer}) => {
   const [ inputName, setInputName ] = useState('');
   const [ onRepeat, setOnRepeat ] = useState(null)
   
-
   const rename = (e) => {
     e.preventDefault()
     let editName = inputName ? String(inputName)[0].toUpperCase() + String(inputName).slice(1) : `Pagina ${pages.length + 1}`    
@@ -15,9 +14,11 @@ const RenameFolder = ({setOpenRename, openRename, container, setContainer}) => {
           return  {
             ...folder, 
             folderName: editName
-          }        
+          } ;       
         }
+        return folder;
       })
+      console.log(newName)
       setContainer(newName)
       setOpenRename({
         onOf:false,
@@ -28,6 +29,7 @@ const RenameFolder = ({setOpenRename, openRename, container, setContainer}) => {
       setInputName('')
     }
   }
+
   
   return (
     <div className='container-new-page'>
