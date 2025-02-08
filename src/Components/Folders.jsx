@@ -2,12 +2,14 @@ import React from 'react';
 import ArrowDown from './ArrowDown';
 import ArrowUp from './ArrowUp'
 import './folders.css'
+import Confirm from './Confirm';
 
-const Folders = ({folder,  addToFolder, setOpenRename, editNameFolder ,deleteFolder, deleteTask, openPage,restorePage,openMenu}) => {
+const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask, openPage, restorePage, openMenu}) => {
   
   return (
   <>
-  <nav data-id={folder.id}>
+ 
+   <nav data-id={folder.id}>
     <span className="container-name">
       <p>{folder.folderName}</p>
     </span>
@@ -72,7 +74,7 @@ const Folders = ({folder,  addToFolder, setOpenRename, editNameFolder ,deleteFol
               <div className="task" key={index}>
                 <div className="task-info">
                   <p style={{fontWeight:'bold'}}>{tareas.text || tareas.task}</p>
-                  { tareas.cant && <p>Cantidad: {tareas.cant }</p> }
+                  { tareas.cant > 0 ? <p>Cantidad: {tareas.cant }</p> : '' }
                   { tareas.precioU > 0 ? <p>Precio U.: {tareas.precioU && parseFloat(tareas.precioU).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }</p>: ''}
                   <p>{tareas.precioU > 0 ?  `Total: ${(parseFloat(tareas.precioU) * parseInt(tareas.cant)).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' }) }`: ''}</p>
                 </div>

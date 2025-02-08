@@ -7,6 +7,7 @@ import RenameFolder from './RanemeFolder';
 import './menuFolder.css';
 
 const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer}) => {
+  
   const [ onInputFolder, setOnInputFolder ] = useState(false)
   const [ isOpen, setIsOpen ] = useState(false);
   const [ mostrarBanner, setMostrarBanner ] = useState(false);
@@ -65,10 +66,14 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   };
   
   // borra una carpeta entera.
-  const deleteFolder = (e) => {
-    let $target= e.currentTarget
-    let id = $target.dataset.id
-    setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != id )])
+  const deleteFolder = (e) => {  
+    let confirmar = confirm('Quiere borrar esta carpeta?')
+    if(confirmar){
+      let $target= e.currentTarget
+      let id = parseInt($target.dataset.id)
+      setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != id )])
+    } 
+     
   }
   // borra una tarea de una carpeta.
   const deleteTask = (e,confirmText) => {
@@ -134,6 +139,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
 
   return (
     <div className="container-menu-folder">
+     
       { openRename.onOf && <RenameFolder 
         setOpenRename={setOpenRename}
         openRename={openRename}

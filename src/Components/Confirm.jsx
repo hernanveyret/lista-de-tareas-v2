@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import './confirm.css';
 
-const Confirm = ({setConfirm,deleteTask,taskOrPage, deletePage,onMenuBtn}) => {
-
+//<button className="btn" onClick={()=> {taskOrPage === 'page' ? deletePage() : deleteTask()}}>
+const Confirm = ({setConfirm, onMenuBtn, taskOrPage, deleteTask, deletePage, deleteFolder}) => {
+ 
+  
+ let action = {
+  page: deletePage,
+  task: deleteTask,
+  folder:deleteFolder
+ }
+ 
   return (
     <div className='container-confirm-page'> 
       <div className="cuadro">
-        {taskOrPage === 'page' ? <p style={{fontWeight:'bold'}}>¿Desea eliminar la página " {onMenuBtn}" ?</p> : <p style={{fontWeight:'bold'}}>¿Desea borrar el contenido?</p>}
+        { 
+          taskOrPage === 'page' ? <p style={{fontWeight:'bold'}}>¿Desea eliminar la página "{onMenuBtn}" ?</p> : <p style={{fontWeight:'bold'}}>¿Desea borrar el contenido?</p>
+        }
         <div className="btn-confirm-container">
-          <button className="btn" onClick={()=> {taskOrPage === 'page' ? deletePage() : deleteTask()}}>
+          <button className="btn" onClick={action[taskOrPage]}>
             <svg xmlns="http://www.w3.org/2000/svg"
              height="24px"
              viewBox="0 -960 960 960" 

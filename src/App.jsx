@@ -440,6 +440,8 @@ const menuBtnPage = (e) => {
             setPages={setPages}
             container={container}
             setContainer={setContainer}
+            setConfirm={setConfirm}
+            confirm={confirm}
             />
           }
     </section>
