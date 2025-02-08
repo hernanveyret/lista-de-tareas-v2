@@ -13,6 +13,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const [ carpetaSeleccionada, setCarpetaSeleccionada] = useState(null);
   const [ pageToRestore, setPageToRestore ] = useState(null)
   const [ nombreDePagina, setNombreDePagina] = useState('');  
+  const [ openMenu, setOpenMenu ] = useState(null);
   const [ openRename, setOpenRename ] = useState({
     onOf:false,
     id:''
@@ -99,6 +100,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
     let tiene = container.find(folder => folder.id === id )
     if(tiene.tareas.length > 0){
       tarea.classList.toggle('active')
+      setOpenMenu(openMenu === id ? null : id);
     }
   }
  // Mueve una tarea a la lista y la elimina de la carpeta.
@@ -185,6 +187,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
              setIsOpen={setIsOpen}
              isOpen={isOpen}
              restorePage={restorePage}
+             openMenu={openMenu}
             />
             
           )) 
