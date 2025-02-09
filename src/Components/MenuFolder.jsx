@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NewFolder from './NewFolder';
 import Folders from './Folders';
 import BannerConfirm from './BannerConfirm';
-import RenameFolder from './RanemeFolder';
+import RenameFolder from './RanameFolder';
 import ConfirmDeleteFolder from './ConfirmDeleteFolder';
 
 import './menuFolder.css';
@@ -18,7 +18,11 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const [ openMenu, setOpenMenu ] = useState(null);
   const [ confirmDelete, setConfirmDelete ] = useState(false);
   const [ isDelete, setIsDelete ] = useState (false)
-  const [ folderId, setfolderId ] = useState(null);
+  const [ deleteData, setDeletedata ] = useState({
+    id:'',
+    nameTarget:'',
+    type:''
+  });
   const [ openRename, setOpenRename ] = useState({
     onOf:false,
     id:''
@@ -72,17 +76,28 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   // borra una carpeta entera.
   const deleteFolder = (e) => {  
     let $target= e.currentTarget
-      let id = parseInt($target.dataset.id)
-    setfolderId(id)
+    let id = parseInt($target.dataset.id)
+    let target = container.find((folder) => folder.id === id)
+    setDeletedata({
+      id: id,
+      nameTarget:target.folderName,
+      type: 'carpeta'
+    })
     setIsDelete(true)      
   }
+
   //borrar carpeta
   useEffect(() => {
-    console.log(confirmDelete)
-    if(confirmDelete){     
-      setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != folderId )])
+    if(confirmDelete){      
+      setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != deleteData.id )])
+      setDeletedata({
+        id:'',
+        nameTarget:'',
+        type:''
+      })
       setIsDelete(false)
-    }
+      setConfirmDelete(false)
+    }  
   },[confirmDelete])
 
   // borra una tarea de una carpeta.
@@ -152,6 +167,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
        { isDelete && <ConfirmDeleteFolder 
         setConfirmDelete={setConfirmDelete}
         setIsDelete={setIsDelete}
+        deleteData={deleteData}
        /> }
       { openRename.onOf && <RenameFolder 
         setOpenRename={setOpenRename}

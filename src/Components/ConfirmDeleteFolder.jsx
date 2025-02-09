@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-  const ConfirmDeleteFolder = ({setConfirmDelete, setIsDelete}) => {
-
-
+  const ConfirmDeleteFolder = ({setConfirmDelete, setIsDelete,deleteData}) => {
+    
     return (
       <div className='container-confirm-page'> 
       <div className="cuadro">         
-        <p style={{fontWeight:'bold'}}>¿Desea eliminar la carpeta?</p>        
+        <p style={{fontWeight:'bold'}}>¿Desea eliminar la {deleteData.type} "{deleteData.nameTarget}"?</p>
         <div className="btn-confirm-container">
           <button className="btn" onClick={() => setConfirmDelete(true)}>
             <svg xmlns="http://www.w3.org/2000/svg"
