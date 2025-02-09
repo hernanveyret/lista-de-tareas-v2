@@ -3,6 +3,7 @@ import NewFolder from './NewFolder';
 import Folders from './Folders';
 import BannerConfirm from './BannerConfirm';
 import RenameFolder from './RanemeFolder';
+import ConfirmDeleteFolder from './ConfirmDeleteFolder';
 
 import './menuFolder.css';
 
@@ -15,6 +16,9 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const [ pageToRestore, setPageToRestore ] = useState(null)
   const [ nombreDePagina, setNombreDePagina] = useState('');  
   const [ openMenu, setOpenMenu ] = useState(null);
+  const [ confirmDelete, setConfirmDelete ] = useState(false);
+  const [ isDelete, setIsDelete ] = useState (false)
+  const [ folderId, setfolderId ] = useState(null);
   const [ openRename, setOpenRename ] = useState({
     onOf:false,
     id:''
@@ -66,11 +70,21 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   };
   
   // borra una carpeta entera.
-  const deleteFolder = (e) => {        
-      let $target= e.currentTarget
+  const deleteFolder = (e) => {  
+    let $target= e.currentTarget
       let id = parseInt($target.dataset.id)
-      setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != id )])
+    setfolderId(id)
+    setIsDelete(true)      
   }
+  //borrar carpeta
+  useEffect(() => {
+    console.log(confirmDelete)
+    if(confirmDelete){     
+      setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != folderId )])
+      setIsDelete(false)
+    }
+  },[confirmDelete])
+
   // borra una tarea de una carpeta.
   const deleteTask = (e,confirmText) => {
     let $target = e.currentTarget;
@@ -135,7 +149,10 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
 
   return (
     <div className="container-menu-folder">
-      
+       { isDelete && <ConfirmDeleteFolder 
+        setConfirmDelete={setConfirmDelete}
+        setIsDelete={setIsDelete}
+       /> }
       { openRename.onOf && <RenameFolder 
         setOpenRename={setOpenRename}
         openRename={openRename}
@@ -190,6 +207,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
              isOpen={isOpen}
              restorePage={restorePage}
              openMenu={openMenu}
+             
             />
             
           )) 

@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 
-  const ConfirmDeleteFolder = ({id, container, setContainer}) => {
+  const ConfirmDeleteFolder = ({setConfirmDelete, setIsDelete}) => {
 
-    const deleteFolder = () => {  
-      
-      l
-      setContainer((prevContainer) => [...prevContainer.filter(folder => folder.id != id )])
-    
-     
-  }
 
     return (
       <div className='container-confirm-page'> 
