@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
   const ConfirmDeleteFolder = ({setConfirmDelete, setIsDelete,deleteData}) => {
-    
+    console.log('confirm')
+    console.log(deleteData)
     return (
       <div className='container-confirm-page'> 
       <div className="cuadro">         
