@@ -2,6 +2,7 @@ import React from 'react';
 import './calcPage.css';
 
 const CalcPage = ({selectPage, taskCompleted, editCalcTask }) => {
+ 
   return (
     <div>
       {selectPage?.tareas?.length > 0 ? (

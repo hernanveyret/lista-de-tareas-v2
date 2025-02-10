@@ -1,11 +1,26 @@
-import React from 'react';
+import React,{ useState,useEffect } from 'react';
 import ArrowDown from './ArrowDown';
 import ArrowUp from './ArrowUp'
 import './folders.css'
 import Confirm from './Confirm';
 
 const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask, openPage, restorePage, openMenu}) => {
-  
+  const [ total, setTotal ] = useState(null)
+  useEffect(() => {
+    let sumaTotal = 0
+    folder.tareas.forEach((pages) => {
+      if(folder.tareas){
+       pages.tareas.forEach((task) => {
+        if(task){
+          sumaTotal = sumaTotal + (task.cant*task.precioU)
+        }
+       })
+
+      }
+    })
+    setTotal(sumaTotal)
+  },[folder])
+
   return (
   <>
  
@@ -68,6 +83,10 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
                   <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
                 </svg>
               </button>
+              
+              <p style={{textAlign:'center'}}>Total de compra {Number(total).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
+              
+
             </div>
              {
              task.tareas.map((tareas, index) => (
