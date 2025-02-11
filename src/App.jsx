@@ -46,6 +46,7 @@ function App() {
   const [ folder, setFolder ] = useState({
     openMenu: false
   })
+ 
 
   //localStorage.removeItem("contenedor");
 
@@ -108,7 +109,7 @@ function App() {
           }));
         });
         setEdit(false);
-      }else{ // si no, crea una nueva tarea       
+      }else{ // si no, crea una nueva tarea
         setPages((prevPages) =>
           prevPages.map((page) => {
             if (page.namePage === namePage[0].toUpperCase() + namePage.slice(1)) {
@@ -356,8 +357,7 @@ const menuBtnPage = (e) => {
 
           { /* botones todo y borrar */ }
       <nav className='menuNav'>
-        <label><input type="checkbox" name="checkTodos" className="checkTodos" title="Selecciona todo" onClick={selectAll}/>Todos</label>
-        
+        <label><input type="checkbox" name="checkTodos" className="checkTodos" title="Selecciona todo" onClick={selectAll}/>Todos</label>        
         <span >
           <button className="btn" title="Contenedor" onClick={() => {setFolder({...folder, openMenu: true})}}>
             <svg xmlns="http://www.w3.org/2000/svg" 
@@ -419,7 +419,7 @@ const menuBtnPage = (e) => {
         <main className="lista-main">
           {selectPage?.type === 'list' && <Task selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask}/>}
           {selectPage?.type === 'calc' && <CalcPage selectPage={selectPage} taskCompleted={taskCompleted} editCalcTask={editCalcTask}/>}          
-          {selectPage?.type === 'calc' && <TotalBar selectPage={selectPage}/>}
+          {selectPage?.type === 'calc' && <TotalBar selectPage={selectPage} pages={pages} setPages={setPages}/>}
         </main>
 
           {/* ingresar nueva tarea */ }

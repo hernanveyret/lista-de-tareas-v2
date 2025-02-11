@@ -48,6 +48,17 @@ nav {
   font-weight: bold;  
   padding: .7rem;
 }
+.containertitle-btn {
+  min-width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+.container-total {
+  width: auto;
+}
+
 .task {
   display: flex;
   border: thin solid grey;
