@@ -146,10 +146,10 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
       if (tarea.classList.contains('active-list-task')) {
         tarea.style.height = `${taskHeight}px`; 
         setTimeout(() => {
-          tarea.style.height = '50px';  
+          tarea.style.height = '60px';  
         }, 10);
       } else {
-        tarea.style.height = '50px';  
+        tarea.style.height = '60px';  
         setTimeout(() => {
           tarea.style.height = `${taskHeight}px`;  
         }, 10);
