@@ -70,7 +70,7 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
               </button> 
               </div>
               <div className="container-total">            
-              {<p style={{textAlign:'center'}}>Total de compra {Number(task.totalImporte).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>}
+              {<p style={{textAlign:'center'}}><span style={{color: '#FC4B08'}}>Total</span> {Number(task.totalImporte).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>}
               </div>
             </div>
              {

@@ -4,7 +4,7 @@ import './totalBar.css';
 const TotalBar = ({ selectPage, pages, setPages }) => {
   
   const $totalProductos = selectPage.tareas.reduce((e, i) => Number(e) + Number(i.cant), 0);
-  const $totalImporte = selectPage.tareas.reduce((e, i) => Number(e) + (parseInt(i.cant) * parseInt(i.precioU)), 0);
+  const $totalImporte = selectPage.tareas.reduce((e, i) => Number(e) + (parseFloat(i.cant) * parseFloat(i.precioU)), 0);
 
   useEffect(() => {
     
