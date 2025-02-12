@@ -16,6 +16,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const [ pageToRestore, setPageToRestore ] = useState(null)
   const [ nombreDePagina, setNombreDePagina] = useState('');  
   const [ openMenu, setOpenMenu ] = useState(null);
+  const [ openMenuPage, setOpenMenuPage ] = useState(null)
   const [ confirmDelete, setConfirmDelete ] = useState(false);
   const [ isDelete, setIsDelete ] = useState (false)
   const [ deleteData, setDeletedata ] = useState({
@@ -103,7 +104,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   // borra una tarea de una carpeta.
   const deleteTask = (e,confirmText) => {
     let $target = e.currentTarget;
-    let id = parseInt($target.dataset.id);
+    let id = parseInt($target.dataset.id);  
     let nombre = $target.dataset.nombre.trim();
     let newContainer = container.map((folder) => {
         if (folder.id === id) {
@@ -133,6 +134,32 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
       setOpenMenu(openMenu === id ? null : id);
     }
   }
+
+  // Abre la tarea seleccionada.
+  const openTaskInFolder = (e) => {
+    let $target = e.currentTarget;
+    let id = $target.dataset.id;
+    let tarea = document.querySelector(`[data-id="${id}"]`);    
+    if (tarea) {
+      const taskHeight = tarea.scrollHeight; 
+  
+      if (tarea.classList.contains('active-list-task')) {
+        tarea.style.height = `${taskHeight}px`; 
+        setTimeout(() => {
+          tarea.style.height = '50px';  
+        }, 10);
+      } else {
+        tarea.style.height = '50px';  
+        setTimeout(() => {
+          tarea.style.height = `${taskHeight}px`;  
+        }, 10);
+      }
+      
+      tarea.classList.toggle('active-list-task');
+      setOpenMenuPage( openMenuPage  === id ? null : id )
+    }
+  }
+  
  // Mueve una tarea a la lista y la elimina de la carpeta.
   const restorePage = (e) => {
     let $target = e.currentTarget;
@@ -219,11 +246,12 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
              deleteFolder={deleteFolder}
              deleteTask={deleteTask}
              openPage={openPage}
+             openMenuPage={openMenuPage}
              setIsOpen={setIsOpen}
              isOpen={isOpen}
              restorePage={restorePage}
              openMenu={openMenu}
-             
+             openTaskInFolder={openTaskInFolder}
             />
             
           )) 

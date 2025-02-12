@@ -5,7 +5,6 @@ import MenuBtn from './Components/MenuBtn.jsx';
 import Confirm from './Components/Confirm.jsx';
 import NoTask from './Components/NoTask.jsx';
 import CalcPage from './Components/CalcPage.jsx'
-import './App.css'
 import Task from './Components/Task.jsx';
 import NavCalc from './Components/NavCalc.jsx';
 import NavText from './Components/NavText.jsx';
@@ -13,6 +12,7 @@ import TotalBar from './Components/TotalBar.jsx';
 import Almanac from './Components/Almanac.jsx';
 import MenuFolder from './Components/MenuFolder.jsx';
 
+import './App.css'
 function App() {
 
   let completedTasks = JSON.parse(localStorage.getItem('listaDeTareas'))
@@ -47,7 +47,6 @@ function App() {
     openMenu: false
   })
  
-
   //localStorage.removeItem("contenedor");
 
   // Guarda en localStorage todos los datos , cada vez que cambia algo en pages.
@@ -92,7 +91,6 @@ function App() {
     }   
       setInputTask('')
     };
-
 
     const addNewCalcTask = (e) => {
       e.preventDefault()
@@ -174,7 +172,6 @@ function App() {
         c.checked = $checkAll.checked        
       })
     }
-
   },[check])
 
   // Edita una tarea.
@@ -270,9 +267,7 @@ const createNewPage = (e) => {
       setEnterNamePage('')
       setPageRepeat(true)
     }
-
   }else{
-
     if(!nameRepeat){
       let newPage = {
         type: 'calc',
@@ -302,7 +297,7 @@ const menuBtnPage = (e) => {
   });
 }
   return (
-    <section className="container-app">
+    <section className="container-app">   
       {
         onAlmanac && <Almanac 
         setOnAlmanac={setOnAlmanac}
@@ -352,7 +347,7 @@ const menuBtnPage = (e) => {
           { /* Header */ }
       <header>
         <img src={logo} alt="check, logo de la app" />
-        <h1>Lista de Tareas</h1>
+        <h1 id="header">Lista de Tareas</h1>
       </header>
 
           { /* botones todo y borrar */ }
@@ -444,6 +439,15 @@ const menuBtnPage = (e) => {
             confirm={confirm}
             />
           }
+          <a  href="#header" style={{border:'orange', position:'fixed', bottom:'2.5rem', right:'1rem', zIndex: '10004', filter: 'drop-shadow(3px 3px 4px black)'}}>
+            <svg xmlns="http://www.w3.org/2000/svg" 
+            height="50px" 
+            viewBox="0 -960 960 960" 
+            width="50px" 
+            fill="rgb(0, 238, 255)">
+              <path d="M440-320h80v-168l64 64 56-56-160-160-160 160 56 56 64-64v168Zm40 240q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+            </svg>
+         </a>
     </section>
   )
 }

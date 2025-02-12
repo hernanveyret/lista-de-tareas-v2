@@ -2,9 +2,8 @@ import React,{ useState,useEffect } from 'react';
 import ArrowDown from './ArrowDown';
 import ArrowUp from './ArrowUp'
 import './folders.css'
-import Confirm from './Confirm';
 
-const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask, openPage, restorePage, openMenu}) => {
+const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask, openPage, restorePage, openMenu, openMenuPage, openTaskInFolder}) => {
  
   return (
   <> 
@@ -13,7 +12,7 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
       <p>{folder.folderName}</p>
     </span>
     <span className="container-btn-folder">
-    <button className='btn' onClick={(addToFolder)} data-id={folder.id}>
+    <button className='btn' onClick={(addToFolder)} data-id={folder.id} title="Guardar">
       <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" 
         viewBox="0 -960 960 960" 
@@ -22,7 +21,7 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
           <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
       </svg>
     </button>
-    <button className='btn' onClick={editNameFolder} data-id={folder.id}>
+    <button className='btn' onClick={editNameFolder} data-id={folder.id} title="Editar nombre">
       <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" 
         viewBox="0 -960 960 960" 
@@ -32,7 +31,7 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
       </svg>
     </button>
     
-    <button className='btn' onClick={deleteFolder} data-id={folder.id}>
+    <button className='btn' onClick={deleteFolder} data-id={folder.id} title="Borrar">
       <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" viewBox="0 -960 960 960" 
         width="24px" 
@@ -45,10 +44,10 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
     </button>
     </span>
    </nav>
-    <div className="container-folder-task" id={folder.id}>    
+    <div className="container-folder-task"  id={folder.id}>    
       {
         folder.tareas.map((task,index) => (   
-          <div className="list-task" key={index}>      
+          <div className="list-task" key={index} data-id={task.namePage}>      
             <div className="title">
               <div className="containertitle-btn">
               <p>{task.namePage}</p>
@@ -70,8 +69,11 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
               </button> 
               </div>
               <div className="container-total">            
-              {<p style={{textAlign:'center'}}><span style={{color: '#FC4B08'}}>Total</span> {Number(task.totalImporte).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>}
+              {task.totalImporte && <p style={{textAlign:'center'}}><span style={{color: '#FC4B08'}}>Total</span> {Number(task.totalImporte).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>}
               </div>
+              <button className='task-btn' onClick={openTaskInFolder} data-id={task.namePage}>
+              { openMenuPage === task.namePage ? <ArrowUp /> : <ArrowDown />  }
+              </button>
             </div>
              {
              task.tareas.map((tareas, index) => (

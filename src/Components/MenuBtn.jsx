@@ -32,7 +32,10 @@ const [ $renamePage, set$RenamePage ] = useState(false);
             setFolder({...folder, openMenu: true }) 
             setOnMenuBtn({onoff:false, target:onMenuBtn.target}) 
           }
-            } data-name={onMenuBtn.target}>Guardar</button>
+            } 
+            data-name={onMenuBtn.target}>
+              Guardar
+        </button>
         <button onClick={() => setConfirm(true)}>Eliminar</button>
         <button onClick={() => { set$RenamePage(true)}}>Renombrar</button>
         <button onClick={() => {setOnMenuBtn({onoff:false, target:''})}}>Cancelar</button>
