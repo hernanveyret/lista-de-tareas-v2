@@ -64,6 +64,22 @@ td {
 .toDay {
   background-color: #1294a5;
 }
+
+@media screen and (min-width: 600px){
+  .alamanaque {
+    animation: animacionDos .5s ease;
+  animation-fill-mode: forwards;
+  }
+
+  @keyframes animacionDos {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(10%);
+    }
+   }
+}
 @media screen and (min-width: 1024px){
  .alamanaque {
   width: 70%;
