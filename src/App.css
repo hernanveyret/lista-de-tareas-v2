@@ -145,15 +145,7 @@ form {
   text-align: center;
 }
 
-.activePage {
-  background-color: orangered;
-}
 
-.btn-toTop {
-  position: fixed;
-  bottom: 100px;
-  right: 20px;
-}
 @media screen and (min-width: 1024px){
   main, nav  {
     width:50%;
