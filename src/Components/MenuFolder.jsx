@@ -139,17 +139,17 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const openTaskInFolder = (e) => {
     let $target = e.currentTarget;
     let id = $target.dataset.id;
-    let tarea = document.querySelector(`[data-id="${id}"]`);    
+    let tarea = document.querySelector(`[data-id="${id}"]`);   
     if (tarea) {
       const taskHeight = tarea.scrollHeight; 
   
       if (tarea.classList.contains('active-list-task')) {
         tarea.style.height = `${taskHeight}px`; 
         setTimeout(() => {
-          tarea.style.height = '60px';  
+          tarea.style.height = '50px';  
         }, 10);
       } else {
-        tarea.style.height = '60px';  
+        tarea.style.height = '50px';  
         setTimeout(() => {
           tarea.style.height = `${taskHeight}px`;  
         }, 10);

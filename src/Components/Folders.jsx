@@ -47,7 +47,7 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
     <div className="container-folder-task"  id={folder.id}>    
       {
         folder.tareas.map((task,index) => (   
-          <div className="list-task" key={index} data-id={task.namePage}>      
+          <div className="list-task" key={index} data-id={task.namePage} >
             <div className="title">
               <div className="containertitle-btn">
               <p>{task.namePage}</p>
