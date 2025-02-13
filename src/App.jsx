@@ -141,7 +141,7 @@ function App() {
     const deleteTask = () => {
         setPages((prevPages) =>
         prevPages.map((page) => {
-          if (page.namePage === namePage[0].toUpperCase() + namePage.slice(1)) {
+          if (page.namePage === String(namePage)[0].toUpperCase() + String(namePage).slice(1)) {
             // Filtrar las tareas no marcadas
             const newTasks = page.tareas.filter((task) => {
               const taskElement = document.querySelector(`[data-check="${task.id}"]`);
@@ -176,6 +176,7 @@ function App() {
 
   // Edita una tarea.
   const editTask  = (id) => {
+    scrollToEdit()
     setEdit(true)
     const $id = parseInt(id.currentTarget.dataset.id)
     set$id($id)
@@ -190,6 +191,7 @@ function App() {
 
   // Edita una tarea de calculo.
   const editCalcTask  = (id) => {
+    scrollToEdit()
     setEdit(true)
     const $id = parseInt(id.currentTarget.dataset.id)
     set$id($id)
@@ -296,6 +298,14 @@ const menuBtnPage = (e) => {
     target: $target
   });
 }
+// Scroll al input de edit task
+const scrollToEdit = () => {
+  const editInput = document.querySelector('.input-text');
+  if (editInput) {
+      editInput.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
   return (
     <section className="container-app">   
       {

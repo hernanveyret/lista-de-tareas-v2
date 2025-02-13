@@ -49,6 +49,7 @@ const NavCalc = ({ setInputCalc, inputCalc, edit, addNewCalcTask }) => {
           onChange={(e) =>
             detectType( e.target.value, e.target.name )
           }
+          
         />
         <p className="desactive-valid-num" ref={activeRef}>*Ingrese un número válido</p>
         <input
