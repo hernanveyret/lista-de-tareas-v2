@@ -31,7 +31,7 @@ const Task = ({selectPage,taskCompleted,editTask}) => {
                   </svg> 
                 }
                 </button>
-                <button className="btn" data-id={task.id} onClick={editTask}>
+                <button className="btn" data-id={task.id} onClick={editTask} >
                   <svg xmlns="http://www.w3.org/2000/svg" 
                     height="24px" 
                     viewBox="0 -960 960 960" 
