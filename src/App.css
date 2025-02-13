@@ -1,6 +1,7 @@
 html {
   scroll-behavior: smooth;
 }
+
 header {
   display: flex;
   justify-content: center;
@@ -138,17 +139,14 @@ form {
 .tareaContenedor div{
   width: 80%;
   height: auto;  
-} 
-
+}
 .not-tasks {
   color: white;
   text-align: center;
 }
-
 .activePage {
   background-color: orangered;
 }
-
 
 @media screen and (min-width: 1024px){
   main, nav  {

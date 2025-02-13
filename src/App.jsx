@@ -305,13 +305,17 @@ const scrollToEdit = () => {
       editInput.scrollIntoView({ behavior: 'smooth' });
   }
 }
-
-const scrollTop = () => {
-  const scroll = document.querySelector('header');
-  if(scroll){
-    scroll.scrollIntoView({behavior:'smooth'})
+useEffect(() => {
+  const cuadroApp = document.querySelector('.container-app');
+  const cuadroFolder = document.querySelector('.container-menu-folder')
+  if(cuadroApp){    
+    let altoApp = cuadroApp.scrollHeight;   
+    if(cuadroFolder){      
+      let altoFolder = cuadroFolder.scrollHeight;      
+      cuadroFolder.style.height = `${altoApp}px`
+    }
   }
-}
+})
 
   return (
     <section className="container-app">   
