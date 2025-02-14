@@ -224,9 +224,14 @@ function App() {
       }));
     });
   };
-
+ 
   // Busca la pagina seleccionada para mostrar las tareas.
-  useEffect(() => {
+  useEffect(() => {   
+
+    if (!namePage && pages.length > 0) {
+      setNamePage(pages[0].namePage); // Establecer el primer nombre de página
+    }
+
   if (namePage) { // Verificar que namePage no sea null
     const botonesSelect = document.querySelectorAll('.btn-select');
     if(botonesSelect){
@@ -240,12 +245,20 @@ function App() {
     }
     let pagesSelect = pages.find(e => e['namePage'] === namePage[0].toUpperCase() + namePage.slice(1));
     if (pagesSelect) {
-      setSelectPage(pagesSelect);
+      setSelectPage(pagesSelect); 
     } else {
+      setSelectPage([])
       console.error(`No se encontró una página con el nombre ${namePage}`);
     }
   }
 }, [namePage, pages]);
+
+
+useEffect(() => {
+  if(pages.length === 0 ){
+    setSelectPage({})
+  }
+},[pages, namePage, folder])
 
 // Crea una nueva pagina para ingresar tareas.
 const createNewPage = (e) => {
@@ -371,7 +384,7 @@ useEffect(() => {
         <h1 id="header">Lista de Tareas</h1>
       </header>
 
-          { /* botones todo y borrar */ }
+          { /* botones todo / carpetas / almanaque / borrar */ }
       <nav className='menuNav'>
         <label><input type="checkbox" name="checkTodos" className="checkTodos" title="Selecciona todo" onClick={selectAll}/>Todos</label>        
         <span >
@@ -458,6 +471,8 @@ useEffect(() => {
             setContainer={setContainer}
             setConfirm={setConfirm}
             confirm={confirm}
+            namePage={namePage}
+            setNamePage={setNamePage}
             />
           }
     </section>

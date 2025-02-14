@@ -7,7 +7,7 @@ import ConfirmDeleteFolder from './ConfirmDeleteFolder';
 
 import './menuFolder.css';
 
-const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer}) => {
+const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer, namePage, setNamePage}) => {
   
   const [ onInputFolder, setOnInputFolder ] = useState(false)
   const [ isOpen, setIsOpen ] = useState(false);
@@ -68,8 +68,9 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
 
     setTexto({ ...texto, text:`Se guardo " ${carpetaSeleccionada.namePage} " con exito!`, colorFondo:'#28a745', colorText:'white'})
     setMostrarBanner(true);
-    setTimeout(() => setMostrarBanner(false), 3000);
-    setPages((prevPages) => [...prevPages.filter(page => page.namePage != carpetaSeleccionada.namePage)])
+    setTimeout(() => setMostrarBanner(false), 3000);    
+    setPages(pages.filter(page => page.namePage !== carpetaSeleccionada.namePage));
+    setNamePage('')
     setCarpetaSeleccionada(null);
     setOnMenuBtn({...onMenuBtn, target:''});
   };
@@ -121,7 +122,6 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
       setTimeout(() => setMostrarBanner(false), 3000);
       return;    
 };
-
 
   // Abre la carpeta seleccionada.
   const openPage = (e) => {
