@@ -26,7 +26,7 @@ const [ $renamePage, set$RenamePage ] = useState(false);
     <div className="container-menu-btn">
       { confirm && <Confirm setConfirm={setConfirm} taskOrPage={taskOrPage} deletePage={deletePage} onMenuBtn={onMenuBtn.target}/>}
      
-      <div className="container-btn">
+      <div className="container-btn-menu">
         <button onClick={(e) => 
           {
             setFolder({...folder, openMenu: true }) 
