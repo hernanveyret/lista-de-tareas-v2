@@ -18,6 +18,7 @@ nav {
 .container-name {
   margin-left: 1rem;
   font-weight: bold;
+ 
 }
 .container-btn-folder {
   margin-right: 1rem;
@@ -26,8 +27,7 @@ nav {
 }
 
 .container-folder-task  {
-    display: none;
-
+    display: none;    
 }
 .active {
   display: block;
@@ -49,6 +49,7 @@ nav {
   border-bottom: 2px solid #1294a5;
   color: #1294a5;
   font-weight: bold;  
+  position:sticky;
 }
 .containertitle-btn {
   min-width: 50%;

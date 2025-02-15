@@ -20,9 +20,13 @@
   align-items: center;
   color: black;
   box-shadow: 3px 3px 5px black;
-  transform: translateY(-150px);
-  animation: animacion .5s ease;
-  animation-fill-mode: forwards;
+  position: absolute;
+  top: -150px;
+  animation: animacion .5s ease; 
+    animation-fill-mode: forwards;
+}
+.cuadro p {
+  text-align: center;
 }
 .btn-confirm-container {
   width: 100%;
@@ -35,10 +39,27 @@
 
 @keyframes animacion {
   0% {
-    transform: translateY(0);
+    top: -150px;
   }
   100% {
-    transform: translateY(180px);
+    top: 200px;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .cuadro {
+    width: 50%;   
+    animation: animacion-700 .5s ease; 
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes animacion-700 {
+    0% {
+      top: -180px; 
+    }
+    100% {
+      top: 90px; 
+    }
   }
 }
 
@@ -46,6 +67,17 @@
   .cuadro {
     width:auto;
     padding: 0 1.5em;
+    animation: animacion-1024 .5s ease; 
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes animacion-1024 {
+    0% {
+      top: -180px; 
+    }
+    100% {
+      top: 180px; 
+    }
   }
  
 }

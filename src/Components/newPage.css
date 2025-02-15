@@ -19,6 +19,7 @@
   height: 40px;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 5px;
   margin-top: 1rem;
 }
@@ -38,7 +39,8 @@
   justify-content: center;
   align-items: center;
   box-shadow: 3px 3px 4px black;
-  transform: translateY(-150px);
+  position: absolute;
+  top: -180px;
   animation: animacion .5s ease;
   animation-fill-mode: forwards;
 }
@@ -84,22 +86,44 @@ form span {
 
 @keyframes animacion {
   0% {
-    transform: translateY(0);
+    top: -180px; 
   }
   100% {
-    transform: translateY(200px);
+    top: 200px; 
   }
 }
 
 @media screen and (min-width: 700px) {
   .section {
-    width: 50%;
+    width: 50%;   
+    animation: animacion-700 .5s ease; 
+    animation-fill-mode: forwards;
   }
+
+  @keyframes animacion-700 {
+    0% {
+      top: -180px; 
+    }
+    100% {
+      top: 90px; 
+    }
+  }
+
 }
 @media screen and (min-width: 1024px){
   .section {
     width:auto;
-    padding: 0 1.5rem;
+    padding: 0 1.5rem;  
+    animation: animacion-1024 .5s ease; 
+    animation-fill-mode: forwards;
   }
- 
+
+  @keyframes animacion-1024 {
+    0% {
+      top: -180px; 
+    }
+    100% {
+      top: 150px; 
+    }
+  }
 }
