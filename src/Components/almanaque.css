@@ -18,7 +18,8 @@
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  transform: translateY(-150px);
+  position: absolute;
+  top: -150px;
   animation: animacion .5s ease;
   animation-fill-mode: forwards;
 }
@@ -65,19 +66,28 @@ td {
   background-color: #1294a5;
 }
 
+@keyframes animacion {
+  0% {
+    top:-150px;
+  }
+  100% {
+    top: 150px;
+  }
+ }
+
 @media screen and (min-width: 600px){
   .alamanaque {
-    animation: animacionDos .5s ease;
+  animation: animacion-600 .5s ease;
   animation-fill-mode: forwards;
   }
   
 
-  @keyframes animacionDos {
+  @keyframes animacion-600 {
     0% {
-      transform: translateY(0);
+      top: -150px;
     }
     100% {
-      transform: translateY(10%);
+      top: 60px;
     }
    }
 }
@@ -85,6 +95,8 @@ td {
  .alamanaque {
   width: 70%;
   height: 80%;
+  animation: animacion-1024 .5s ease;
+  animation-fill-mode: forwards;
  }
  table {
   height: 80%;
@@ -93,12 +105,12 @@ td {
   border: thin solid rgb(155, 153, 153);
  }
  
- @keyframes animacion {
+ @keyframes animacion-1024 {
   0% {
-    transform: translateY(0);
+    top: -150px;
   }
   100% {
-    transform: translateY(15%);
+    top: 90px;
   }
  }
 }

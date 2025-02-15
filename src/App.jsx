@@ -227,10 +227,11 @@ function App() {
  
   // Busca la pagina seleccionada para mostrar las tareas.
   useEffect(() => {   
-
+    console.log('namePgae en useEffct', namePage)
     if (!namePage && pages.length > 0) {
       setNamePage(pages[0].namePage); // Establecer el primer nombre de página
     }
+    
 
   if (namePage) { // Verificar que namePage no sea null
     const botonesSelect = document.querySelectorAll('.btn-select');
@@ -243,6 +244,7 @@ function App() {
         }        
       })
     }
+    
     let pagesSelect = pages.find(e => e['namePage'] === namePage[0].toUpperCase() + namePage.slice(1));
     if (pagesSelect) {
       setSelectPage(pagesSelect); 
@@ -251,14 +253,16 @@ function App() {
       console.error(`No se encontró una página con el nombre ${namePage}`);
     }
   }
-}, [namePage, pages]);
+}, [namePage,pages]);
 
 
 useEffect(() => {
   if(pages.length === 0 ){
-    setSelectPage({})
+    setSelectPage([])
   }
 },[pages, namePage, folder])
+
+
 
 // Crea una nueva pagina para ingresar tareas.
 const createNewPage = (e) => {
@@ -305,11 +309,14 @@ const createNewPage = (e) => {
   // Menu en los botones de pagina
 const menuBtnPage = (e) => {
   let $target = e.currentTarget.parentElement.textContent; // toma el texto del boton
+  setNamePage($target)  
+  console.log(namePage)
   setTaskOrPage('page')
   setOnMenuBtn({
     onoff:true,
     target: $target
   });
+  
 }
 // Scroll al input de edit task
 const scrollToEdit = () => {
@@ -427,7 +434,13 @@ useEffect(() => {
             <button className="btn-add-page btn-select" key={key} onClick={(e) => {setNamePage(e.target.textContent)}}>
               {e.namePage}
               <span className="btn" onClick={menuBtnPage} data-name={e.namePage} id={e.id}>
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                  height="24px" 
+                  viewBox="0 -960 960 960" 
+                  width="24px" 
+                  fill="#FFFFFF">
+                  <path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/>
+                </svg>
               </span>
             </button>
           )
