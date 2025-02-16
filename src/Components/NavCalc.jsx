@@ -38,7 +38,7 @@ const NavCalc = ({ setInputCalc, inputCalc, edit, addNewCalcTask }) => {
           onChange={(e) =>
             setInputCalc({ ...inputCalc, text: e.currentTarget.value })
           }
-          
+          autoFocus
         />
         <input 
           type="text"

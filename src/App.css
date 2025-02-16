@@ -39,6 +39,11 @@ nav {
   margin: 0 10px;
 }
 
+.icon-almanaque {
+  width: 24px;
+  height: 24px;
+  
+}
 input[type="checkbox"] {
   margin: 10px 10px;
   accent-color: rgb(9, 214, 9);
