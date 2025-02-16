@@ -17,7 +17,7 @@ const createNewFolder = (e) => {
   return (
     <div className='container-new-folder'>
       <section className="section">
-        <button className="btn close-create-page">
+        <button className="btn close-create-page" title="Cancelar">
           <svg xmlns="http://www.w3.org/2000/svg" 
           height="24px" 
           viewBox="0 -960 960 960" 
@@ -33,7 +33,7 @@ const createNewFolder = (e) => {
             <input type='text' name="name"  className="inputText" onChange={(e) => { setNombrecarpeta(e.target.value)}} autoFocus/>
             <label>
               <input type="submit" />
-                <span className="btn-save">
+                <span className="btn-save" title='Guardar'>
                 <svg xmlns="http://www.w3.org/2000/svg" 
                   height="50px"
                   viewBox="0 -960 960 960" 

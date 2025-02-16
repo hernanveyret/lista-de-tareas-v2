@@ -6,7 +6,7 @@ const NewPage = ({createNewPage,setEnterNamePage,enterNamePage,pageRepeat,setFor
   return (
     <div className='container-new-page'>
       <section className="section">
-      <button className="btn close-create-page" onClick={() => setFormNewPage(false)}>
+      <button className="btn close-create-page" onClick={() => setFormNewPage(false)} title='Cancelar'>
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
       </button>
         { pageRepeat ?  <h3 style={{color:"red", textShadow:"2px 2px 3px black"}}>* El nombre ya existe</h3>:<h3>Ingrese nombre de página</h3>}
@@ -14,7 +14,7 @@ const NewPage = ({createNewPage,setEnterNamePage,enterNamePage,pageRepeat,setFor
           <input type='text' name="name" value={enterNamePage} onChange={(e) => {setEnterNamePage(e.target.value)}} className="inputText" autoFocus/>
           <label>
             <input type="submit" />
-              <span className="btn-save">
+              <span className="btn-save" title='Guardar'>
               <svg xmlns="http://www.w3.org/2000/svg" 
               height="50px"
               viewBox="0 -960 960 960" 
