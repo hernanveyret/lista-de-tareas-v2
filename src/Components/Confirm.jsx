@@ -4,7 +4,6 @@ import './confirm.css';
 //<button className="btn" onClick={()=> {taskOrPage === 'page' ? deletePage() : deleteTask()}}>
 const Confirm = ({setConfirm, onMenuBtn, taskOrPage, deleteTask, deletePage, deleteFolder}) => {
  
-  
  let action = {
   page: deletePage,
   task: deleteTask,

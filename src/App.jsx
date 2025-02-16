@@ -304,8 +304,8 @@ const createNewPage = (e) => {
   // Menu en los botones de pagina
 const menuBtnPage = (e) => {
   let $target = e.currentTarget.parentElement.textContent; // toma el texto del boton
-  setNamePage($target)  
-  console.log(namePage)
+  setNamePage($target)
+  setTaskOrPage('page')
   setOnMenuBtn({
     onoff:true,
     target: $target
