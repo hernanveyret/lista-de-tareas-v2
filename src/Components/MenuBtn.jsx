@@ -6,8 +6,6 @@ import './menuBtn.css';
 const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat,setSelectPage,taskOrPage, confirm, setConfirm, setFolder, folder}) => {
 const [ $renamePage, set$RenamePage ] = useState(false);
 
-console.log('menubtn',namePage)
-
   const deletePage = () => {
     setPages((prevPages) => {
       const updatedPages = prevPages.filter((page) => page.namePage !== onMenuBtn.target);

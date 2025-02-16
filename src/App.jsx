@@ -227,12 +227,10 @@ function App() {
  
   // Busca la pagina seleccionada para mostrar las tareas.
   useEffect(() => {   
-    console.log('namePgae en useEffct', namePage)
     if (!namePage && pages.length > 0) {
       setNamePage(pages[0].namePage); // Establecer el primer nombre de página
     }
     
-
   if (namePage) { // Verificar que namePage no sea null
     const botonesSelect = document.querySelectorAll('.btn-select');
     if(botonesSelect){
@@ -255,14 +253,11 @@ function App() {
   }
 }, [namePage,pages]);
 
-
 useEffect(() => {
   if(pages.length === 0 ){
     setSelectPage([])
   }
 },[pages, namePage, folder])
-
-
 
 // Crea una nueva pagina para ingresar tareas.
 const createNewPage = (e) => {
@@ -311,7 +306,6 @@ const menuBtnPage = (e) => {
   let $target = e.currentTarget.parentElement.textContent; // toma el texto del boton
   setNamePage($target)  
   console.log(namePage)
-  setTaskOrPage('page')
   setOnMenuBtn({
     onoff:true,
     target: $target
@@ -347,7 +341,6 @@ useEffect(() => {
       { cantChecked && <NoTask 
         setCantChecked={setCantChecked}
       />}
-
       { 
         /* Cartel de confirm */
         confirm && <Confirm 
@@ -355,8 +348,7 @@ useEffect(() => {
         deleteTask={deleteTask}
         taskOrPage={taskOrPage}
         />
-      }
-           
+      }           
       { 
         /* Crear nueva pagina */
         formNewPage && <NewPage 
@@ -431,9 +423,14 @@ useEffect(() => {
       <div className="nav-add-page">
         {
           pages.map((e, key) => 
-            <button className="btn-add-page btn-select" key={key} onClick={(e) => {setNamePage(e.target.textContent)}}>
+            <button className="btn-add-page btn-select" key={key} onClick={(e) => {
+             setNamePage(e.target.textContent)
+              }}>
               {e.namePage}
-              <span className="btn" onClick={menuBtnPage} data-name={e.namePage} id={e.id}>
+              <span className="btn" onClick={(e) => {
+                e.stopPropagation()
+                menuBtnPage(e) 
+                }} data-name={e.namePage} id={e.id}>
                 <svg xmlns="http://www.w3.org/2000/svg" 
                   height="24px" 
                   viewBox="0 -960 960 960" 
@@ -470,7 +467,6 @@ useEffect(() => {
             :
             <NavCalc addNewTask={addNewTask} setInputCalc={setInputCalc} inputCalc={inputCalc} edit={edit} addNewCalcTask={addNewCalcTask}/>
           }
-
           {
             // folders
             folder.openMenu && <MenuFolder 
