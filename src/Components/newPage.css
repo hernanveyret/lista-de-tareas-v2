@@ -33,7 +33,7 @@
   background: linear-gradient(rgb(0, 238, 255),#1294a5);
   width: 90%;
   height: 150px;
-  border-radius: .75rem;
+  border-radius: .45rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

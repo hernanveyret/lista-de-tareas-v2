@@ -189,6 +189,22 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
     }
   },[pageToRestore])
 
+  useEffect(() => {
+    let importeFinal = 0
+    
+    container.forEach(folder => {      
+     folder.tareas.forEach(tareas => {
+      if(tareas.type === 'calc'){
+        importeFinal = importeFinal + tareas.totalImporte
+      }
+      folder.finalImporte = importeFinal
+      
+    })
+   importeFinal = 0
+    
+  })
+  },[container])
+
   return (
     <div className="container-menu-folder">
        { isDelete && <ConfirmDeleteFolder 
@@ -258,7 +274,6 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
           :
           <p style={{color: 'white', textAlign:'center', margin:'1rem 0'}}>No hay carpetas creadas</p>
         }
-       
       </main>
     </div>
   )
