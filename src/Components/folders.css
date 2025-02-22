@@ -83,7 +83,7 @@ nav {
   height: 50px;
   padding: 5px;
   background-color: white;
-  border-radius: .8rem;
+  border-radius: 5px;
   margin-bottom: 1rem;
   box-shadow: 1px 1px 4px grey;
   overflow: hidden;  /* Para ocultar el contenido que sobresale */
