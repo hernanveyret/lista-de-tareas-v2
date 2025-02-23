@@ -45,7 +45,7 @@ function App() {
   const [ onAlmanac, setOnAlmanac ] = useState(false)
   const [ folder, setFolder ] = useState({
     openMenu: false
-  })
+  })  
  
   //localStorage.removeItem("contenedor");
 
@@ -386,7 +386,7 @@ useEffect(() => {
           { /* botones todo / carpetas / almanaque / borrar */ }
       <nav className='menuNav'>
         <label><input type="checkbox" name="checkTodos" className="checkTodos" title="Selecciona todo" onClick={selectAll}/>Todos</label>        
-        <span >
+        <span className="btn-texto">
           <button className="btn" title="Carpetas" onClick={() => {setFolder({...folder, openMenu: true})}}>
             <svg xmlns="http://www.w3.org/2000/svg" 
               height="24px" 
@@ -396,6 +396,7 @@ useEffect(() => {
               >
                 <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640H447l-80-80H160v480l96-320h684L837-217q-8 26-29.5 41.5T760-160H160Zm84-80h516l72-240H316l-72 240Zm0 0 72-240-72 240Zm-84-400v-80 80Z"/>
             </svg>
+            <p>Carpetas</p>
           </button>
           <button title="Almanaque" className="btn" onClick={() => { setOnAlmanac(true)}}>
              <svg xmlns="http://www.w3.org/2000/svg" 
@@ -406,8 +407,8 @@ useEffect(() => {
               >
                 <path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/>
             </svg>
+            <p>Almanaque</p>
           </button>
-
           <button className="btn btn-delete" onClick={onDelete} title="Borrar tareas">
             <svg xmlns="http://www.w3.org/2000/svg" 
               height="24px" viewBox="0 -960 960 960" 
@@ -415,6 +416,7 @@ useEffect(() => {
               fill="black">
               <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
             </svg>
+            <p>Borrar</p>
           </button>
         </span>
       </nav>

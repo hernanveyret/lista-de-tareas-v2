@@ -19,3 +19,19 @@
   height: auto;
  
 }
+.nav-btn-folder button p {
+  display: none;
+}
+
+@media screen and (min-width: 1024px){
+  .nav-btn-folder button p {
+    display: flex;
+  }
+  .nav-btn-folder button {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+}

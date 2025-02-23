@@ -238,6 +238,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
             fill="black">
               <path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
             </svg>
+            <p>Crear</p>
           </button>
           <button onClick={() => setFolder({...folder, openMenu: false})} className="btn btn-close-menu-folder" title="Volver">
             <svg xmlns="http://www.w3.org/2000/svg" 
@@ -247,6 +248,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
               fill="black">
                 <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
             </svg>
+            <p>Volver</p>
           </button>
         </nav>
         {

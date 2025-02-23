@@ -103,7 +103,9 @@ main {
   z-index: 0;
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
 }
-
+.btn-texto button p { 
+  display: none ;
+}
 .btn-input-submit {
   display: none;
 }
@@ -170,4 +172,17 @@ form {
   .cardBorrar {
     width: 30%;
   }
+  .btn-texto button p {
+    display: flex;
+  }
+  .btn-texto button {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .btn-texto button {
+    gap: 4px;
+  }
+  
 }

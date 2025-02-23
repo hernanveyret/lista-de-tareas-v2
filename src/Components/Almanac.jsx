@@ -3,6 +3,25 @@ import './almanaque.css';
 
 
 const Almanac = ({setOnAlmanac}) => {
+  const feriados = [
+    { "id": 1, "mes": "enero", "dia": 1, "feriado": "1 - Año Nuevo" },
+    { "id": 2, "mes": "marzo", "dia": 3, "feriado": "3 - Carnaval" },
+    { "id": 3, "mes": "marzo", "dia": 4, "feriado": "4 - Carnaval" },
+    { "id": 4, "mes": "marzo", "dia": 24, "feriado": "24 - Día Nacional de la Memoria por la Verdad y la Justicia" },
+    { "id": 5, "mes": "abril", "dia": 2, "feriado": "2 - Día del Veterano y de los Caídos en la Guerra de Malvinas" },
+    { "id": 6, "mes": "abril", "dia": 18, "feriado": "18 - Viernes Santo" },
+    { "id": 7, "mes": "mayo", "dia": 1, "feriado": "1 - Día del Trabajador" },
+    { "id": 8, "mes": "mayo", "dia": 2, "feriado": "2 - Día no laborable con fines turísticos" },
+    { "id": 9, "mes": "mayo", "dia": 25, "feriado": "25 - Día de la Revolución de Mayo" },
+    { "id": 10, "mes": "junio", "dia": 20, "feriado": "20 - Paso a la Inmortalidad del General Manuel Belgrano" },
+    { "id": 11, "mes": "julio", "dia": 9, "feriado": "9 - Día de la Independencia" },
+    { "id": 12, "mes": "agosto", "dia": 15, "feriado": "15 - Día no laborable con fines turísticos" },
+    { "id": 13, "mes": "agosto", "dia": 17, "feriado": "17 - Paso a la Inmortalidad del General José de San Martín" },
+    { "id": 14, "mes": "octubre", "dia": 12, "feriado": "12 - Día del Respeto a la Diversidad Cultural" },
+    { "id": 15, "mes": "noviembre", "dia": 21, "feriado": "21 - Día no laborable con fines turísticos" },
+    { "id": 16, "mes": "diciembre", "dia": 8, "feriado": "8 - Día de la Inmaculada Concepción de María" },
+    { "id": 17, "mes": "diciembre", "dia": 25, "feriado": "25 - Navidad" }
+  ]
   const fecha = new Date();
   const year = fecha.getFullYear(); // año
   const meses = [
@@ -20,6 +39,7 @@ const Almanac = ({setOnAlmanac}) => {
     {id: 11, mes: "Diciembre"},
   ]
 
+  
   const [day, setDay] = useState(fecha.getDate()); // dia en numero.
   const [toDay, setToDay ] = useState(fecha.getDate());
   const [dayString, setDayString] = useState(fecha.toLocaleString('es-ES', {weekday: 'long'}));
@@ -27,6 +47,7 @@ const Almanac = ({setOnAlmanac}) => {
   const [monthString, setMonthString] = useState(meses.find(m => m.id === month).mes)
   const [cantDiasMes, setCantDiasMes] = useState(new Date(year, month + 1, 0).getDate()); // Ultimo dia del mes anterior
   const [celdasVacias, setCeldasVacias] = useState(new Date(year, month, 1).getDay()) // Posicion del primer dia del mes, del 0 al 6, dom-lun...
+  const [ showFeriados, setShowFeriados ] = useState([])
   
 
   let days = []
@@ -79,12 +100,12 @@ const Almanac = ({setOnAlmanac}) => {
           : cells.push(<td key={`day-${diasDelMes}`}  style={{cursor:"pointer"}}>{diasDelMes}</td>)
       }
       rows.push(<tr key={`row-${filas + 1}`}>{cells}</tr>)
-    }
-    
+    }    
+
+    const getFeriados = feriados.filter(feriado => feriado.mes === monthString[0].toLowerCase() + monthString.slice(1) );
 
   return (
-    <div className="containerAlmanac">
-    
+    <div className="containerAlmanac">    
       <section className="alamanaque">
       <button className="btn btn-close-alamanac" onClick={() => {setOnAlmanac(false)}}>
             <svg xmlns="http://www.w3.org/2000/svg" 
@@ -123,14 +144,13 @@ const Almanac = ({setOnAlmanac}) => {
         { rows }
       </tbody>
       </table>
-      <div className="msj-hs">
-       { /*
-         <p>De 00hs a 8:30hs</p>
-         <p>Ver día anterior</p> 
-         */
-       } 
-        
-      </div>
+       <div style={{marginLeft: '20px', marginBottom:'10px'}}>
+       { getFeriados && 
+          getFeriados.map((feriado => (
+            <p key={feriado.id}>{feriado.feriado}</p>
+          )))
+        }
+       </div>
       </section>
     </div>
   );

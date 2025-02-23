@@ -11,7 +11,7 @@
 }
 .alamanaque {
   width: 90%;
-  height: 290px;
+  height: auto;
   border-radius: .75rem;
   box-shadow: 3px 3px 4px black;
   background-color: white;
@@ -81,13 +81,12 @@ td {
   animation-fill-mode: forwards;
   }
   
-
   @keyframes animacion-600 {
     0% {
       top: -150px;
     }
     100% {
-      top: 60px;
+      top: 30px;
     }
    }
 }
@@ -100,6 +99,7 @@ td {
  }
  table {
   height: 80%;
+
  }
  td {
   border: thin solid rgb(155, 153, 153);
