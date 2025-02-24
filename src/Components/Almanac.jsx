@@ -39,7 +39,6 @@ const Almanac = ({setOnAlmanac}) => {
     {id: 11, mes: "Diciembre"},
   ]
 
-  
   const [day, setDay] = useState(fecha.getDate()); // dia en numero.
   const [toDay, setToDay ] = useState(fecha.getDate());
   const [dayString, setDayString] = useState(fecha.toLocaleString('es-ES', {weekday: 'long'}));
@@ -48,12 +47,13 @@ const Almanac = ({setOnAlmanac}) => {
   const [cantDiasMes, setCantDiasMes] = useState(new Date(year, month + 1, 0).getDate()); // Ultimo dia del mes anterior
   const [celdasVacias, setCeldasVacias] = useState(new Date(year, month, 1).getDay()) // Posicion del primer dia del mes, del 0 al 6, dom-lun...
   const [ showFeriados, setShowFeriados ] = useState([])
-  
+  //const [ currentDay, setCurrentDay ] = useState(0);
 
   let days = []
   let cells = []
   let rows = []
   let diasDelMes = 0
+  
 
   if(cantDiasMes < day ){  
     setDay(cantDiasMes)
@@ -75,29 +75,58 @@ const Almanac = ({setOnAlmanac}) => {
     setMonthString(meses.find(m => m.id === month).mes);
   }, [month, year]); 
   
+  const getFeriadoMes = feriados.filter(dia => dia.mes === monthString[0].toLowerCase() + monthString.slice(1))
+  
   // crea un array con la cantidad de dias que tiene el mes actual.
   for(let i=1; i <= cantDiasMes; i++){
     days.push(i)
+  
   }
 
   // agrega las celdas vacias
   for (let i=1; i <= celdasVacias; i++){
-    cells.push(<td key={`vacias-${i}`}></td>)
+    cells.push(<td key={`vacias-${i}`}></td>)   
   }
+
   // Crea la primera fila con las vacias y las que tienen numero.
   for(let i=1; i<= 7-celdasVacias; i++){
-    diasDelMes++
-    new Date === diasDelMes ? cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange",borderRadius:"5px", cursor:"pointer"}} >{diasDelMes}</td>) : cells.push(<td key={`day-${diasDelMes}`} style={{cursor:"pointer"}}>{diasDelMes}</td>)
+    diasDelMes++    
+    const trueDay = getFeriadoMes.find(dia => Number(dia.dia) === Number(diasDelMes))
+
+    new Date === diasDelMes 
+      ? 
+        cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange",borderRadius:"5px"}} >{diasDelMes}</td>) 
+      :
+       trueDay 
+       ? 
+        diasDelMes === Number(trueDay.dia) 
+        ?
+        cells.push(<td key={`day-${diasDelMes}`}  style={{ backgroundColor:'black', color:'white'}}>{diasDelMes}</td>)
+        : 
+        cells.push(<td key={`day-${diasDelMes}`}>{diasDelMes}</td>)   
+      :
+      cells.push(<td key={`day-${diasDelMes}`}>{diasDelMes}</td>)
   }
     rows.push(<tr key={`row-1`}>{cells}</tr>)
 
-    for(let filas = 1; diasDelMes < cantDiasMes; filas++) {
+    for(let filas = 1; diasDelMes < cantDiasMes; filas++) {      
       cells = []
       for(let celdas = 1; celdas <= 7 && diasDelMes < cantDiasMes; celdas++) {
-        diasDelMes++
+         diasDelMes++
+        const trueDay = getFeriadoMes.find(dia => Number(dia.dia) === Number(diasDelMes))        
         day === diasDelMes 
-          ? cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange", borderRadius:"5px", cursor:"pointer"}} >{diasDelMes}</td>) 
-          : cells.push(<td key={`day-${diasDelMes}`}  style={{cursor:"pointer"}}>{diasDelMes}</td>)
+          ?
+          cells.push(<td key={`day-${diasDelMes}`} style={{backgroundColor: "orange", borderRadius:"5px"}} >{diasDelMes}</td>) 
+          :           
+            trueDay 
+            ? 
+             diasDelMes === Number(trueDay.dia) 
+              ?                
+               cells.push(<td key={`day-${diasDelMes}`}  style={{backgroundColor:'black', color:'white'}}>{diasDelMes}</td>)
+              :
+              cells.push(<td key={`day-${diasDelMes}`}>{diasDelMes}</td>)   
+            :
+          cells.push(<td key={`day-${diasDelMes}`}>{diasDelMes}</td>)
       }
       rows.push(<tr key={`row-${filas + 1}`}>{cells}</tr>)
     }    
@@ -116,15 +145,15 @@ const Almanac = ({setOnAlmanac}) => {
             </svg>
           </button>
           { <div className="caption">
-            { month === 0 ? <button className="btn-mes btn-prev" onClick={handlePrev} style={{display:"none"}} title="Mes anterior">
+            { month === 0 ? <button className="btn-mes btn-prev" onClick={handlePrev} style={{display:"none", cursor:'pointer'}} title="Mes anterior">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
-            </button> : <button className="btn-mes btn-prev" onClick={handlePrev} title="Mes anterior">
+            </button> : <button className="btn-mes btn-prev" onClick={handlePrev} title="Mes anterior" style={{cursor:'pointer'}}>
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
             </button> }
             {day} de {monthString} de {year}
-            { month === 11 ? <button className="btn-mes btn-next" onClick={handleNext} style={{display:"none"}} title="Mes siguiente">
+            { month === 11 ? <button className="btn-mes btn-next" onClick={handleNext} style={{display:"none",cursor:'pointer'}} title="Mes siguiente">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
-            </button> : <button className="btn-mes btn-next" onClick={handleNext} title="Mes siguiente">
+            </button> : <button className="btn-mes btn-next" onClick={handleNext} title="Mes siguiente" style={{cursor:'pointer'}}>
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
             </button> }
           </div>}

@@ -117,7 +117,7 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
       ))
     }
    { folder.finalImporte ?
-     <p style={{color:'#004085', fontWeight:'bold'}}>Total General {Number(folder.finalImporte).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
+     <p style={{color:'#002E52', fontWeight:'bold'}}>Total General {Number(folder.finalImporte).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</p>
      :
      ''
    } 
