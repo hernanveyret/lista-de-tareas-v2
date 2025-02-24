@@ -4,23 +4,23 @@ import './almanaque.css';
 
 const Almanac = ({setOnAlmanac}) => {
   const feriados = [
-    { "id": 1, "mes": "enero", "dia": 1, "feriado": "1 - Año Nuevo" },
-    { "id": 2, "mes": "marzo", "dia": 3, "feriado": "3 - Carnaval" },
-    { "id": 3, "mes": "marzo", "dia": 4, "feriado": "4 - Carnaval" },
-    { "id": 4, "mes": "marzo", "dia": 24, "feriado": "24 - Día Nacional de la Memoria por la Verdad y la Justicia" },
-    { "id": 5, "mes": "abril", "dia": 2, "feriado": "2 - Día del Veterano y de los Caídos en la Guerra de Malvinas" },
-    { "id": 6, "mes": "abril", "dia": 18, "feriado": "18 - Viernes Santo" },
-    { "id": 7, "mes": "mayo", "dia": 1, "feriado": "1 - Día del Trabajador" },
-    { "id": 8, "mes": "mayo", "dia": 2, "feriado": "2 - Día no laborable con fines turísticos" },
-    { "id": 9, "mes": "mayo", "dia": 25, "feriado": "25 - Día de la Revolución de Mayo" },
-    { "id": 10, "mes": "junio", "dia": 20, "feriado": "20 - Paso a la Inmortalidad del General Manuel Belgrano" },
-    { "id": 11, "mes": "julio", "dia": 9, "feriado": "9 - Día de la Independencia" },
-    { "id": 12, "mes": "agosto", "dia": 15, "feriado": "15 - Día no laborable con fines turísticos" },
-    { "id": 13, "mes": "agosto", "dia": 17, "feriado": "17 - Paso a la Inmortalidad del General José de San Martín" },
-    { "id": 14, "mes": "octubre", "dia": 12, "feriado": "12 - Día del Respeto a la Diversidad Cultural" },
-    { "id": 15, "mes": "noviembre", "dia": 21, "feriado": "21 - Día no laborable con fines turísticos" },
-    { "id": 16, "mes": "diciembre", "dia": 8, "feriado": "8 - Día de la Inmaculada Concepción de María" },
-    { "id": 17, "mes": "diciembre", "dia": 25, "feriado": "25 - Navidad" }
+    { "id": 1, "mes": "enero", "dia": 1, "feriado": "1 - Año Nuevo", noLaborable: false },
+    { "id": 2, "mes": "marzo", "dia": 3, "feriado": "3 - Carnaval" , noLaborable: false},
+    { "id": 3, "mes": "marzo", "dia": 4, "feriado": "4 - Carnaval" , noLaborable: false},
+    { "id": 4, "mes": "marzo", "dia": 24, "feriado": "24 - Día Nacional de la Memoria por la Verdad y la Justicia" , noLaborable: false},
+    { "id": 5, "mes": "abril", "dia": 2, "feriado": "2 - Día del Veterano y de los Caídos en la Guerra de Malvinas", noLaborable: false },
+    { "id": 6, "mes": "abril", "dia": 18, "feriado": "18 - Viernes Santo", noLaborable: false },
+    { "id": 7, "mes": "mayo", "dia": 1, "feriado": "1 - Día del Trabajador", noLaborable: false },
+    { "id": 8, "mes": "mayo", "dia": 2, "feriado": "2 - Día no laborable con fines turísticos", noLaborable: true },
+    { "id": 9, "mes": "mayo", "dia": 25, "feriado": "25 - Día de la Revolución de Mayo" , noLaborable: false},
+    { "id": 10, "mes": "junio", "dia": 20, "feriado": "20 - Paso a la Inmortalidad del General Manuel Belgrano" , noLaborable: false},
+    { "id": 11, "mes": "julio", "dia": 9, "feriado": "9 - Día de la Independencia", noLaborable: false },
+    { "id": 12, "mes": "agosto", "dia": 15, "feriado": "15 - Día no laborable con fines turísticos" , noLaborable: true},
+    { "id": 13, "mes": "agosto", "dia": 17, "feriado": "17 - Paso a la Inmortalidad del General José de San Martín" , noLaborable: false},
+    { "id": 14, "mes": "octubre", "dia": 12, "feriado": "12 - Día del Respeto a la Diversidad Cultural" , noLaborable: false},
+    { "id": 15, "mes": "noviembre", "dia": 21, "feriado": "21 - Día no laborable con fines turísticos", noLaborable: true},
+    { "id": 16, "mes": "diciembre", "dia": 8, "feriado": "8 - Día de la Inmaculada Concepción de María" , noLaborable: false},
+    { "id": 17, "mes": "diciembre", "dia": 25, "feriado": "25 - Navidad", noLaborable: false }
   ]
   const fecha = new Date();
   const year = fecha.getFullYear(); // año
@@ -101,7 +101,7 @@ const Almanac = ({setOnAlmanac}) => {
        ? 
         diasDelMes === Number(trueDay.dia) 
         ?
-        cells.push(<td key={`day-${diasDelMes}`}  style={{ backgroundColor:'black', color:'white'}}>{diasDelMes}</td>)
+        cells.push(<td key={`day-${diasDelMes}`}  style={trueDay.noLaborable ? { backgroundColor:'green', color:'white'}: { backgroundColor:'black', color:'white'}}>{diasDelMes}</td>)
         : 
         cells.push(<td key={`day-${diasDelMes}`}>{diasDelMes}</td>)   
       :
@@ -122,7 +122,7 @@ const Almanac = ({setOnAlmanac}) => {
             ? 
              diasDelMes === Number(trueDay.dia) 
               ?                
-               cells.push(<td key={`day-${diasDelMes}`}  style={{backgroundColor:'black', color:'white'}}>{diasDelMes}</td>)
+               cells.push(<td key={`day-${diasDelMes}`}  style={trueDay.noLaborable ? { backgroundColor:'green', color:'white'}: { backgroundColor:'black', color:'white'}}>{diasDelMes}</td>)
               :
               cells.push(<td key={`day-${diasDelMes}`}>{diasDelMes}</td>)   
             :
