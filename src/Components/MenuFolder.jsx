@@ -4,6 +4,7 @@ import Folders from './Folders';
 import BannerConfirm from './BannerConfirm';
 import RenameFolder from './RanameFolder';
 import ConfirmDeleteFolder from './ConfirmDeleteFolder';
+import ConfirmDeleteTask from './ConfirmDeleteTask';
 
 import './menuFolder.css';
 
@@ -33,6 +34,13 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
     colorFondo:'',
     colorText:''
   })
+  const [ deleteDataTask, setDeleteDataTask ] = useState({
+    id:'',
+    nombre:'',
+    confirmtext:''
+  })
+  const [ confirmDeleteTask, setConfirmDeleteTask ] = useState(false)
+  const [ isDeleteTask, setIsDeleteTask ] = useState(false)
   
   const editNameFolder = (e) => {
     let $target = e.currentTarget
@@ -107,21 +115,35 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
     let $target = e.currentTarget;
     let id = parseInt($target.dataset.id);  
     let nombre = $target.dataset.nombre.trim();
-    let newContainer = container.map((folder) => {
-        if (folder.id === id) {
-            return {
-                ...folder,
-                tareas: folder.tareas.filter((page) => page.namePage !== nombre)
-            };
-        }
-        return folder;
-    });
-    setContainer(newContainer);
-    setTexto({ ...texto, text:`Se ${confirmText} con exito.`, colorFondo:'#28a745', colorText:'white'})
-      setMostrarBanner(true);
-      setTimeout(() => setMostrarBanner(false), 3000);
-      return;    
+
+    setDeleteDataTask({
+      id: id,
+      nombre: nombre,
+      confirmtext: confirmText
+    })
+    setIsDeleteTask(true)    
 };
+  // elimina la pagina dentro de una carpeta.
+useEffect(() => {
+  if(confirmDeleteTask){
+    let newContainer = container.map((folder) => {
+      if (folder.id === deleteDataTask.id) {
+          return {
+              ...folder,
+              tareas: folder.tareas.filter((page) => page.namePage !== deleteDataTask.nombre)
+          };
+      }
+      return folder;
+  });
+  setContainer(newContainer);
+  setDeleteDataTask({
+    id: '',
+    nombre: '',
+    confirmtext: ''
+  })
+  setIsDeleteTask(false)
+  }
+},[confirmDeleteTask])
 
   // Abre la carpeta seleccionada.
   const openPage = (e) => {
@@ -164,9 +186,8 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
   const restorePage = (e) => {
     let $target = e.currentTarget;
     let id = parseInt($target.dataset.id)
-    setPageToRestore(container.find(page => page.id === id))
+    setPageToRestore(container.find(page => page.id === id))    
     setNombreDePagina($target.dataset.nombre.trim());
-    deleteTask(e,'movio');
   }
   //cierra la carpeta si se queda sin tareas.
   useEffect(() => {    
@@ -180,33 +201,53 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
 
   // useEffect de restorePage
   useEffect(() => {
-    if(pageToRestore){
+   if(pageToRestore){
       pageToRestore.tareas.forEach(t => {
         if(t.namePage === nombreDePagina){
           setPages((prevPages) => [...prevPages, t])
         }
       })
+
+      let newContainer = container.map((folder) => {
+        if (folder.id === pageToRestore.id) {
+            return {
+                ...folder,
+                tareas: folder.tareas.filter((page) => page.namePage !== nombreDePagina)
+            };
+        }
+        return folder;
+      });
+
+    setContainer(newContainer);
+    setTexto({ ...texto, text:`Se movio "${nombreDePagina}" con exito.`, colorFondo:'#28a745', colorText:'white'})
+    setMostrarBanner(true);
+    setTimeout(() => setMostrarBanner(false), 3000);
+    return; 
     }
   },[pageToRestore])
 
   useEffect(() => {
-    let importeFinal = 0
-    
+    let importeFinal = 0    
     container.forEach(folder => {      
      folder.tareas.forEach(tareas => {
       if(tareas.type === 'calc'){
         importeFinal = importeFinal + tareas.totalImporte
       }
-      folder.finalImporte = importeFinal
-      
+      folder.finalImporte = importeFinal      
     })
-   importeFinal = 0
-    
+   importeFinal = 0    
   })
   },[container])
 
   return (
     <div className="container-menu-folder">
+       {
+        isDeleteTask && <ConfirmDeleteTask 
+          setConfirmDeleteTask={setConfirmDeleteTask}
+          setIsDeleteTask={setIsDeleteTask}
+          deleteDataTask={deleteDataTask}
+        />
+       }
        { isDelete && <ConfirmDeleteFolder 
         setConfirmDelete={setConfirmDelete}
         setIsDelete={setIsDelete}
