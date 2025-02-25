@@ -8,7 +8,7 @@ import ConfirmDeleteTask from './ConfirmDeleteTask';
 
 import './menuFolder.css';
 
-const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer, namePage, setNamePage}) => {
+const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer, namePage, setNamePage,isHoverIcons,setIsHoverIcons}) => {
   
   const [ onInputFolder, setOnInputFolder ] = useState(false)
   const [ isOpen, setIsOpen ] = useState(false);
@@ -219,7 +219,7 @@ useEffect(() => {
       });
 
     setContainer(newContainer);
-    setTexto({ ...texto, text:`Se movio "${nombreDePagina}" con exito.`, colorFondo:'#28a745', colorText:'white'})
+    setTexto({ ...texto, text:`Se restauro "${nombreDePagina}" con exito.`, colorFondo:'#28a745', colorText:'white'})
     setMostrarBanner(true);
     setTimeout(() => setMostrarBanner(false), 3000);
     return; 
@@ -271,24 +271,52 @@ useEffect(() => {
       </header>
       <main className="main">       
         <nav className="nav-btn-folder">
-          <button className="btn create-folder" onClick={() => {setOnInputFolder(true)}} title="Nueva carpeta">
-            <svg xmlns="http://www.w3.org/2000/svg" 
-            height="24px" 
-            viewBox="0 -960 960 960" 
-            width="24px" 
-            fill="black">
-              <path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
-            </svg>
+          <button className="btn create-folder" onClick={() => {setOnInputFolder(true)}} title="Nueva carpeta"
+            onMouseEnter={() => {setIsHoverIcons('hoverCreateTrue')}}
+            onMouseLeave={() => {setIsHoverIcons('hoverCreateFalse')}}
+            >
+              {
+                isHoverIcons === 'hoverCreateTrue' ?
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  height="24px" 
+                  viewBox="0 -960 960 960"
+                  width="24px" 
+                  fill="#FFFFFF">
+                     <path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Z"/>
+                </svg>
+                :
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                  height="24px" 
+                  viewBox="0 -960 960 960" 
+                  width="24px" 
+                  fill="black">
+                    <path d="M560-320h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
+                </svg>
+              }            
             <p>Crear</p>
           </button>
-          <button onClick={() => setFolder({...folder, openMenu: false})} className="btn btn-close-menu-folder" title="Volver">
-            <svg xmlns="http://www.w3.org/2000/svg" 
-              height="24px" 
-              viewBox="0 -960 960 960" 
-              width="24px" 
-              fill="black">
-                <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
-            </svg>
+          <button onClick={() => setFolder({...folder, openMenu: false})} className="btn btn-close-menu-folder" title="Volver"
+            onMouseEnter={() => {setIsHoverIcons('hoverVolverTrue')}}
+            onMouseLeave={() => {setIsHoverIcons('hoverVolverFalse')}}
+            >
+              {
+                isHoverIcons === 'hoverVolverTrue' ? 
+                  <svg xmlns="http://www.w3.org/2000/svg" 
+                    height="24px" 
+                    viewBox="0 -960 960 960"
+                    width="24px" 
+                    fill="white">
+                      <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                  </svg>
+                  :
+                  <svg xmlns="http://www.w3.org/2000/svg" 
+                    height="24px" 
+                    viewBox="0 -960 960 960" 
+                    width="24px" 
+                    fill="black">
+                      <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                  </svg>
+              }            
             <p>Volver</p>
           </button>
         </nav>
@@ -296,6 +324,8 @@ useEffect(() => {
           container.length > 0 ? 
           container.map((folder) => (
             <Folders 
+             isHoverIcons={isHoverIcons}
+             setIsHoverIcons={setIsHoverIcons}
              key={folder.id}
              folder={folder}
              addToFolder={addToFolder}

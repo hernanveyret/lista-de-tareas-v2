@@ -3,7 +3,7 @@ import ArrowDown from './ArrowDown';
 import ArrowUp from './ArrowUp'
 import './folders.css'
 
-const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask, openPage, restorePage, openMenu, openMenuPage, openTaskInFolder}) => {
+const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask, openPage, restorePage, openMenu, openMenuPage, openTaskInFolder, setIsHoverIcons, isHoverIcons}) => {
  
   return (
   <> 
@@ -12,33 +12,75 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
       <p>{folder.folderName[0].toUpperCase() + folder.folderName.slice(1)}</p>
     </span>
     <span className="container-btn-folder">
-    <button className='btn' onClick={(addToFolder)} data-id={folder.id} title="Guardar">
-      <svg xmlns="http://www.w3.org/2000/svg" 
-        height="24px" 
-        viewBox="0 -960 960 960" 
-        width="24px" 
-        fill="#000000">
-          <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+    <button className='btn' onClick={(addToFolder)} data-id={folder.id} title="Guardar"
+      onMouseEnter={() => {setIsHoverIcons({action:'hoverGuardarTrue',id:folder.id})}}
+      onMouseLeave={() => {setIsHoverIcons({action:'hoverGuardarFals',id:''})}}
+    >
+      {
+        isHoverIcons.action === 'hoverGuardarTrue' && isHoverIcons.id === folder.id ?
+        <svg xmlns="http://www.w3.org/2000/svg" 
+          height="24px" 
+          viewBox="0 -960 960 960" 
+          width="24px" 
+          fill="white">
+            <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+        </svg>
+        :
+        <svg xmlns="http://www.w3.org/2000/svg" 
+          height="24px" 
+          viewBox="0 -960 960 960" 
+          width="24px" 
+          fill="#000000">
+            <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
       </svg>
+      }      
       <p>Guardar</p>
     </button>
-    <button className='btn' onClick={editNameFolder} data-id={folder.id} title="Editar nombre">
-      <svg xmlns="http://www.w3.org/2000/svg" 
+    <button className='btn' onClick={editNameFolder} data-id={folder.id} title="Editar nombre"
+    onMouseEnter={() => {setIsHoverIcons({action:'hoverEditarTrue',id:folder.id})}}
+    onMouseLeave={() => {setIsHoverIcons({action:'hoverEditarFalse',id:''})}}
+    >
+      {
+        isHoverIcons.action === 'hoverEditarTrue' && isHoverIcons.id === folder.id ?
+        <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" 
         viewBox="0 -960 960 960" 
-        width="24px" 
-        fill="black">
-          <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/>
-      </svg>
+        width="24px" fill="#FFFFFF">
+          <path d="M120-120v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm584-528 56-56-56-56-56 56 56 56Z"/>
+        </svg>
+        :
+          <svg xmlns="http://www.w3.org/2000/svg" 
+          height="24px" 
+          viewBox="0 -960 960 960" 
+          width="24px" 
+          fill="black">
+            <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/>
+        </svg>
+      }
+      
       <p>Editar</p>
     </button>    
-    <button className='btn' onClick={deleteFolder} data-id={folder.id} title="Borrar">
-      <svg xmlns="http://www.w3.org/2000/svg" 
-        height="24px" viewBox="0 -960 960 960" 
-        width="24px" 
-        fill="black">
-        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-      </svg>
+    <button className='btn' onClick={deleteFolder} data-id={folder.id} title="Borrar"
+    onMouseEnter={() => {setIsHoverIcons({action:'hoverBorrarTrue',id:folder.id})}}
+    onMouseLeave={() => {setIsHoverIcons({action:'hoverBorrarFalse',id:''})}}
+    >
+      {
+        isHoverIcons.action === 'hoverBorrarTrue' && isHoverIcons.id === folder.id ?
+        <svg xmlns="http://www.w3.org/2000/svg" 
+          height="24px"
+          viewBox="0 -960 960 960" 
+          width="24px" 
+          fill="red">
+            <path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Z"/>
+        </svg>
+        :
+        <svg xmlns="http://www.w3.org/2000/svg" 
+          height="24px" viewBox="0 -960 960 960" 
+          width="24px" 
+          fill="black">
+            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+        </svg>
+      }      
     <p>Borrar</p>
     </button>
     <button className='btn' onClick={openPage} data-id={folder.id}> 
@@ -53,23 +95,53 @@ const Folders = ({folder, addToFolder, editNameFolder ,deleteFolder, deleteTask,
             <div className="title">
               <div className="title-title"><p>{task.namePage}</p></div>
               <div className="containertitle-btn">
-              <button className="btn" title="Retornar a la lista" onClick={restorePage} data-nombre={task.namePage} data-id={folder.id}>
-                <svg xmlns="http://www.w3.org/2000/svg" 
+              <button className="btn" title="Retornar a la lista" onClick={restorePage} data-nombre={task.namePage} data-id={folder.id}
+                onMouseEnter={() => {setIsHoverIcons({action:'hoverRestoreTrue', nombre:task.namePage})}}
+                onMouseLeave={() => {setIsHoverIcons({action:'hoverRestoreFalse',id:''})}}
+              >
+                {
+                  isHoverIcons.action === 'hoverRestoreTrue' && isHoverIcons.nombre === task.namePage ?
+                  <svg xmlns="http://www.w3.org/2000/svg" 
                   height="24px" 
                   viewBox="0 -960 960 960" 
                   width="24px" 
-                  fill="#000000">
+                  fill="green">
                     <path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/>
                 </svg>
+                :
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                height="24px" 
+                viewBox="0 -960 960 960" 
+                width="24px" 
+                fill="#000000">
+                  <path d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"/>
+              </svg>
+                }
+                
                 <p>Restaurar</p>
                 </button>
-              <button className="btn" title="Borrar" onClick={(e)=>deleteTask(e,'borro')} data-nombre={task.namePage} data-id={folder.id}>
-                <svg xmlns="http://www.w3.org/2000/svg" 
-                  height="24px" viewBox="0 -960 960 960" 
-                  width="24px" 
-                  fill="black">
-                  <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                </svg>
+              <button className="btn" title="Borrar" onClick={(e)=>deleteTask(e,'borro')} data-nombre={task.namePage} data-id={folder.id}
+               onMouseEnter={() => {setIsHoverIcons({action:'hoverBorrarPageTrue',nombre: task.namePage})}}
+               onMouseLeave={() => {setIsHoverIcons({action:'hoverBorrarPageFalse',id:''})}}
+               >
+                 {
+                   isHoverIcons.action === 'hoverBorrarPageTrue' && isHoverIcons.nombre === task.namePage ?
+                   <svg xmlns="http://www.w3.org/2000/svg" 
+                     height="24px"
+                     viewBox="0 -960 960 960" 
+                     width="24px" 
+                     fill="red">
+                       <path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Z"/>
+                   </svg>
+                   :
+                   <svg xmlns="http://www.w3.org/2000/svg" 
+                     height="24px" viewBox="0 -960 960 960" 
+                     width="24px" 
+                     fill="black">
+                       <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                   </svg>
+                 }       
+               
                 <p>Borrar</p>
               </button> 
               </div>
