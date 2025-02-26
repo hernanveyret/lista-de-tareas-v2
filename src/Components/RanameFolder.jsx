@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const RenameFolder = ({setOpenRename, openRename, container, setContainer}) => {
   const [ inputName, setInputName ] = useState('');
   const [ onRepeat, setOnRepeat ] = useState(null)
+  const [ isHoverIcon, setIsHoverIcon ] = useState(false)
   
   const rename = (e) => {
     e.preventDefault()
@@ -46,14 +47,28 @@ const RenameFolder = ({setOpenRename, openRename, container, setContainer}) => {
        <input type="text" value={inputName} onChange={(e) => { setInputName(e.target.value)}} className="inputText" autoFocus/>
        <label>
           <input type="submit" />
-            <span>
-            <svg xmlns="http://www.w3.org/2000/svg" 
-              height="40px"
-              viewBox="0 -960 960 960" 
-              width="40px" 
-              fill="black">
-                <path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z"/>
-            </svg>
+            <span className="btn-save" title='Guardar'
+            onMouseEnter={() => {setIsHoverIcon(true)}}
+            onMouseLeave={() => {setIsHoverIcon(false)}}
+            >
+              {
+                isHoverIcon ? 
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                  height="50px"
+                  viewBox="0 -960 960 960" 
+                  width="50px" 
+                  fill="white">
+                    <path d="M840-683v503q0 24-18 42t-42 18H180q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h503l157 157Zm-60 27L656-780H180v600h600v-476ZM479.76-245q43.24 0 73.74-30.26 30.5-30.27 30.5-73.5 0-43.24-30.26-73.74-30.27-30.5-73.5-30.5-43.24 0-73.74 30.26-30.5 30.27-30.5 73.5 0 43.24 30.26 73.74 30.27 30.5 73.5 30.5ZM233-584h358v-143H233v143Zm-53-72v476-600 124Z"/>
+                </svg>
+                :
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                  height="50px"
+                  viewBox="0 -960 960 960" 
+                  width="50px" 
+                  fill="black">
+                    <path d="M840-683v503q0 24-18 42t-42 18H180q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h503l157 157Zm-60 27L656-780H180v600h600v-476ZM479.76-245q43.24 0 73.74-30.26 30.5-30.27 30.5-73.5 0-43.24-30.26-73.74-30.27-30.5-73.5-30.5-43.24 0-73.74 30.26-30.5 30.27-30.5 73.5 0 43.24 30.26 73.74 30.27 30.5 73.5 30.5ZM233-584h358v-143H233v143Zm-53-72v476-600 124Z"/>
+                </svg>
+              }
             </span>
         </label>
       </form>
