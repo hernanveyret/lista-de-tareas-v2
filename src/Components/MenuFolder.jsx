@@ -8,7 +8,7 @@ import ConfirmDeleteTask from './ConfirmDeleteTask';
 
 import './menuFolder.css';
 
-const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer, namePage, setNamePage,isHoverIcons,setIsHoverIcons}) => {
+const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer, namePage, setNamePage,isHoverIcons,setIsHoverIcons,setIsAnimacionDelete}) => {
   
   const [ onInputFolder, setOnInputFolder ] = useState(false)
   const [ isOpen, setIsOpen ] = useState(false);
@@ -107,6 +107,7 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
       })
       setIsDelete(false)
       setConfirmDelete(false)
+      setIsAnimacionDelete(true)
     }  
   },[confirmDelete])
 
@@ -121,7 +122,8 @@ const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMe
       nombre: nombre,
       confirmtext: confirmText
     })
-    setIsDeleteTask(true)    
+    setIsDeleteTask(true) 
+     
 };
   // elimina la pagina dentro de una carpeta.
 useEffect(() => {
@@ -142,6 +144,7 @@ useEffect(() => {
     confirmtext: ''
   })
   setIsDeleteTask(false)
+  setIsAnimacionDelete(true)  
   }
 },[confirmDeleteTask])
 

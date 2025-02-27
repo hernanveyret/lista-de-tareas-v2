@@ -11,6 +11,7 @@ import NavText from './Components/NavText.jsx';
 import TotalBar from './Components/TotalBar.jsx';
 import Almanac from './Components/Almanac.jsx';
 import MenuFolder from './Components/MenuFolder.jsx';
+import AnimacionDelete from './Components/AnimacionDelete.jsx';
 
 import './App.css'
 function App() {
@@ -46,7 +47,8 @@ function App() {
   const [ onAlmanac, setOnAlmanac ] = useState(false)
   const [ folder, setFolder ] = useState({
     openMenu: false
-  })  
+  })
+  const [ isAnimacionDelete, setIsAnimacionDelete ] = useState(false)
  
   //localStorage.removeItem("contenedor");
 
@@ -137,7 +139,14 @@ function App() {
         setCantChecked(true)
       }      
     }
-    
+
+    // Ejecuta la animacion del tacho e basura al borrar algo.
+    useEffect(() => {
+      setTimeout(() => {
+        setIsAnimacionDelete(false)
+      }, 3000)
+    },[isAnimacionDelete])
+
     // Elimina las tareas seleccionadas.
     const deleteTask = () => {
         setPages((prevPages) =>
@@ -148,17 +157,18 @@ function App() {
               const taskElement = document.querySelector(`[data-check="${task.id}"]`);
               return !taskElement?.checked;
             });
-            return { ...page, tareas: newTasks }; // Retornar pagina actualizada
+            return { ...page, tareas: newTasks }; 
           }
-          return page; // Retornar las otras paginas sin cambios
+          return page; // 
         })
       );     
       setConfirm(false)
+
       const $checkAll = document.querySelector('.checkTodos');
       if($checkAll){
         $checkAll.checked = false
       }
-      
+      setIsAnimacionDelete(true)
     };
     
     // Selecciona todas las tareas
@@ -333,7 +343,10 @@ useEffect(() => {
 })
 
   return (
-    <section className="container-app">   
+    <section className="container-app">
+      {
+        isAnimacionDelete && <AnimacionDelete />
+      }
       {
         onAlmanac && <Almanac 
         setOnAlmanac={setOnAlmanac}
@@ -376,6 +389,7 @@ useEffect(() => {
         setConfirm={setConfirm}
         folder={folder}
         setFolder={setFolder}
+        setIsAnimacionDelete={setIsAnimacionDelete}
         />
       }
           { /* Header */ }
@@ -566,6 +580,7 @@ useEffect(() => {
             setNamePage={setNamePage}
             setIsHoverIcons={setIsHoverIcons}
             isHoverIcons={isHoverIcons}
+            setIsAnimacionDelete={setIsAnimacionDelete}
             />
           }
     </section>

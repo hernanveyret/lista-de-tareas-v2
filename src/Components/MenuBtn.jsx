@@ -3,7 +3,7 @@ import Confirm from './Confirm';
 import RenamePage from './RenamePage';
 
 import './menuBtn.css';
-const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat,setSelectPage,taskOrPage, confirm, setConfirm, setFolder, folder}) => {
+const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat,setSelectPage,taskOrPage, confirm, setConfirm, setFolder, folder,setIsAnimacionDelete}) => {
 const [ $renamePage, set$RenamePage ] = useState(false);
 
   const deletePage = () => {
@@ -20,6 +20,7 @@ const [ $renamePage, set$RenamePage ] = useState(false);
     });
     setOnMenuBtn({ onoff: false, target: "" });
     setConfirm(false)
+    setIsAnimacionDelete(true)  
   }
 
   return (
