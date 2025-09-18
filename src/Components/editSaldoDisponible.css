@@ -1,0 +1,99 @@
+.contenedor-saldo-disponible {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.35); /* más limpio */
+  backdrop-filter: blur(4px); /* efecto vidrio moderno */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-saldo-disponible {
+  padding: 20px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgb(0, 238, 255), #1294a5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  width: 300px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.btn-cancelar {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-cancelar:hover {
+  transform: scale(1.2);
+}
+
+.form-edit-saldo {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: flex-start; /* para alinear arriba el input + texto con el botón */
+}
+
+.form-edit-saldo div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-edit-saldo input[type="text"] {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.form-edit-saldo p {
+  color: white;
+  text-shadow: 3px 3px 5px black;
+  font-size: 12px;
+  margin-top: .3rem;;
+  margin-right: 90px;
+  width: 100%;
+}
+
+.btn-subit-edit-saldo {
+  background: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+  height: 38px;
+}
+
+.btn-subit-edit-saldo:hover {
+  background: #e6e6e6;
+  transform: scale(1.05);
+}
+
+.btn-subit-edit-saldo svg {
+  width: 28px;
+  height: 28px;
+  fill: black;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.removeErrorEdit {
+  opacity: 0;
+}

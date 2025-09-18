@@ -3,7 +3,22 @@ import Confirm from './Confirm';
 import RenamePage from './RenamePage';
 
 import './menuBtn.css';
-const MenuBtn = ({setOnMenuBtn, onMenuBtn, pages, setPages, namePage, setNamePage, pageRepeat,setSelectPage,taskOrPage, confirm, setConfirm, setFolder, folder,setIsAnimacionDelete}) => {
+const MenuBtn = ({setOnMenuBtn, 
+                  onMenuBtn, 
+                  pages, 
+                  setPages, 
+                  namePage, 
+                  setNamePage, 
+                  pageRepeat, 
+                  setSelectPage, 
+                  taskOrPage, 
+                  confirm, 
+                  setConfirm, 
+                  setFolder, 
+                  folder, 
+                  setIsAnimacionDelete,
+                  setIsAddSaldo
+                }) => {
 const [ $renamePage, set$RenamePage ] = useState(false);
 
   const deletePage = () => {
@@ -23,6 +38,11 @@ const [ $renamePage, set$RenamePage ] = useState(false);
     setIsAnimacionDelete(true)  
   }
 
+  const agregarSaldo = () => {
+    const filtro = pages.find(p => p.namePage === namePage);
+    console.log(filtro)
+  }
+
   return (
     <div className="container-menu-btn">
       { confirm && <Confirm setConfirm={setConfirm} taskOrPage={taskOrPage} deletePage={deletePage} onMenuBtn={onMenuBtn.target}/>}
@@ -39,7 +59,8 @@ const [ $renamePage, set$RenamePage ] = useState(false);
         </button>
         <button onClick={() => setConfirm(true)}>Eliminar</button>
         <button onClick={() => { set$RenamePage(true)}}>Renombrar</button>
-        <button onClick={() => {setOnMenuBtn({onoff:false, target:''})}}>Cancelar</button>
+        <button onClick={() => { setIsAddSaldo(true); setOnMenuBtn({onoff:false, target:''}) }}>Saldo</button>
+        <button onClick={() => {setOnMenuBtn({onoff:false, target:''})}}>X</button>
       </div>
       { $renamePage && <RenamePage 
         set$RenamePage={set$RenamePage}

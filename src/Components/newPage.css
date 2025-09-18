@@ -1,38 +1,24 @@
 .container-new-page {
   width: 100%;
   height: 100vh;
-  position:fixed;
+  position: fixed;
   top: 0;
-  background-color: rgba(128, 128, 128, 0.493);
-  display: flex;  
+  background-color: rgba(0, 0, 0, 0.35); /* más limpio */
+  backdrop-filter: blur(4px); /* efecto vidrio moderno */
+  display: flex;
   align-items: center;
   flex-direction: column;
-  
-  z-index:1002;
+  z-index: 1002;
 }
+
 .container-new-page h3 {
   color: white;
 }
-.container-new-page form {
-  width: 90%;
-  background-color:transparent;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  margin-top: 1rem;
-}
-.inputText {
- border: none;
- outline: none;
- border-radius: .75rem;
- padding-left: 1rem;
-}
+
 .section {
-  background: linear-gradient(rgb(0, 238, 255),#1294a5);
+  background: linear-gradient(rgb(0, 238, 255), #1294a5);
   width: 90%;
-  height: 150px;
+  height: auto;                /* auto para que el contenido determine altura */
   border-radius: .45rem;
   display: flex;
   flex-direction: column;
@@ -43,87 +29,146 @@
   top: -180px;
   animation: animacion .5s ease;
   animation-fill-mode: forwards;
+  padding-bottom: 30px;
 }
+
+/* --- CLOSE (X) --- */
 .close-create-page {
   position: absolute;
-  top: -5px;
-  right: 1rem;
+  top: 12px;           /* dentro del modal, ya no queda fuera ni sobre el título */
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.14s ease;
+  border: 1px solid red;
 }
-input[type="submit"]{
+.close-create-page:hover { transform: scale(1.06); }
+
+/* si usás un svg dentro del botón */
+.close-create-page svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: black;
+}
+
+/* ocultar input submit nativo */
+input[type="submit"] {
   display: none;
 }
+
+/* título */
+.section h3 {
+  margin: 0;
+  padding-top: 6px;
+  text-shadow: 3px 3px 4px black;
+  color: white;
+}
+
+/* --- FORM & INPUTS --- */
+.form-new-page {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: flex-start;    /* clave: alinea el input+p arriba y el botón a la derecha */
+  justify-content: center;
+  width: 100%;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+/* wrapper del input + texto */
+.form-new-page > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* input estilo */
+.inputText {
+  padding: .9rem;
+  border-radius: 5px;
+  margin-top: 5px;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* mensaje de error (por defecto el elemento tiene la clase removeError -> oculto).
+   Cuando quitás la clase (textoError.classList.remove('removeError')) se mostrará */
+
 .section p {
   color: white;
   text-shadow: 3px 3px 5px black;
   font-size: .8rem;
-  margin-top: .3rem;;
-  margin-right: 90px;
+  width: auto;
 }
-.section h3 {
-  text-shadow: 3px 3px 4px black;;
+
+/* clase que usás para ocultar el error */
+.removeError {
+  opacity: 0;
+  transition: opacity 0.15s ease;
 }
-.form-new-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.inputText {
-  padding: .9rem;
-  border-radius: 5px;
-  margin-right: 2px;
-}
+
+/* botón gráfico de guardar (el que usás como span.btn-save) */
 form span {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
-}
-.btn-save {  
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
 }
 
+.btn-save {
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s ease, transform 0.14s ease;
+  cursor: pointer;
+  
+}
+.btn-save:hover { 
+   transform: scale(1.05); }
+
+/* animaciones y media queries conservadas con pequeños ajustes */
 @keyframes animacion {
-  0% {
-    top: -180px; 
-  }
-  100% {
-    top: 200px; 
-  }
+  0% { top: -180px; }
+  100% { top: 200px; }
 }
 
 @media screen and (min-width: 700px) {
   .section {
-    width: 50%;   
-    animation: animacion-700 .5s ease; 
+    width: 50%;
+    animation: animacion-700 .5s ease;
     animation-fill-mode: forwards;
   }
 
   @keyframes animacion-700 {
-    0% {
-      top: -180px; 
-    }
-    100% {
-      top: 90px; 
-    }
+    0% { top: -180px; }
+    100% { top: 90px; }
   }
-
 }
-@media screen and (min-width: 1024px){
+
+@media screen and (min-width: 1024px) {
   .section {
-    width:auto;
-    padding: 0 1.5rem;  
-    animation: animacion-1024 .5s ease; 
+    width: 30%;
+    padding-bottom: 30px;
+    animation: animacion-1024 .5s ease;
     animation-fill-mode: forwards;
   }
 
   @keyframes animacion-1024 {
-    0% {
-      top: -180px; 
-    }
-    100% {
-      top: 150px; 
-    }
+    0% { top: -180px; }
+    100% { top: 150px; }
   }
 }

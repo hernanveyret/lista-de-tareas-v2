@@ -12,6 +12,7 @@ import TotalBar from './Components/TotalBar.jsx';
 import Almanac from './Components/Almanac.jsx';
 import MenuFolder from './Components/MenuFolder.jsx';
 import AnimacionDelete from './Components/AnimacionDelete.jsx';
+import AddSaldo from './Components/AddSaldo.jsx';
 
 import './App.css'
 function App() {
@@ -26,6 +27,7 @@ function App() {
   const [ selectPage, setSelectPage] = useState (pages ? pages[0] : {namePage:"", tareas:[]});
   const [ namePage, setNamePage ] = useState(pages.length > 0 ? pages[0].namePage : '') // toma el nombre d la pagina que se quiere ver
   const [ enterNamePage, setEnterNamePage ] = useState('');
+  const [ saldoDisponible, setSaldoDisponible ] = useState(null)
   const [ inputTask, setInputTask ] = useState(''); // texto de la tarea
   const [ inputCalc, setInputCalc ] = useState({
     text:'',
@@ -49,6 +51,10 @@ function App() {
     openMenu: false
   })
   const [ isAnimacionDelete, setIsAnimacionDelete ] = useState(false)
+  const [ isEditSaldo, setIsEditSaldo ] = useState(false);
+  const [ isAddSaldo, setIsAddSaldo ] = useState(false);
+  const [ saldo, setSaldo ] = useState(null)
+ 
  
   //localStorage.removeItem("contenedor");
 
@@ -272,7 +278,7 @@ useEffect(() => {
 
 // Crea una nueva pagina para ingresar tareas.
 const createNewPage = (e) => {
-  e.preventDefault();    
+  //e.preventDefault();    
   let checkName = enterNamePage ? String(enterNamePage)[0].toUpperCase() + String(enterNamePage).slice(1) : "";
   let nameRepeat = pages.find(e => e.namePage === checkName)
   if(textOrCalc){
@@ -297,7 +303,8 @@ const createNewPage = (e) => {
       let newPage = {
         type: 'calc',
         namePage: enterNamePage === '' ? `Página ${pages.length + 1}` : enterNamePage[0].toUpperCase() + enterNamePage.slice(1),
-        tareas: []
+        tareas: [],
+        saldoDisponible: saldoDisponible
       };
       setNamePage(enterNamePage ? enterNamePage : newPage.namePage)
       setPages([...pages, newPage])
@@ -344,6 +351,17 @@ useEffect(() => {
 
   return (
     <section className="container-app">
+      { 
+        isAddSaldo &&
+          <AddSaldo
+            setIsAddSaldo={setIsAddSaldo}
+            setSaldo={setSaldo}
+            saldo={saldo}
+            pages={pages}
+            setPages={setPages}
+            namePage={namePage}
+          />
+      }
       {
         isAnimacionDelete && <AnimacionDelete />
       }
@@ -371,6 +389,9 @@ useEffect(() => {
         enterNamePage={enterNamePage}
         pageRepeat={pageRepeat}
         setFormNewPage={setFormNewPage}
+        textOrCalc={textOrCalc}
+        setSaldoDisponible={setSaldoDisponible}
+        saldoDisponible={saldoDisponible}
         />
       }
       {
@@ -390,6 +411,7 @@ useEffect(() => {
         folder={folder}
         setFolder={setFolder}
         setIsAnimacionDelete={setIsAnimacionDelete}
+        setIsAddSaldo={setIsAddSaldo}
         />
       }
           { /* Header */ }
@@ -554,7 +576,16 @@ useEffect(() => {
         <main className="lista-main">
           {selectPage?.type === 'list' && <Task selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask}/>}
           {selectPage?.type === 'calc' && <CalcPage selectPage={selectPage} taskCompleted={taskCompleted} editCalcTask={editCalcTask}/>}          
-          {selectPage?.type === 'calc' && <TotalBar selectPage={selectPage} pages={pages} setPages={setPages}/>}
+          { selectPage?.type === 'calc' && 
+            <TotalBar 
+              selectPage={selectPage} 
+              pages={pages} 
+              setPages={setPages}
+              saldoDisponible={saldoDisponible}
+              setIsEditSaldo={setIsEditSaldo}
+              isEditSaldo={isEditSaldo}
+            />
+          }
         </main>
 
           {/* ingresar nueva tarea */ }

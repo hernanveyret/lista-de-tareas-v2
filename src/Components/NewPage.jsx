@@ -1,8 +1,36 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import './newPage.css'
 
-const NewPage = ({createNewPage,setEnterNamePage,enterNamePage,pageRepeat,setFormNewPage}) => {
+const NewPage = ({createNewPage, 
+                  setEnterNamePage, 
+                  enterNamePage, 
+                  pageRepeat, 
+                  setFormNewPage, 
+                  textOrCalc, 
+                  setSaldoDisponible, 
+                  saldoDisponible 
+                }) => {
   const [ isHoverIcon, setIsHoverIcon ] = useState(false)
+  const [ enviar, setEnviar ] = useState(false)
+  const [error, setError] = useState(false); // controla la visibilidad del mensaje
+
+  useEffect(() => {
+    if (!isNaN(saldoDisponible) && saldoDisponible !== '') {
+      setEnviar(true);
+      setError(false);
+    } else {
+      setEnviar(false);
+      setError(true);
+    }
+  }, [saldoDisponible]);
+
+  const handleClose = () => {
+    setError(false);          // ocultar mensaje de error al cerrar
+    setSaldoDisponible('');   // opcional: limpiar input
+    setFormNewPage(false);
+  }
+
+
 
   return (
     <div className='container-new-page'>
@@ -11,8 +39,27 @@ const NewPage = ({createNewPage,setEnterNamePage,enterNamePage,pageRepeat,setFor
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="black"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
       </button>
         { pageRepeat ?  <h3 style={{color:"red", textShadow:"2px 2px 3px black"}}>* El nombre ya existe</h3>:<h3>Ingrese nombre de página</h3>}
-        <form onSubmit={createNewPage} className="form-new-page">
+        <form 
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (enviar) {
+              createNewPage();
+            }
+          }} 
+          className="form-new-page">
+      <div>
           <input type='text' name="name" value={enterNamePage} onChange={(e) => {setEnterNamePage(e.target.value)}} className="inputText" autoFocus/>
+          { !textOrCalc && 
+            <input 
+              type="text" 
+              name='importeDisponible' 
+              placeholder='Monto disponible' 
+              className="inputText" 
+              onChange={(e) => {setSaldoDisponible(e.target.value)}}
+            /> 
+          }
+          {error && <p className="errorEdit" id="errorNumber">*Ingrese un número válido</p>}
+      </div>
           <label>
             <input type="submit" />
               <span className="btn-save" title='Guardar'

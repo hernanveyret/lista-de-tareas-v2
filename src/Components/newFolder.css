@@ -3,10 +3,11 @@
   height: 100vh;
   position:fixed;
   top: 0;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.35); /* más limpio */
   z-index: 10004;
   display: flex;
   justify-content: center;
+  backdrop-filter: blur(4px); /* efecto vidrio moderno */
 }
 h3 {
   color: white;

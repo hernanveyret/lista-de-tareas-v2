@@ -9,6 +9,7 @@ const NavCalc = ({ setInputCalc, inputCalc, edit, addNewCalcTask }) => {
     if(inputName === 'cant'){
       if(!isNaN(value)){
         setInputCalc({...inputCalc, cant: value})
+        
       }else{
         activeRef.current.classList.add('active-valid-num')
         setTimeout(() => {
