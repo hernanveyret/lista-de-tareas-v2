@@ -535,10 +535,15 @@ useEffect(() => {
              setNamePage(e.target.textContent)
               }}>
               {e.namePage}
-              <span className="btn" onClick={(e) => {
-                e.stopPropagation()
-                menuBtnPage(e) 
-                }} data-name={e.namePage} id={e.id}>
+              <span 
+                className="btn" 
+                onClick={(e) => {
+                  e.stopPropagation()
+                  menuBtnPage(e) 
+                }} 
+                data-name={e.namePage} 
+                id={e.id}
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" 
                   height="24px" 
                   viewBox="0 -960 960 960" 

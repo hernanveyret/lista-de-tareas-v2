@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './renamePage.css';
 
 const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn, setNamePage}) => {
   const [ inputText, setInputText ] = useState('');  
@@ -27,8 +28,8 @@ const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn, setNa
    }
 
   return (
-    <div className='container-new-page'>
-      <section className="section">
+    <div className='container-rename-page'>
+      <section className="section-rename-page">
       <button className="btn clase-create-page" onClick={() => set$RenamePage(false)}>
         <svg xmlns="http://www.w3.org/2000/svg" 
         height="24px" 
@@ -37,9 +38,23 @@ const RenamePage = ({set$RenamePage,pages,setPages,onMenuBtn,setOnMenuBtn, setNa
         fill="black">
           <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
       </button>      
-      { onRepeatName ?  <h3 style={{fontSize:"1rem",color:"red", textShadow:"2px 2px 3px black"}}>* El nombre ya existe</h3>:<h3>Ingrese nuevo nombre para "{onMenuBtn.target}"</h3>}
-      <form onSubmit={editPages}>
-       <input type="text" value={inputText} onChange={(e) => { setInputText(e.target.value)}} className="inputText" autoFocus/>
+      { 
+        onRepeatName 
+        ?  
+        <h3 style={{fontSize:"1rem",color:"red", textShadow:"2px 2px 3px black"}}>* El nombre ya existe</h3>
+        :
+        <h3>Renombrar "{onMenuBtn.target}"</h3>
+      }
+      <form 
+      className="form-rename-page"
+      onSubmit={editPages}>
+       <input 
+        type="text" 
+        value={inputText} 
+        onChange={(e) => { setInputText(e.target.value)}} 
+        className="input-text-rename-page" 
+        autoFocus
+      />
        <label>
           <input type="submit" />
             <span>

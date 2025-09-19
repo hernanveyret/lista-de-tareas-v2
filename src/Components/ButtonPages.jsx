@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ButtonPages = ({pages,setNamePage,menuBtnPage}) => {
+const ButtonPages = ({pages, setNamePage, menuBtnPage}) => {
   return (
     <div className="nav-add-page">
     {

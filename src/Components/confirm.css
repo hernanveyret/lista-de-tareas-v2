@@ -24,7 +24,7 @@
   position: absolute;
   top: -150px;
   animation: animacion .5s ease; 
-    animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 .cuadro p {
   text-align: center;

@@ -1,0 +1,101 @@
+.container-rename-page {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.35); /* fondo oscuro transparente */
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1002;
+}
+
+.section-rename-page {
+  background: linear-gradient(145deg, #00e0ff, #1294a5);
+  width: 300px;
+  border-radius: 1rem;
+  padding: 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  /* animación usando transform (recomendado) */
+  animation: slideDown 0.45s cubic-bezier(.2,.8,.2,1) forwards;
+  will-change: transform, opacity;
+}
+
+.section-rename-page h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-rename-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: .5rem;
+}
+
+.input-text-rename-page {
+  flex: 1;
+  padding: 0.5rem 0.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  outline: none;
+  background: #fff;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+label {
+  cursor: pointer;
+}
+
+label input[type="submit"] {
+  display: none;
+}
+
+label span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 0.4rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, background 0.3s;
+}
+
+label span:hover {
+  transform: scale(1.1);
+  background: #f5f5f5;
+}
+
+.btn.clase-create-page {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.btn.clase-create-page:hover {
+  transform: scale(1.1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-220px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

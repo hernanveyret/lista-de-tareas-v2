@@ -20,6 +20,15 @@ const MenuBtn = ({setOnMenuBtn,
                   setIsAddSaldo
                 }) => {
 const [ $renamePage, set$RenamePage ] = useState(false);
+const [ typePage, setTypePage ] = useState(null);
+
+useEffect(() => {
+  pages.forEach(p => {
+    if(p.namePage === namePage){
+      setTypePage(p.type)
+    }
+  })
+},[])
 
   const deletePage = () => {
     setPages((prevPages) => {
@@ -38,11 +47,6 @@ const [ $renamePage, set$RenamePage ] = useState(false);
     setIsAnimacionDelete(true)  
   }
 
-  const agregarSaldo = () => {
-    const filtro = pages.find(p => p.namePage === namePage);
-    console.log(filtro)
-  }
-
   return (
     <div className="container-menu-btn">
       { confirm && <Confirm setConfirm={setConfirm} taskOrPage={taskOrPage} deletePage={deletePage} onMenuBtn={onMenuBtn.target}/>}
@@ -59,7 +63,12 @@ const [ $renamePage, set$RenamePage ] = useState(false);
         </button>
         <button onClick={() => setConfirm(true)}>Eliminar</button>
         <button onClick={() => { set$RenamePage(true)}}>Renombrar</button>
-        <button onClick={() => { setIsAddSaldo(true); setOnMenuBtn({onoff:false, target:''}) }}>Saldo</button>
+        { typePage === 'calc' 
+          ?
+          <button onClick={() => { setIsAddSaldo(true); setOnMenuBtn({onoff:false, target:''}) }}>Saldo</button> 
+          :
+          ''
+        }
         <button onClick={() => {setOnMenuBtn({onoff:false, target:''})}}>X</button>
       </div>
       { $renamePage && <RenamePage 
