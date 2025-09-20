@@ -53,7 +53,8 @@ function App() {
   const [ isAnimacionDelete, setIsAnimacionDelete ] = useState(false)
   const [ isEditSaldo, setIsEditSaldo ] = useState(false);
   const [ isAddSaldo, setIsAddSaldo ] = useState(false);
-  const [ saldo, setSaldo ] = useState(null)
+  const [ saldo, setSaldo ] = useState(null);
+  const [ isMain, setIsMain ] = useState(true);
  
  
   //localStorage.removeItem("contenedor");
@@ -415,6 +416,9 @@ useEffect(() => {
         />
       }
           { /* Header */ }
+
+      { isMain && <>
+
       <header>
         <img src={logo} alt="check, logo de la app" />
         <h1 id="header">Lista de Tareas</h1>
@@ -427,7 +431,10 @@ useEffect(() => {
         <button 
           className="btn folder-btn" 
           title="Carpetas"
-          onClick={() => setFolder({ ...folder, openMenu: true })}
+          onClick={() => { 
+              setFolder({ ...folder, openMenu: true }) 
+              setIsMain(false)  
+          }}
           onMouseEnter={() => setIsHoverIcons('hoverFolderTrue')} 
           onMouseLeave={() => setIsHoverIcons('hoverFolderFalse')}
             >
@@ -578,6 +585,9 @@ useEffect(() => {
       </div>
 
         { /* Mostrar las tareas */ }
+
+       
+        
         <main className="lista-main">
           {selectPage?.type === 'list' && <Task selectPage={selectPage} taskCompleted={taskCompleted} editTask={editTask}/>}
           {selectPage?.type === 'calc' && <CalcPage selectPage={selectPage} taskCompleted={taskCompleted} editCalcTask={editCalcTask}/>}          
@@ -593,12 +603,21 @@ useEffect(() => {
           }
         </main>
 
+        
+
           {/* ingresar nueva tarea */ }
-          { selectPage?.type === 'list' ? 
+          { 
+            
+            selectPage?.type === 'list' ? 
             <NavText inputTask={inputTask} setInputTask={setInputTask} addNewTask={addNewTask} edit={edit}/>
             :
             <NavCalc addNewTask={addNewTask} setInputCalc={setInputCalc} inputCalc={inputCalc} edit={edit} addNewCalcTask={addNewCalcTask}/>
           }
+
+
+</>
+}
+
           {
             // folders
             folder.openMenu && <MenuFolder 
@@ -617,6 +636,7 @@ useEffect(() => {
             setIsHoverIcons={setIsHoverIcons}
             isHoverIcons={isHoverIcons}
             setIsAnimacionDelete={setIsAnimacionDelete}
+            setIsMain={setIsMain}
             />
           }
     </section>

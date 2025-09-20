@@ -8,7 +8,7 @@ import ConfirmDeleteTask from './ConfirmDeleteTask';
 
 import './menuFolder.css';
 
-const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer, namePage, setNamePage,isHoverIcons,setIsHoverIcons,setIsAnimacionDelete}) => {
+const MenuFolder = ({logo, setFolder, folder, pages, setPages,onMenuBtn, setOnMenuBtn,container, setContainer, namePage, setNamePage,isHoverIcons,setIsHoverIcons,setIsAnimacionDelete, setIsMain}) => {
   
   const [ onInputFolder, setOnInputFolder ] = useState(false)
   const [ isOpen, setIsOpen ] = useState(false);
@@ -298,7 +298,11 @@ useEffect(() => {
               }            
             <p>Crear</p>
           </button>
-          <button onClick={() => setFolder({...folder, openMenu: false})} className="btn btn-close-menu-folder" title="Volver"
+          <button onClick={() => { 
+            setFolder({...folder, openMenu: false})
+            setIsMain(true)
+          }} 
+            className="btn btn-close-menu-folder" title="Volver"
             onMouseEnter={() => {setIsHoverIcons('hoverVolverTrue')}}
             onMouseLeave={() => {setIsHoverIcons('hoverVolverFalse')}}
             >
